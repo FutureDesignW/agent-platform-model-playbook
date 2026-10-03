@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 视频生成平台横评 · 统一口径价格总表（2026.10）</title>
+<style>
+:root{
+  --bg:#f6f7fb;
+  --bg-soft:#ffffff;
+  --ink:#14161c;
+  --ink-2:#4a5162;
+  --ink-3:#8a92a6;
+  --line:#e6e9f0;
+  --line-2:#f0f2f7;
+  --accent:#3d5afe;
+  --accent-soft:#eef1ff;
+  --card:#ffffff;
+  --shadow:0 1px 2px rgba(20,22,28,.04),0 8px 24px rgba(20,22,28,.06);
+  --shadow-lg:0 2px 4px rgba(20,22,28,.05),0 18px 48px rgba(20,22,28,.09);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+
+/* ---------- HERO ---------- */
+.hero{
+  background:
+    radial-gradient(1100px 420px at 12% -10%, #e8ecff 0%, transparent 62%),
+    radial-gradient(900px 400px at 88% 0%, #fff0e6 0%, transparent 60%),
+    linear-gradient(180deg,#fbfcff 0%,var(--bg) 100%);
+  border-bottom:1px solid var(--line);
+  padding:72px 0 60px;
+}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);background:var(--accent-soft);
+  border:1px solid #dfe4ff;border-radius:999px;padding:6px 14px;font-weight:600;
+}
+h1{font-size:clamp(30px,4.4vw,52px);line-height:1.18;letter-spacing:-.02em;margin:22px 0 14px;font-weight:800}
+h1 em{font-style:normal;background:linear-gradient(96deg,#3d5afe,#8b5cf6 45%,#f0568f);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{font-size:17px;color:var(--ink-2);max-width:800px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.chip{background:#fff;border:1px solid var(--line);border-radius:10px;padding:7px 13px;font-size:13px;color:var(--ink-2);box-shadow:var(--shadow)}
+.chip.hl{background:#1a1a1a;color:#fff;border-color:#1a1a1a;font-weight:650}
+
+/* ---------- NAV ---------- */
+.nav{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:1180px;margin:0 auto;padding:0 28px;display:flex;gap:6px;align-items:center;overflow-x:auto;scrollbar-width:none}
+.nav-in::-webkit-scrollbar{display:none}
+.nav a{font-size:13.5px;color:var(--ink-2);padding:15px 12px;white-space:nowrap;border-bottom:2px solid transparent;font-weight:500}
+.nav a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+
+/* ---------- SECTION ---------- */
+section{padding:74px 0 10px}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:30px}
+h2{font-size:27px;letter-spacing:-.01em;font-weight:800}
+.sec-head p{color:var(--ink-3);font-size:14px;margin-top:6px;max-width:560px}
+
+/* ---------- STAT STRIP ---------- */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:26px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:var(--shadow)}
+.stat b{display:block;font-size:30px;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
+.stat span{display:block;font-size:12.5px;color:var(--ink-3);margin-top:4px}
+
+/* ---------- CARDS ---------- */
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px 26px 26px;
+  box-shadow:var(--shadow);position:relative;overflow:hidden;
+  transition:transform .22s ease,box-shadow .22s ease;
+}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.card::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--bar,var(--accent))}
+.chead{display:flex;gap:14px;align-items:flex-start}
+.logo{
+  width:46px;height:46px;flex:0 0 46px;border-radius:13px;display:grid;place-items:center;
+  font-weight:800;font-size:16px;color:#fff;background:var(--bar,var(--accent));letter-spacing:-.02em;
+}
+.ctitle{flex:1;min-width:0}
+.ctitle h3{font-size:19px;font-weight:750;letter-spacing:-.01em;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.ctitle .sub{font-size:12.5px;color:var(--ink-3);margin-top:3px}
+.tag{font-size:11px;font-weight:700;padding:3px 9px;border-radius:6px;background:var(--bar,var(--accent));color:#fff;letter-spacing:.02em}
+
+.price{margin:20px 0 0;padding:16px 18px;border-radius:14px;background:#fafbfe;border:1px solid var(--line-2)}
+.price-row{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.price-row .big{font-size:25px;font-weight:800;letter-spacing:-.02em}
+.price-row .unit{font-size:13px;color:var(--ink-3)}
+.price-note{font-size:12.5px;color:var(--ink-2);margin-top:8px;line-height:1.7}
+.price-note b{color:var(--ink);font-weight:650}
+
+.blk{margin-top:20px}
+.blk-t{
+  font-size:11.5px;font-weight:750;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);
+  display:flex;align-items:center;gap:8px;margin-bottom:10px;
+}
+.blk-t::after{content:"";flex:1;height:1px;background:var(--line)}
+.blk ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+.blk li{font-size:14px;color:var(--ink-2);padding-left:17px;position:relative;line-height:1.6}
+.blk li::before{
+  content:"";position:absolute;left:2px;top:9px;width:5px;height:5px;border-radius:50%;
+  background:var(--bar,var(--accent));opacity:.55;
+}
+.hl{color:var(--ink);font-weight:650}
+
+.verdict{display:flex;gap:12px;margin-top:20px;padding-top:18px;border-top:1px dashed var(--line)}
+.vd{font-size:12.5px;color:var(--ink-2);flex:1}
+.vd b{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:4px;font-weight:700}
+.vd.good b{color:#0f9b6c}
+.vd.bad b{color:#d9534f}
+
+/* ---------- TABLE ---------- */
+.tbl-wrap{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:960px}
+th,td{padding:14px 15px;text-align:left;font-size:13.5px;border-bottom:1px solid var(--line-2);vertical-align:top}
+thead th{
+  background:#fafbfe;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);
+  font-weight:700;white-space:nowrap;border-bottom:1px solid var(--line);
+}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#fcfcff}
+td:first-child{font-weight:700;white-space:nowrap;color:var(--ink)}
+td .mini{font-weight:400;color:var(--ink-3);font-size:12px;display:block}
+.px{font-variant-numeric:tabular-nums}
+.px.best{color:#0f9b6c;font-weight:800}
+.px.worst{color:#d9534f;font-weight:800}
+
+/* ---------- SPEC / CALIBER ---------- */
+.spec{
+  margin:26px 0 0;border:1px solid #c9d4ff;background:linear-gradient(180deg,#f6f8ff,#fff);
+  border-radius:18px;padding:26px 28px;box-shadow:var(--shadow);
+}
+.spec .k{
+  display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.1em;color:#2f45c9;
+  background:var(--accent-soft);border:1px solid #d9e0ff;border-radius:999px;padding:5px 13px;margin-bottom:14px;
+}
+.spec code{
+  display:block;background:#14161c;color:#e8ecff;border-radius:12px;padding:16px 18px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13.5px;line-height:1.9;
+  overflow-x:auto;white-space:pre;
+}
+.spec .formula{font-size:14px;color:var(--ink-2);margin-top:14px}
+.spec .formula b{color:var(--ink)}
+.rank{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.rank span{font-size:12px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:4px 10px;color:var(--ink-2)}
+
+/* ---------- PICK ---------- */
+.picks{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.pick{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 22px;box-shadow:var(--shadow)}
+.pick .ico{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--bar);color:#fff;font-size:15px;font-weight:800;margin-bottom:14px}
+.pick h4{font-size:16px;font-weight:750;margin-bottom:6px}
+.pick .who{font-size:12.5px;color:var(--ink-3);margin-bottom:12px}
+.pick p{font-size:13.5px;color:var(--ink-2);line-height:1.65}
+
+/* ---------- MATRIX ---------- */
+.matrix{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.mx{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 22px;box-shadow:var(--shadow)}
+.mx h4{font-size:16px;font-weight:750;margin-bottom:4px}
+.mx .d{font-size:12.5px;color:var(--ink-3);margin-bottom:16px}
+.pillrow{display:flex;flex-wrap:wrap;gap:7px}
+.pill{font-size:12px;padding:5px 11px;border-radius:999px;border:1px solid var(--line);color:var(--ink-2);background:#fafbfe}
+.pill.on{border-color:#c9d4ff;background:var(--accent-soft);color:#2f45c9;font-weight:600}
+
+/* ---------- FOOTER ---------- */
+footer{margin-top:80px;border-top:1px solid var(--line);background:#fbfcff;padding:36px 0 46px}
+footer p{font-size:12.5px;color:var(--ink-3);max-width:860px;line-height:1.8}
+footer b{color:var(--ink-2)}
+
+@media (max-width:1000px){
+  .cards,.picks,.stats{grid-template-columns:repeat(2,1fr)}
+  .matrix{grid-template-columns:1fr}
+}
+@media (max-width:700px){
+  .wrap,.nav-in{padding:0 18px}
+  .cards,.picks,.stats{grid-template-columns:1fr}
+  .hero{padding:52px 0 44px}
+  section{padding:56px 0 6px}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">2026 年 10 月 · 后台实测价格核算</span>
+    <h1>AI 视频生成平台<br><em>统一口径价格总表</em></h1>
+    <p class="lede">
+      全站所有秒价、单条价、月产能，一律按同一条指令折算：<span class="hl">Seedance 2.0 VIP · 9:16 · 1080P · 1 · 10s · 图生视频</span>。
+      口径统一之后，唯一剩下的变量就是「¥ / 秒」。
+    </p>
+    <div class="hero-meta">
+      <span class="chip hl">统一口径：图生视频（全指参考）</span>
+      <span class="chip">12 平台 · 40+ 套餐档位</span>
+      <span class="chip">💰 秒价 ¥1.08 – ¥2.22</span>
+      <span class="chip">🕒 数据核对于 2026.10.03</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <div class="nav-in">
+    <a href="#overview">总览</a>
+    <a href="#compare">价格总表</a>
+    <a href="#platforms">平台档案</a>
+    <a href="#agg">聚合全景</a>
+    <a href="#models">接入模型库</a>
+    <a href="#picks">选型与清单</a>
+    <a href="#more">同类还有哪些</a>
+    <a href="#notes">说明与溯源</a>
+  </div>
+</nav>
+
+<!-- ============ OVERVIEW ============ -->
+<section id="overview">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <h2>先定口径，再谈价格</h2>
+        <p>AI 视频的「单价」之所以不可比，是因为每家默认展示的是自己最便宜的那个开关组合。</p>
+      </div>
+    </div>
+
+    <div class="spec">
+      <span class="k">本页全部比价都跑这一个口径</span>
+      <code><b>预算带：年付 ¥3000 – ¥4000 档</b>
+<b>取档方式：每家取自己官方档位中最接近该预算带的那一档，档位价就是实付价（不插值、不外推，没有该档就用最接近的现档）</b>
+本轮实取档位：LibTV ¥2999 旗舰 ・ 小云雀 高级年付 ¥3600（唯一落在区间内） ・ 即梦 高级 ¥5199 ・ Shotlab 超级年卡 ¥1998 ・ Updream Pro ¥129/月 ・ NeoWOW MAX ¥2999/季 ・ OiiOii STAR ¥239/月 ・ Seko 高级 1 年 ¥2880（限时价）
+模型：Seedance 2.0 VIP（各家对应档位的最强版本）
+分辨率：1080P
+画幅：9:16（竖屏短视频 / 漫剧标准画幅）
+数量：1 条
+时长：10 秒
+入口：<b>图生视频</b>（首帧定妆图参考 / 全指参考）
+通道：会员 VIP 通道（非标准通道、非限时折扣价）
+汇率：1 USD ≈ 7.2 CNY</code>
+      <div class="formula">
+        <b>换算公式（全站唯一）：</b>单条 ¥ ＝ 单条消耗单位数 ×（年订价 ÷ 年含单位）　→　<b>¥/秒 ＝ 单条 ¥ ÷ 10</b><br>
+        <span class="mini" style="display:inline">例：<b>小云雀高级年付 ¥3600/年（8,600 积分/月，本轮订阅页实测）</b> → 年含 103,200 积分 → ¥0.0349/积分；统一口径图生 1080p 10s = 330 积分 → <b style="color:#d9534f">单条 ¥11.51，¥1.15/秒</b>，一年可出 <b>313 条</b>。Shotlab 取超级会员年卡 ¥1998（5,000 创作币/月）→ 360 币 = <b>¥12.0/条</b>；Seko ¥2880/年 含 36,000 积分 → 278 积分 = <b>¥22.2/条</b>。</span>
+      </div>
+      <div class="rank">
+        <span>★★ 后台实测 / 官方定价页</span>
+        <span>★ 官方公示换算</span>
+        <span>☆ 二手来源（存疑，不进主表）</span>
+      </div>
+    </div>
+
+    <div class="matrix" style="margin-top:34px">
+      <div class="mx">
+        <h4>A 组 · 大厂全能型</h4>
+        <p class="d">即梦 AI · 小云雀（字节系）</p>
+        <div class="pillrow">
+          <span class="pill on">模型自研</span><span class="pill on">Seedance 全家桶</span>
+          <span class="pill">生态流量</span><span class="pill">适合：短视频 / 短剧批量</span>
+        </div>
+        <p style="font-size:13px;color:var(--ink-2);margin-top:14px;margin-bottom:0">
+          即梦重「单镜头精度」，小云雀重「全流程自动化」。同属字节系，性格完全相反。
+        </p>
+      </div>
+      <div class="mx">
+        <h4>B 组 · 模型聚合 / 画布工作流</h4>
+        <p class="d">Higgsfield · TapNow · Shotlab</p>
+        <div class="pillrow">
+          <span class="pill on">50+ 模型随便切</span><span class="pill on">节点式 / 无限画布</span>
+          <span class="pill">不绑单一厂商</span><span class="pill">适合：广告 / 影视 / 提案</span>
+        </div>
+        <p style="font-size:13px;color:var(--ink-2);margin-top:14px;margin-bottom:0">
+          卖的是<span class="hl">调度层的确定性</span>——模型永远不过时，代价是积分消耗不透明。
+        </p>
+      </div>
+      <div class="mx">
+        <h4>C 组 · 短剧 / 漫剧工厂</h4>
+        <p class="d">LibTV · NeoWOW · Seko</p>
+        <div class="pillrow">
+          <span class="pill on">角色一致性优先</span><span class="pill on">多集连载</span>
+          <span class="pill">Skill / 资产生态</span><span class="pill">适合：一人公司 / 工作室</span>
+        </div>
+        <p style="font-size:13px;color:var(--ink-2);margin-top:14px;margin-bottom:0">
+          已跑出商业闭环：创翊文化 5 人 8 天做 60 集漫剧、Seko 走「一人公司 + 平台分成」。
+        </p>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><b>12</b><span>参评平台</span></div>
+      <div class="stat"><b>¥1.08–2.22</b><span>各自取真实档位后的秒价区间（元/秒，1080p 图生）</span></div>
+      <div class="stat"><b>¥10.8–¥11.5</b><span>最便宜的三个取用档单条价（LibTV / 小云雀 / 即梦）</span></div>
+      <div class="stat"><b>10.8–50.1 条</b><span>各取用档每月可出的 1080p 条数</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPARE ============ -->
+<section id="compare">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <h2>价格总表 · 统一预算（年付 ¥3000–4000 档）· 统一口径（Seedance 2.0 VIP · 9:16 · 1080P · 10s · 图生）</h2>
+        <p>各家会员定价并不在同一个点上，所以<b>不折算成一个统一价</b>：<span class="hl">每家都取自己官方档位里最接近 ¥3000–4000 年付预算的那一档</span>，档位价是多少就按多少算（<b>不插值、不外推</b>），档位与预算区间的差距直接标出来。</p>
+      </div>
+    </div>
+
+    <div class="tbl-wrap scroll">
+                        <table style="min-width:1300px">
+        <thead><tr>
+          <th>平台 / 主表取用档位（各自取最接近 ¥3000–4000 的<b>真实档位</b>）</th><th>该档年订价</th><th>年含单位</th><th class="px">¥ / 单位</th>
+          <th>单条消耗<br><span style="font-weight:400;text-transform:none;letter-spacing:0">（统一口径 10s 图生）</span></th>
+          <th class="px">¥ / 秒</th><th class="px">¥ / 条</th><th class="px">年可出条数</th><th>口径与来源</th>
+        </tr></thead>
+        <tbody>
+          <tr style="background:#f6fbf7">
+            <td><b>LibTV</b><span class="mini">取<b>旗舰（20 并发）</b> · 低于预算区间 ¥501</span></td>
+            <td><b>¥2,999 / 年</b><span class="mini">≈ ¥250 / 月</span></td>
+            <td class="px">189,600 积分<span class="mini">≈ 15,800 / 月</span></td>
+            <td class="px">¥0.0158</td>
+            <td>680 积分<span class="mini">68.0 单位/秒</span></td>
+            <td class="px best">¥1.08</td><td class="px">¥10.76</td><td class="px">279 条</td>
+            <td>★★ 后台实测 680 积分/条（1080p 10s + 音频）<span class="mini">官方四档 ¥499 / ¥1299 / ¥2999 / ¥6599</span></td>
+          </tr>
+          <tr style="background:#f6fbf7">
+            <td><b>小云雀 AI</b><span class="mini">取<b>高级会员 · 年付首年</b> · 档位<b style="color:#0f9b6c">正好落在预算区间</b></span></td>
+            <td><b>¥3,600 / 年</b><span class="mini">≈ ¥300 / 月</span></td>
+            <td class="px">103,200 积分<span class="mini">≈ 8,600 / 月</span></td>
+            <td class="px">¥0.0349</td>
+            <td>330 积分<span class="mini">33.0 单位/秒</span></td>
+            <td class="px">¥1.15</td><td class="px">¥11.51</td><td class="px">313 条</td>
+            <td>★★ 订阅页实测 ¥3600/年（划线 ¥7199，5.1 折）+ 8,600 积分/月<span class="mini">首年 ¥3600，<b>次年续费 ¥7199（价翻 2 倍）</b>；官方自报 Seedance 2.0 VIP ¥0.44/秒 起</span></td>
+          </tr>
+          <tr style="background:#f6fbf7">
+            <td><b>即梦 AI</b><span class="mini">取<b>高级</b> · 高于预算区间 ¥1,699</span></td>
+            <td><b>¥5,199 / 年</b><span class="mini">≈ ¥433 / 月</span></td>
+            <td class="px">147,840 积分<span class="mini">≈ 12,320 / 月</span></td>
+            <td class="px">¥0.0352</td>
+            <td>330 积分<span class="mini">33.0 单位/秒</span></td>
+            <td class="px">¥1.16</td><td class="px">¥11.60</td><td class="px">448 条</td>
+            <td>★★ 后台实测 330 积分/条（图生全指参考）<span class="mini">官方年付四档 ¥393 / ¥1099 / ¥5199 / ¥19656</span></td>
+          </tr>
+          <tr>
+            <td><b>Shotlab</b><span class="mini">取<b>超级会员年卡</b> · 低于预算区间 ¥1,502</span></td>
+            <td><b>¥1,998 / 年</b><span class="mini">≈ ¥166 / 月</span></td>
+            <td class="px">60,000 创作币<span class="mini">≈ 5,000 / 月</span></td>
+            <td class="px">¥0.0333</td>
+            <td>360 创作币<span class="mini">36.0 单位/秒</span></td>
+            <td class="px">¥1.20</td><td class="px">¥11.99</td><td class="px">167 条</td>
+            <td>★★ 后台截图 360 创作币/条（全能参考 + 音频开）<span class="mini">官方年卡 ¥398 / ¥1998 / ¥6799 / ¥8888</span></td>
+          </tr>
+          <tr>
+            <td><b>Updream</b><span class="mini">取<b>Pro（¥129/月）</b> · 低于预算区间 ¥1,952</span></td>
+            <td><b>¥1,548 / 年</b><span class="mini">≈ ¥129 / 月</span></td>
+            <td class="px">237,600 积分<span class="mini">≈ 19,800 / 月</span></td>
+            <td class="px">¥0.0065</td>
+            <td>3,000 积分<span class="mini">300.0 单位/秒</span></td>
+            <td class="px">¥1.95</td><td class="px">¥19.55</td><td class="px">79 条</td>
+            <td>★ 官网公示 3000 积分/条<span class="mini">官方 ¥960/年 与 ¥129/月 两档，均低于预算区间</span></td>
+          </tr>
+          <tr>
+            <td><b>NeoWOW</b><span class="mini">取<b>MAX（¥2999 / 季）</b> · 高于预算区间 ¥8,496</span></td>
+            <td><b>¥11,996 / 年</b><span class="mini">≈ ¥1,000 / 月</span></td>
+            <td class="px">2,256,000 星<span class="mini">≈ 188,000 / 月</span></td>
+            <td class="px">¥0.0053</td>
+            <td>3,750 星<span class="mini">375.0 单位/秒</span></td>
+            <td class="px">¥1.99</td><td class="px">¥19.94</td><td class="px">602 条</td>
+            <td>★★ 订阅页实测 ¥2999/季（53 折，¥11996/年）+ 188,000 星/月<span class="mini"><b>⚠ 与官方自报产能「5,371 秒视频/月」不自洽</b>，见下方口径分歧</span></td>
+          </tr>
+          <tr>
+            <td><b>OiiOii</b><span class="mini">取<b>STAR（¥239/月）</b> · 低于预算区间 ¥632</span></td>
+            <td><b>¥2,868 / 年</b><span class="mini">≈ ¥239 / 月</span></td>
+            <td class="px">47,160 盒饭<span class="mini">≈ 3,930 / 月</span></td>
+            <td class="px">¥0.0608</td>
+            <td>350 盒饭<span class="mini">35.0 单位/秒</span></td>
+            <td class="px">¥2.13</td><td class="px">¥21.28</td><td class="px">135 条</td>
+            <td>★★ 官方《基础定价表》350 盒饭/条<span class="mini">官方月付 ¥86.3 / ¥239 / ¥519 / ¥1009</span></td>
+          </tr>
+          <tr>
+            <td><b>Seko</b><span class="mini">取<b>高级会员 · 1 年</b> · 低于预算区间 ¥620</span></td>
+            <td><b>¥2,880 / 年</b><span class="mini">≈ ¥240 / 月</span></td>
+            <td class="px">36,000 积分<span class="mini">≈ 3,000 / 月</span></td>
+            <td class="px">¥0.0800</td>
+            <td>278 积分<span class="mini">27.8 单位/秒</span></td>
+            <td class="px">¥2.22</td><td class="px">¥22.24</td><td class="px">129 条</td>
+            <td>★ 订阅页实测 ¥2880/年（划线 ¥3600）+ 36,000 积分/年<span class="mini"><b>限时折后价</b>，原价 ¥3600 → ¥2.78/秒；官方赠 Seedance 2.0 年 3,000 秒额度</span></td>
+          </tr>
+          <tr style="background:#fafbfe">
+            <td><b>有戏 AI</b><span class="mini">720p 口径参考行 · 不进主排序</span></td>
+            <td>¥698 / 年</td><td>83,760 算力<span class="mini">6,980 / 月</span></td><td class="px">¥0.0083</td>
+            <td>100 算力<span class="mini"><b>SD 2.0 Fast · 720p</b></span></td>
+            <td class="px worst">¥2.50</td><td class="px worst">¥25.0</td><td class="px">≈ 838 条</td>
+            <td>☆ 二手（待实测）<span class="mini">720p 非满血，与统一口径不可直接比</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="font-size:13px;color:var(--ink-3);margin:12px 0 0">
+      ⚠️ 抓取于 2026-10-03。<b>「年可出条数」＝年含单位 ÷ 单条消耗</b>，不含每日赠送、不含废片重生成。
+      <br><b>取档说明：</b>主表取的是各家<b>真实档位</b>，不是 ¥3500 这个虚构单价。<span class="hl">八家里只有小云雀高级年付 ¥3600 一家正好落在 ¥3000–4000 区间内</span>；LibTV ¥2999（差 ¥1）、Seko ¥2880（差 ¥120）、OiiOii ¥2868（差 ¥132）三家居其次，Shotlab ¥1998 与 Updream ¥1548 明显偏低，NeoWOW 是按季卡 ¥2999/季 年化 ¥11,996、即梦 ¥5199 明显偏高 —— 跨预算比 ¥/秒 仍然有效，比年条数要打折看。
+      <br><b>三家订阅页直读（本版新增）：</b>小云雀高级年付 <b>¥3600/年（划线 ¥7199，5.1 折）+ 8,600 积分/月</b>，官方自报「Seedance 2.0 VIP ¥0.44 起/秒」；Seko 高级会员 1 年 <b>¥2880/年（划线 ¥3600）+ 36,000 积分/年</b>，赠 Seedance 2.0 年 3,000 秒 / Happy Horse 1.1 年 7,200 秒额度；NeoWOW MAX <b>¥2999/季（53 折）+ 188,000 星/月</b>，官方自报「月最多生成约 6,264 张图片 | 5,371 秒视频」。
+      NeoWOW 的 3750 星/条 实测值与它自报的 5,371 秒/月 产能<b>不自洽</b>（反算应为 ≈350 星/条），本表沿用实测值，需再截一次参数面板封死；Seko ¥2880 是限时折后价，回到原价 ¥3600 就是 ¥2.78/秒。
+      有戏 AI 只有 720p 口径，作参考行列在表底，不进主排序；Krea / OpenArt / Lovart / 星流 / WHEE / 海螺 只卖图文或只做自家模型，不进本表（见「聚合全景」）。
+    </p>
+
+    <!-- 档位 × 口径 -->
+    <div class="blk" style="margin-top:34px">
+      <div class="blk-t" style="color:#d97706">主表各取哪一档（即梦 / LibTV / 小云雀 / Shotlab 全档位展开 · 预算带 ¥3000–4000）</div>
+      <p style="font-size:13px;color:var(--ink-2);margin:0 0 14px">
+        主表<b>不插值</b>：每家只取自己官方档位里离 ¥3000–4000 中位 ¥3500 最近的那一条，下面这张是各家原始档位曲线（<span class="hl">绿底＝主表取用行</span>），可核对取档是否合理。
+        注意 Shotlab 官方年卡只有 ¥398 / ¥1998 / ¥6799 / ¥8888 四档，<b>¥3000–4000 这段是空档</b>，取的是 ¥1998；
+        <span class="hl">小云雀本轮订阅页改了口径</span>——高级会员年付是 <b>¥3600/年（8,600 积分/月）</b>，不再是旧口径的 ¥379/¥759 配 1,200 积分；Seko 高级会员 1 年是 <b>¥2880/年 含 36,000 积分</b>，NeoWOW 只有 <b>MAX ¥2999/季 含 188,000 星/月</b> 这一条贴近预算的档。
+      </p>
+      <div class="tbl-wrap scroll">
+        <table style="min-width:1020px">
+          <thead><tr><th>平台</th><th>档位</th><th>月订价</th><th>套餐单位 / 月</th><th>¥/单位</th><th class="px">单条 ¥</th><th class="px">月出条数</th><th>备注</th></tr></thead>
+          <tbody>
+            <tr><td rowspan="4"><b>即梦 AI</b><span class="mini">统一消耗 330 积分/条<br>（1080p 图生实测）</span></td>
+              <td>基础</td><td>¥393 / 年</td><td>725</td><td class="px">¥0.0452</td><td class="px">¥14.9</td><td class="px">2.2 条</td><td>次年 ¥659/年</td></tr>
+            <tr><td>标准</td><td>¥1099 / 年</td><td>2,210</td><td class="px">¥0.0414</td><td class="px">¥13.7</td><td class="px">6.7 条</td><td>次年 ¥1899/年</td></tr>
+            <tr style="background:#f6fbf7"><td><b>高级</b></td><td>¥5199 / 年</td><td>12,320</td><td class="px"><b>¥0.0352</b></td><td class="px"><b>¥11.6</b></td><td class="px"><b>37.3 条</b></td><td>首年 5 折，次年 ¥10398</td></tr>
+            <tr><td>超级</td><td>¥19656 / 年</td><td>54,600</td><td class="px">¥0.0300</td><td class="px">¥9.9</td><td class="px">165.5 条</td><td>次年 ¥43680</td></tr>
+            <tr><td rowspan="4"><b>LibTV</b><span class="mini">实测消耗 680 积分/条<br>（1080p 10s + 音频）</span></td>
+              <td>专业</td><td>¥499 / 年</td><td>1,800 ＋ 每日 20</td><td class="px">¥0.0231</td><td class="px">¥15.7</td><td class="px worst">2.6 条</td><td>套餐页「180 条/年」是 120 积分低配口径</td></tr>
+            <tr><td>大师</td><td>¥1299 / 年</td><td>5,800</td><td class="px">¥0.0187</td><td class="px">¥12.7</td><td class="px">8.5 条</td><td>10 并发</td></tr>
+            <tr><td>旗舰</td><td>¥2999 / 年</td><td>15,800</td><td class="px">¥0.0158</td><td class="px">¥10.8</td><td class="px">23.2 条</td><td>20 并发</td></tr>
+            <tr style="background:#f6fbf7"><td><b>尊享</b></td><td>¥6599 / 年</td><td>34,000</td><td class="px"><b>¥0.0162</b></td><td class="px">¥11.0</td><td class="px"><b>50.0 条</b></td><td>无限并发，赠 300 条可灵额度</td></tr>
+            <tr><td rowspan="3"><b>小云雀 AI</b><span class="mini">实测消耗 330 积分/条<br>（VIP + 全参 + 运镜 + 音频）</span></td>
+              <td>包月</td><td>¥419 / 月</td><td>8,600</td><td class="px">¥0.0487</td><td class="px">¥16.1</td><td class="px">26.1 条</td><td>官方原话「较包月优惠 ¥419」</td></tr>
+            <tr style="background:#f6fbf7"><td><b>高级 · 年付首年</b></td><td>¥3600 / 年</td><td>8,600</td><td class="px"><b>¥0.0349</b></td><td class="px"><b>¥11.5</b></td><td class="px"><b>26.1 条</b></td><td><b>主表取用</b>（旧口径的 ¥379/¥759 配 1,200 积分已作废）；划线 ¥7199，5.1 折</td></tr>
+            <tr><td>次年续费</td><td>¥7199 / 年</td><td>8,600</td><td class="px worst">¥0.0698</td><td class="px worst">¥23.0</td><td class="px">26.1 条</td><td>首年价翻 2 倍；官方自报 Seedance 2.0 VIP ¥0.44 起/秒</td></tr>
+            <tr><td rowspan="2"><b>Seko</b><span class="mini">后台实测消耗 278 积分/条<br>（全能参考 1080p 10s）</span></td>
+              <td><b>高级会员 · 1 年</b></td><td><b>¥2880 / 年</b><span class="mini">划线 ¥3600</span></td><td>36,000 / 年</td><td class="px"><b>¥0.0800</b></td><td class="px"><b>¥22.2</b></td><td class="px"><b>10.8 条</b></td><td><b>主表取用</b>（¥/积分 全场最高）；官方赠 Seedance 2.0 年 3,000 秒 / Happy Horse 1.1 年 7,200 秒</td></tr>
+            <tr><td>活动价到期</td><td>¥3600 / 年</td><td>36,000</td><td class="px worst">¥0.1000</td><td class="px worst">¥27.8</td><td class="px">10.8 条</td><td>满血 SD 2.0 只送 3,000 秒/年，≈ 300 条上限</td></tr>
+            <tr><td rowspan="2"><b>NeoWOW</b><span class="mini">后台实测消耗 3,750 星/条<br>（9:16 · 1080p · 10s · 音频开）</span></td>
+              <td><b>MAX</b></td><td><b>¥2999 / 季</b><span class="mini">≈ ¥999.67/月</span></td><td>188,000 / 月</td><td class="px">¥0.0053</td><td class="px">¥19.9</td><td class="px">50.1 条</td><td><b>主表取用</b>（53 折；¥/星 全场第二便宜，只因 3750 星/条 的高消耗才掉到 ¥1.99/秒）</td></tr>
+            <tr><td>官方自报产能反算<span class="mini">⚠ 口径分歧</span></td><td>¥999.67 / 月</td><td>188,000</td><td class="px">¥0.0053</td><td class="px">¥1.9</td><td class="px">537.1 条</td><td>官方「月最多 5,371 秒视频」÷ 188,000 星 → ≈350 星/条，与实测 3750 差 <b>10.7 倍</b>，需再截一次参数面板才能定</td></tr>
+            <tr><td rowspan="4"><b>Shotlab</b><span class="mini">后台实测消耗 360 创作币/条<br>（1080p 10s · 全能参考 + 音频）</span></td>
+              <td>普通会员年卡</td><td>¥398 / 年</td><td>100</td><td class="px worst">¥0.3317</td><td class="px worst">¥119.4</td><td class="px worst">0.28 条</td><td>创作币面值 ¥0.1，年卡几乎不打折</td></tr>
+            <tr style="background:#f6fbf7"><td><b>超级会员年卡</b></td><td>¥1998 / 年</td><td>5,000</td><td class="px">¥0.0333</td><td class="px"><b>¥12.0</b></td><td class="px"><b>13.9 条</b></td><td><b>主表取用档</b>（¥3000–4000 区间内无官方档）</td></tr>
+            <tr><td>Plus 年卡</td><td>¥6799 / 年</td><td>18,000</td><td class="px">¥0.0315</td><td class="px">¥11.3</td><td class="px">50.0 条</td><td>含团队协作 + 积分精细分配</td></tr>
+            <tr><td>Max 年卡</td><td>¥8888 / 年</td><td>28,800</td><td class="px"><b>¥0.0257</b></td><td class="px"><b>¥9.3</b></td><td class="px"><b>80.0 条</b></td><td>面值折算已 6 折，单条逼近 ¥9</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 口径变量 -->
+    <div class="blk" style="margin-top:34px">
+      <div class="blk-t" style="color:#5b3fd6">为什么「同一个 Seedance 2.0」能差 30 倍：五个变量（同一家平台内部实测）</div>
+      <div class="tbl-wrap scroll">
+        <table style="min-width:940px">
+          <thead><tr><th>变量</th><th>典型取值</th><th>对单条消耗的影响</th><th>证据</th></tr></thead>
+          <tbody>
+            <tr><td><b>参考模式</b><span class="mini">← 本表统一口径定在这一项</span></td><td>纯文生 / 图生（全指）/ 全能参考（视频参考）</td><td><b>×2 ~ ×3</b></td><td>即梦同档：图生 330 → 全能参考 594（<b>×1.80</b>）；Seko：278 → 556（<b>×2.00</b>）</td></tr>
+            <tr><td><b>分辨率</b></td><td>480p / 720p / 1080p / 4K</td><td><b>最高差 10 倍</b></td><td>OiiOii 官方：SD2.0 pro 480p 7 → 720p 14 → 1080p 35 → 4K 72 盒饭/秒</td></tr>
+            <tr><td><b>模型版本</b></td><td>2.0 / 2.0 pro / 2.5 / fast / mini</td><td><b>最高差 8 倍</b></td><td>OiiOii：同为 1080p，fast 11 → 2.0 pro 35 → 2.5 55 盒饭/秒</td></tr>
+            <tr><td><b>通道</b></td><td>标准通道 / VIP 加速通道</td><td><b>最高差 4 倍</b></td><td>即梦标准通道 8 积分/秒 vs VIP 33 积分/秒（15s 实测 ≈495 积分）</td></tr>
+            <tr><td><b>音频开关</b></td><td>静音 / 原生音频</td><td>+50%</td><td>可灵官方 1080p：无音频 8 灵感值/秒 → 有音频 12</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:13.5px;color:var(--ink-2);margin:12px 0 0">
+        即梦高级档下的四种开关组合（同一平台，同一 1080p 10 秒）：
+        文生无参考 <b>80 积分 = ¥2.8</b> → VIP 720p <b>140 积分 = ¥4.9</b> → <b>图生全指参考 330 积分 = ¥11.6</b> → 全能参考（视频参考）<b>594 积分 = ¥20.9</b>。
+        <span class="hl">省钱的第一杠杆是换参考方式和换通道，不是换平台。</span>
+      </p>
+    </div>
+
+    <!-- 一手证据 -->
+    <div class="card" style="--bar:#3d5afe;padding:28px 30px;margin-top:34px">
+      <div class="blk-t" style="color:var(--accent)">一手证据：这些数字来自后台下单前预估，不是评测文</div>
+      <p style="font-size:14px;color:var(--ink-2);margin:0 0 14px">
+        以下六组是<b>生成页的实时预估</b>，是唯一封死价格的一手证据。前三张是你提供后台截图，后三张是你导出的 PDF。
+      </p>
+      <div class="tbl-wrap scroll">
+        <table style="min-width:1000px">
+          <thead><tr><th>来源</th><th>界面参数</th><th>预估消耗</th><th>折算后单条 ¥</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr style="background:#f6fbf7"><td><b>Shotlab 后台</b></td><td>全能参考 · <b>Seedance 2.0</b> · 1080P · 9:16 · <b>10s · 音频开</b></td><td><b>◆360 创作币</b></td><td>超级会员年卡 ¥12.0<span class="mini">¥398 卡 ¥119.4 · ¥8888 卡 ¥9.3</span></td><td>官方年卡只有 ¥398 / ¥1998 / ¥6799 / ¥8888，¥3000–4000 是空档</td></tr>
+            <tr><td><b>Seko 后台</b></td><td>全能参考 · Seedance 2.0 · 9:16 · 1080P · 10S</td><td><b>◆278 积分</b></td><td>取 ¥2880/年 档 ¥22.2<span class="mini">带参考 ×2 → ¥44.5</span></td><td>满血 Seedance 2.0 属高端定价，此前被误记成「¥0.05/秒」</td></tr>
+            <tr><td><b>NeoWOW 后台</b></td><td>Seedance 2.0 · 1080p · 10s · 9:16 · 音频开</td><td><b>✦3,750 星</b></td><td>MAX 档（¥2999/季）¥19.9<span class="mini">旧「会员 ¥60/月」档已作废</span></td><td>「¥0.17/秒 ≈ ¥1.7/条」是量纲错（把「每单位价」当「每秒价」）</td></tr>
+            <tr style="background:#f6fbf7"><td><b>三家订阅页<br>（本版新增）</b></td><td>小云雀 高级年付 / Seko 高级 1 年 / NeoWOW MAX</td><td><b>8,600 积分·月 / 36,000 积分·年 / 188,000 星·月</b></td><td>¥3600 / ¥2880 / ¥2999（¥11,996 年化）</td><td>套餐额度本身也是一手证据：<b>¥/积分 小云雀 ¥0.0349、Seko ¥0.0800、NeoWOW ¥0.0053</b>，差 15 倍</td></tr>
+            <tr style="background:#f6fbf7"><td><b>官方自报产能<br>（三家交叉校验）</b></td><td>小云雀「SD 2.0 VIP ¥0.44 起/秒」· Seko「SD 2.0 年 3,000 秒」· NeoWOW「月产 5,371 秒视频」</td><td><b>起配口径 ≈120–126 单位/条</b></td><td>反算：小云雀 ¥0.44/秒 → 126 积分/条；Seko 36,000÷3,000 秒 → 120 积分/条</td><td><span class="hl">官方「起/低至」价只有实测满血口径的 1/3 —— 满血 330/278 单位 vs 起配 120–126，差 2.7 倍</span></td></tr>
+            <tr><td><b>即梦（视频参考）</b></td><td>SD 2.0 VIP · 9:16 · 1080P · 1 · 全能参考 · 10s</td><td><b>594 积分</b></td><td>高级档 ¥20.9</td><td>59.4 积分/秒，满血 + 视频参考</td></tr>
+            <tr><td><b>即梦（图生）</b></td><td>SD 2.0 VIP · 9:16 · 1080P · 1 · <b>全指参考</b> · 10s</td><td><b>330 积分</b></td><td>高级档 <b>¥11.6</b></td><td><span class="hl">本表统一口径的基准值</span>，图生比视频参考便宜 45%</td></tr>
+            <tr><td><b>小云雀</b></td><td>SD 2.0 VIP · 9:16 · 1080P · 10s · 全参 + 运镜 + 音频</td><td><b>330 积分</b></td><td>¥79 档 ¥21.7</td><td>官方规则页写「高清 20 积分/秒」没算 VIP 叠加项，实测翻倍</td></tr>
+            <tr><td><b>LibTV</b></td><td>2.0 · <b>文生</b> · 9:16 · 1080P · 10s · 音频</td><td><b>680 积分</b></td><td>专业版 ¥15.7</td><td>官方「120 积分/条」是低配口径，真实值 <b>×5.7</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul style="margin-top:16px">
+        <li><span class="hl">参考模式是全场最贵的开关，倍率跨平台一致。</span> 即梦 330 → 594 = <b>×1.80</b>，Seko 278 → 556 = <b>×2.00</b>。漫剧走图生（先定妆图再扩镜）用 330 口径，比带视频参考省 45%。</li>
+        <li><span class="hl">LibTV 的「地板价」是套餐页话术。</span> 按 120 积分/条 折算 → ¥1.95–2.77；按实测 680 积分 → <b>¥10.8–15.7</b>。¥499/年 每月只出 <b>2.6 条</b>，要做漫剧得直接跳尊享 ¥6599/年（50 条/月）。</li>
+        <li><span class="hl">小云雀的坑是「按画质分档，不按模型分档」。</span> 官方规则：普通 10 积分/秒、高清 20 积分/秒，<b>会员只买排队优先级、不减免消耗</b>。实测把 VIP + 全参 + 运镜 + 音频全开后系数翻倍到 33/秒。</li>
+      </ul>
+    </div>
+
+    <!-- 结论 -->
+    <div class="card" style="--bar:#d9534f;padding:28px 30px;margin-top:26px">
+      <div class="blk-t" style="color:#d9534f">统一口径之后，能下的六个结论</div>
+      <ul style="margin-top:12px">
+        <li><span class="hl">按各自真实档位算，¥3000–4000 附近的秒价区间是 ¥1.08 – ¥2.22（2.1 倍），排序：<b>LibTV ¥1.08 &lt; 小云雀 ¥1.15 &lt; 即梦 ¥1.16 &lt; Shotlab ¥1.20 &lt; Updream ¥1.95 &lt; NeoWOW ¥1.99 &lt; OiiOii ¥2.13 &lt; Seko ¥2.22</b></span>。<span class="hl">八家里有且只有小云雀高级年付 ¥3600 一家真正落在 ¥3000–4000 区间内</span>，LibTV ¥2999（差 ¥1）与 Seko ¥2880（差 ¥120）紧随其后，即梦 ¥5199 是唯一远超区间的高档。<b>前三名挤在 ¥1.08–1.20 这 0.12 元里，实际区分度靠的不是单价。</b></li>
+        <li><span class="hl">比单价更狠的是产能：年 129 – 602 条（月 10.8 – 50.1 条），差 4.7 倍。</span> NeoWOW MAX 年出 <b>602 条</b>断层第一（¥2999/季 给 188,000 星/月），即梦高级（¥5199）448 条、小云雀高级（¥3600）313 条、LibTV 旗舰 279 条同属第一梯队；<b>垫底的是 Seko 129 条、OiiOii 135 条</b>——Seko 表面是 ¥2880/年，但 36,000 积分除以 278 积分/条就只剩 129 条。<b>按「3 条废片换 1 条成片」折算，这一档预算≈ 43 – 200 条成片。</b></li>
+        <li><span class="hl">LibTV / 即梦 / Shotlab / 小云雀 是这一档的四个最优解，门槛各不相同。</span> LibTV ¥/积分最低（¥0.0158）但实测 680 积分/条（文生口径，图生待补）；即梦 ¥0.0352/积分、消耗只有 330 积分/条，口径最干净；Shotlab 靠 ¥1998 年卡把 360 创作币压到 ¥0.0333；<span class="hl">本轮新进榜的小云雀最高性价比 —— ¥3600/年 给 8,600 积分/月 = ¥0.0349/积分、月出 26.1 条</span>，而且<b>是唯一档位正好落在预算带内的</b>，只是次年 ¥7199 直接翻倍。<b>要确定性选即梦，要单价选 LibTV，要「预算带内现成档位」选小云雀。</b></li>
+        <li><span class="hl">Shotlab 与 Seko 是这一档的两个价格陷阱，方向相反。</span> Shotlab 是<b>年卡越贵单条越便宜</b>（同为 360 币/条：¥398 卡 ¥119.4/条 → ¥1998 卡 ¥12.0/条 → ¥8888 卡 ¥9.3/条）；Seko 相反 —— ¥2880（限时）¥22.2/条、¥3600（原价）¥27.8/条，还只送 3,000 秒 Seedance 2.0，<b>满血档一年最多 300 条就是它家给的上限</b>。两家都得知道自己在买折扣还是买额度。</li>
+        <li><span class="hl">NeoWOW 从「最贵」翻成「产能第一」，但它的消耗数字还是没封死。</span> 上一版按旧「会员 ¥60/月」档算出 ¥2.50/秒，本版改用实测订阅页 <b>MAX ¥2999/季 含 188,000 星/月</b> 后是 <b>¥1.99/秒、年出 602 条</b>（全场第一）——¥/星 ¥0.0053 是全场第二便宜。<span class="hl">但官方自报「月产 5,371 秒视频」反算只有 ≈350 星/条，与实测 3750 差 10.7 倍</span>，谁对谁错要再截一次参数面板才能定。<b>在定稿前，NeoWOW 的 ¥/秒 取保守值（沿用 3750），别按 5371 秒那个数下单。</b></li>
+        <li><span class="hl">三家官方「起/低至」价都只有满血实测的 1/3，这个折扣口径必须在结论里单独说一遍。</span> 小云雀自报 Seedance 2.0 VIP ¥0.44 起/秒 → 反算 126 积分/条，Seko 自报「SD 2.0 年 3,000 秒」→ 反算 120 积分/条，而两家满血实测分别是 330 / 278 积分/条，<b>差 2.3–2.7 倍</b>。<span class="hl">本页统一口径定在满血（1080p 图生带参考），所以官方那个「低至」价在本表里不成立，但它是你砍价时的对照物。</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PLATFORMS ============ -->
+<section id="platforms">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <h2>平台档案 · 10 家</h2>
+        <p>定位 · 核心优势 · 会员定价 · 适合谁 · 短板。所有价格列同时给出「月费」与「统一口径秒价」。</p>
+      </div>
+    </div>
+    <div class="cards">
+
+      <!-- 1 即梦 -->
+      <article class="card" style="--bar:#1a1a1a">
+        <div class="chead">
+          <div class="logo">即</div>
+          <div class="ctitle">
+            <h3>即梦 AI <span class="tag">一站式</span><span class="tag" style="background:#f0f0f0;color:#666">字节 / 剪映</span></h3>
+            <div class="sub">jimeng.jianying.com · 图片 4.0 / Seedance 2.0</div>
+          </div>
+        </div>
+        <div class="price">
+          <div class="price-row"><span class="big">¥33</span><span class="unit">/月起（首月 4.8 折，次月起 ¥69）</span></div>
+          <div class="price-note">
+            <b>年付四档：</b>基础 ¥393 · 标准 ¥1099 · 高级 ¥5199 · 超级 ¥19656（次年 ¥659 / ¥1899 / ¥10398 / ¥43680）<br>
+            连续包月：标准 ¥96 · 高级 ¥499（6160 积分）· 超级 ¥2235<br>
+            四档积分 725 / 2210 / 12320 / 54600 每月。<b>取高级 ¥5199/年（离预算带最近）：¥1.16/秒 · ¥11.60/条 · 年出 448 条</b><span class="mini">（自家档位区间 ¥0.99 – ¥2.67/秒，月产能 2.2 – 165.5 条；四档里只有高级 / 超级贴近 3000–4000 预算带）</span>
+          </div>
+        </div>
+        <div class="blk">
+          <div class="blk-t">优势特点</div>
+          <ul>
+            <li><span class="hl">画质天花板最高</span>：图片 4.0 支持 2K / 4K，Seedance 2.0 VIP 专属通道</li>
+            <li>智能画布：多图 AI 融合、局部重绘、一键扩图、图像消除、抠图换背景</li>
+            <li>视频对口型、补帧 60FPS、首尾帧约束、运镜控制；每日登录送积分</li>
+          </ul>
+        </div>
+        <div class="verdict">
+          <div class="vd good"><b>适合</b>追求极限画质、需要精细控制镜头的专业创作者。</div>
+          <div class="vd bad"><b>注意</b>高级以上年费上探 ¥5000+，轻度用户性价比最低；连续包月 SKU 比年付贵 2.3 倍。</div>
+        </div>
+      </article>
+
+      <!-- 2 小云雀 -->
+      <article class="card" style="--bar:#f5c518">
+        <div class="chead">
+          <div class="logo" style="color:#2b2b2b">雀</div>
+          <div class="ctitle">
+            <h3>小云雀 AI <span class="tag">短剧 Agent</span><span class="tag" style="background:#fdf6d8;color:#8a6d00">字节系</span></h3>
+            <div class="sub">xyq.jianying.com · 行业首个 Seedance 2.5 短剧 Agent</div>
+          </div>
+        </div>
+        <div class="price">
+          <div class="price-row"><span class="big">¥3600</span><span class="unit">/年（高级会员 · 年付首年，划线 ¥7199）</span></div>
+          <div class="price-note">
+            <b>订阅页实测：</b>高级会员 年付 <b>¥3600/年</b>（5.1 折，¥300/月），含 <b>+8,600 积分/月</b>，专属权益页自报「SD 2.0 VIP ¥0.44 起/秒」<br>
+            包月 ¥419/月；<b>次年续费 ¥7199/年</b> —— <span class="hl">首年价翻 2 倍，这是它家最大的坑</span><br>
+            <b>取高级年付 ¥3600/年（八家里唯一真正落在 ¥3000–4000 区间内的档位）：¥1.15/秒 · ¥11.51/条 · 年出 313 条</b><span class="mini">（¥/积分 ¥0.0349；官方「起/秒」口径反算只有 126 积分/条，与实测 330 差 2.6 倍）</span>
+          </div>
+        </div>
+        <div class="blk">
+          <div class="blk-t">优势特点</div>
+          <ul>
+            <li><span class="hl">全流程自动化 + 零门槛</span>：10 万字剧本解析、分镜脚本自动编写、成片直出</li>
+            <li>三类 Agent：短剧创作 / 通用创作 / 一栈式创意营销（剧情广告、达人带货）</li>
+            <li>角色一致性 92 分，全局角色管理解决「前后一个脸」</li>
+            <li>华策影视、柠萌影视已合作；创翊 5 人 8 天做 60 集漫剧</li>
+            <li><span class="hl">八家里唯一档位正好落在 ¥3000–4000 的</span>：¥3600/年 拿 8,600 积分/月，月出 26.1 条 1080p，单价 ¥0.0349/积分</li>
+          </ul>
+        </div>
+        <div class="verdict">
+          <div class="vd good"><b>适合</b>短剧 / 漫剧批量生产、无影视背景的大众创作者。</div>
+          <div class="vd bad"><b>注意</b><b>次年 ¥7199/年直接翻倍</b>（¥2.30/秒），别拿首年 ¥3600 的单价去估第二年；积分当日清零，剧本解析另算（4 万字约 2000 积分）。</div>
+        </div>
+      </article>
+
+      <!-- 3 LibTV -->
+      <article class="card" style="--bar:#2b6cff">
+        <div class="chead">
+          <div class="logo">L</div>
+          <div class="ctitle">
+            <h3>LibTV <span class="tag">无限画布</span><span class="tag" style="background:#e7efff;color:#1b4ec4">全链路</span></h3>
+            <div class="sub">libtv.gongke.net · 剧本→分镜→画面→视频→音频→导出</div>
+          </div>
+        </div>
+        <div class="price">
+          <div class="price-row"><span class="big">¥499</span><span class="unit">/年（专业版，1800 积分/月）</span></div>
+          <div class="price-note">
+            <b>大师 ¥1299 · 旗舰 ¥2999 · 尊享 ¥6599</b>（5800 / 15800 / 34000 积分/月，10 / 20 / 无限并发）<br>
+            <span class="hl">¥/单位全场最低（¥0.0158–0.0231）</span>，实测 680 积分/条 → <b>取旗舰 ¥2999/年（离预算带只差 ¥1）：¥1.08/秒 · ¥10.76/条 · 年出 279 条（全表第一梯队）</b><span class="mini">（自家区间 ¥1.08–1.57/秒，月产能 2.6–50 条；图生实付可能更高，待补实测）</span>
+          </div>
+        </div>
+        <div class="blk">
+          <div class="blk-t">优势特点</div>
+          <ul>
+            <li><span class="hl">积分单价最便宜</span>：¥/100 积分 ¥1.58–2.31，比即梦低 27–35%</li>
+            <li>20 项专业功能行业独有：角色三视图生成、电影级灯光控制、主体库一致性管理</li>
+            <li>节点式无限画布，非破坏性编辑；<span class="hl">Agent 双入口</span>（给人用 / 给 AI Agent 调）</li>
+          </ul>
+        </div>
+        <div class="verdict">
+          <div class="vd good"><b>适合</b>短剧 / 漫剧高频量产团队；需要角色一致性的长篇连载。</div>
+          <div class="vd bad"><b>注意</b>入门档每月只出 2.6 条；套餐页「180 条/年」是低配口径，别照着预算。</div>
+        </div>
+      </article>
+
+      <!-- 4 NeoWOW -->
+      <article class="card" style="--bar:#ff5a36">
+        <div class="chead">
+          <div class="logo">W</div>
+          <div class="ctitle">
+            <h3>NeoWOW <span class="tag">漫剧工厂</span><span class="tag" style="background:#ffeee7;color:#c93a17">叙事向</span></h3>
+            <div class="sub">story.neodomain.cn · 华策影视（西溪投资）持股 9.9%</div>
+          </div>
+        </div>
+        <div class="price">
+          <div class="price-row"><span class="big">¥2999</span><span class="unit">/季（MAX 会员，53 折，年化 ¥11996）</span></div>
+          <div class="price-note">
+            <b>订阅页实测：</b>MAX <b>¥2999/季</b>＝¥999.67/月，含 <b>188,000 星/月</b>，官方自报「月最多生成约 6,264 张图片 | 5,371 秒视频」<br>
+            旧口径的「¥60/月 会员档」<b>已被 MAX 取代</b>；1 元 = 188 星是它家的换算基准<br>
+            <b>取 MAX ¥2999/季：¥1.99/秒 · ¥19.94/条 · <span class="hl">年出 602 条（全表第一）</span></b><span class="mini">（¥/星 ¥0.0053 全场第二便宜，只因 3,750 星/条 的高消耗才掉到 ¥1.99/秒；⚠ 与官方自报 5,371 秒/月 反算的 350 星/条 差 10.7 倍，待复核）</span>
+          </div>
+        </div>
+        <div class="blk">
+          <div class="blk-t">优势特点</div>
+          <ul>
+            <li><span class="hl">Skill 技能商城</span>：把风格模型 / 工作流模板挂上去卖，个人 IP 直接在平台变现</li>
+            <li>无限画布 + 智能体「小 Neo」；画布可公开分享，他人一键复制工程二次迭代</li>
+            <li>WowTV 作品漫游社区：《万物生》《浮光》《丧尸清道夫》可扒完整节点参数</li>
+          </ul>
+        </div>
+        <div class="verdict">
+          <div class="vd good"><b>适合</b>专业 AI 原生创作者、想靠 Skill / IP 分成变现的人。<span class="mini">年出 602 条是全场最高产能（¥2999/季 给 188,000 星/月）。</span></div>
+          <div class="vd bad"><b>注意</b>它是季卡不是年卡，一次性支出 ¥2999；<span class="hl">3,750 星/条 与官方自报「月产 5,371 秒」差 10.7 倍</span>，下大头预算前先去参数面板截一次真实消耗。旧「¥60/月 会员档」数据已被 MAX 取代。</div>
+        </div>
+      </article>
+
+      <!-- 5 Seko -->
+      <article class="card" style="--bar:#00a3a3">
+        <div class="chead">
+          <div class="logo" style="background:#121212">S</div>
+          <div class="ctitle">
+            <h3>Seko <span class="tag">一人公司</span><span class="tag" style="background:#e2f7f7;color:#007b7b">商汤</span></h3>
+            <div class="sub">SenseNova + LightX2V · 漫短剧工业化中央协同中枢</div>
+          </div>
+        </div>
+        <div class="price">
+          <div class="price-row"><span class="big">¥2880</span><span class="unit">/年（高级会员 · 1 年，划线 ¥3600）</span></div>
+          <div class="price-note">
+            <b>订阅页实测：</b>高级会员 1 年 <b>¥2880/年</b>（¥240/月，限时折后），含 <b>36,000 积分/年</b>，官方赠「Seedance 2.0 最多 3,000 秒 / Happy Horse 1.1 最多 7,200 秒 / 全能图片 G2 18,000 张」<br>
+            <span class="hl">¥/积分 ¥0.0800 是全场最高</span>；活动价到期回到 ¥3600/年 → <b>¥2.78/秒、¥27.8/条</b><br>
+            <b>取高级 1 年 ¥2880/年：¥2.22/秒 · ¥22.24/条 · 年出 129 条（全表最低产能）</b><span class="mini">（实测 278 积分/条；满血 SD 2.0 送的 3,000 秒/年 ≈ 300 条是它的硬上限）</span>
+          </div>
+        </div>
+        <div class="blk">
+          <div class="blk-t">优势特点</div>
+          <ul>
+            <li><span class="hl">多集连载能力行业领先</span>：最多 100 集跨集角色 / 场景 / 道具自动复用</li>
+            <li>双技术壁垒：SekoIDX（角色一致性）+ SekoTalk（多人对口型，业内首个支持超 2 人）</li>
+            <li>全域资产化：所有生成物自动转成可复用资产，企业级资产中心</li>
+            <li>OPC 线下产业基地（上海 / 西安）+ 最高 45% 平台分成</li>
+          </ul>
+        </div>
+        <div class="verdict">
+          <div class="vd good"><b>适合</b>个人创作者低成本日更连载、想入驻产业基地拿分成的创业者。<span class="mini">¥2880/年 含 36,000 积分，官方直送 SD 2.0 年 3,000 秒 + Happy Horse 1.1 年 7,200 秒。</span></div>
+          <div class="vd bad"><b>注意</b><b>¥/积分 ¥0.0800 是全场最贵</b>，¥2880 还是限时折后价、回到 ¥3600 就是 ¥2.78/秒；满血 SD 2.0 只送 3,000 秒/年（≈300 条），吃满 36,000 积分也只出 <b>129 条</b>。<span class="hl">降模型跑普惠版 / Happy Horse 才是它家的正确用法。</span></div>
+        </div>
+      </article>
+
+      <!-- 6 Shotlab -->
+      <article class="card" style="--bar:#ff5c33">
+        <div class="chead">
+          <div class="logo" style="background:#e8442a">S</div>
+          <div class="ctitle">
+            <h3>Shotlab <span class="tag">3D 导演台</span><span class="tag" style="background:#ffe9e4;color:#c1300f">新片场</span></h3>
+            <div class="sub">新片场 vip 体系 · 2026.08 积分正式升级为「创作币」</div>
+          </div>
+        </div>
+        <div class="price">
+          <div class="price-row"><span class="big">$5.99</span><span class="unit">/月起（连续包月）</span></div>
+          <div class="price-note">
+            国内月付：个人 ¥39 · 超级 ¥188 · Elite ¥418 · Plus ¥768 · Max ¥1498/月<br>
+            <b>年卡只有四档：</b>个人 ¥398（100 币/月）· 超级会员 <b>¥1998</b>（5000 币/月）· Plus ¥6799（18000 币/月）· Max <b>¥8888</b>（28800 币/月）<br>
+            <b>底价实测：全能参考 + Seedance 2.0 + 1080P 9:16 10s + 音频开 = <span class="hl">360 创作币/条</span></b> → 超级会员年卡折算 <b>¥12.0/条（¥1.20/秒）</b>；同口径 Max 年卡只要 ¥9.3/条
+          </div>
+        </div>
+        <div class="blk">
+          <div class="blk-t">优势特点</div>
+          <ul>
+            <li><span class="hl">3D 导演台</span>：解决人物站位、越轴、运镜这几个 AI 视频最致命的控制难题</li>
+            <li>场鸽 Agent 一键产出 8 类创作产物，可做拉片学习 / 前期策划</li>
+            <li>多模型聚合「不掺水」——选什么模型就调什么模型；背靠新片场 1500 万创作者社区</li>
+          </ul>
+        </div>
+        <div class="verdict">
+          <div class="vd good"><b>适合</b>短剧 / MCN 多镜头协作、品牌提案样片、导演 / 影视从业者。</div>
+          <div class="vd bad"><b>注意</b>¥3000–4000 预算带在它家是<b>空档</b>（年卡只有 ¥1998 / ¥6799），只能往上跳 Plus；另 1080p 图生（不带参考）系数未公示，360 币是「全能参考 + 音频开」口径。</div>
+        </div>
+      </article>
+
+      <!-- 7 Updream -->
+      <article class="card" style="--bar:#fb5c74">
+        <div class="chead">
+          <div class="logo" style="background:#fb5c74">UD</div>
+          <div class="ctitle">
+            <h3>Updream <span class="tag" style="--bar:#fb5c74">B站官方</span><span class="tag" style="background:#fb5c74">3D 预演台</span></h3>
+            <div class="sub">哔哩哔哩自研 + 华为云算力 · 无限画布 / 节点式工作流</div>
+          </div>
+        </div>
+        <div class="price">
+          <div class="price-row"><span class="big">¥129 / 月</span><span class="unit">Pro 档（原价 ¥198，限时 6.5 折）</span></div>
+          <div class="price-note">
+            <b>四档：</b>Origin 免费 · Pro ¥129（19,800 积分）· Max ¥419（64,800）· Ultra ¥839（131,400）；<b>年付约 4 折</b> → Pro ≈ ¥80/月<br>
+            <span class="hl">积分有效期 31 天，全档去水印 + 可商用</span>。会用会员余额比单买积分便宜 54%
+          </div>
+        </div>
+        <div class="blk">
+          <div class="blk-t">优势特点</div>
+          <ul>
+            <li><span class="hl">3D 白模预演台</span>：先在 3D 场景里"拍一遍"（视角、机位、轨迹），再让 AI 照着生成</li>
+            <li>聚合 Seedance 2.0（Pro / Fast）、Kling o3 / 3、Wan 2.7、Vidu、HappyHorse 等 10+ 视频模型</li>
+            <li>长期记忆 Agent（记住角色 / 审美 / 工作流）+ Skill 技能库社区；实时多人画布协作</li>
+          </ul>
+        </div>
+        <div class="verdict">
+          <div class="vd good"><b>适合</b>要确定性、愿意为「少抽卡」付溢价的团队；B 站生态创作者。</div>
+          <div class="vd bad"><b>坑</b>积分 31 天过期；预演台对人物特写 / 氛围空镜反而纯提示词更快；有退款投诉。</div>
+        </div>
+      </article>
+
+      <!-- 8 OiiOii -->
+      <article class="card" style="--bar:#00b8a9">
+        <div class="chead">
+          <div class="logo" style="background:#00b8a9">O2</div>
+          <div class="ctitle">
+            <h3>OiiOii <span class="tag" style="--bar:#00b8a9">7 Agent</span><span class="tag" style="background:#00b8a9">盒饭制</span></h3>
+            <div class="sub">剧本→角色→场景→分镜→成片→配乐 全流程 · 动画/漫剧工厂</div>
+          </div>
+        </div>
+        <div class="price">
+          <div class="price-row"><span class="big">¥239 / 月</span><span class="unit">STAR 档（最热门）</span></div>
+          <div class="price-note">
+            <b>四档（月付 / 每月盒饭 / 每百盒饭）：</b>BASE ¥86.3 · 1,620 · ¥5.33 ｜ STAR ¥239 · 3,930 · ¥6.08 ｜ PRO ¥519 · 9,240 · ¥5.62 ｜ <b>APEX ¥1009 · 19,550 · ¥5.16</b><br>
+            每日签到送 50–100 盒饭（7 天有效），新用户送 1,000 盒饭；积分 31 天过期
+          </div>
+        </div>
+        <div class="blk">
+          <div class="blk-t">官方《基础定价表》· 生视频（会员价 盒饭/秒）</div>
+          <ul>
+            <li><b>Seedance 2.0 pro：</b>480p 7 ｜ 720p 14 ｜ <span class="hl">1080p 35</span> ｜ 4K 72</li>
+            <li><b>Seedance 2.5 1080p 55</b> ｜ Wan 3.0 1080p 13 ｜ Kling V3 Omni 1080p 12 ｜ <b>HappyHorse 1.1 1080p 26</b></li>
+            <li><span class="hl">Oii Omini：</span>720p 5 · 1080p <b>7</b>（自研廉价档）｜ Vidu Q3 Mix 6 ｜ Seedance Fast 720p 11</li>
+          </ul>
+        </div>
+        <div class="verdict">
+          <div class="vd good"><b>适合</b>动画 / 漫剧 / 音乐短片；要「一条歌→一部片」端到端出片的团队。</div>
+          <div class="vd bad"><b>坑</b>界面不直接显示消耗，必须一步步走流程；活动特惠会员 / 积分属「福利商品」购买后不退。</div>
+        </div>
+      </article>
+
+      <!-- 9 Higgsfield -->
+      <article class="card" style="--bar:#111827">
+        <div class="chead">
+          <div class="logo">H</div>
+          <div class="ctitle">
+            <h3>Higgsfield AI <span class="tag">AI-Native Suite</span><span class="tag" style="background:#ececf2;color:#333">聚合型</span></h3>
+            <div class="sub">higgsfield.ai · 50+ 视频/图像/音频模型</div>
+          </div>
+        </div>
+        <div class="price">
+          <div class="price-row"><span class="big">$15</span><span class="unit">/月（Starter，200 积分）</span></div>
+          <div class="price-note">
+            <b>Plus $49 月 / $39 年付</b>（1000 积分 + 365 天无限模型组）· <b>Ultra $129 月 / $99 年付</b>（3000 积分）<br>
+            Team $79/席位 月付 / $65 年付 · Basic $9（年付）· 积分按月清零不结转
+          </div>
+        </div>
+        <div class="blk">
+          <div class="blk-t">优势特点</div>
+          <ul>
+            <li><span class="hl">70+ 电影感镜头预设</span>：Vertigo 希区柯克变焦、Matrix 子弹时间，点击即应用，不用写提示词</li>
+            <li>一个订阅打通 Sora 2、Veo 3.1、Kling 3.0、Seedance 2.5、Wan 2.6、Flux、Nano Banana</li>
+            <li>侧边栏多模型并列对比，同一 prompt 一次跑多个模型挑最好的；MCP / CLI + AE 插件</li>
+          </ul>
+        </div>
+        <div class="verdict">
+          <div class="vd good"><b>适合</b>想「一个订阅替代 5 个账号」的创作者；需要镜头语言专业度的导演 / 广告团队。</div>
+          <div class="vd bad"><b>注意</b>聚合方加价，单一模型官方直连通常更便宜；不公示单条 Seedance 系数。</div>
+        </div>
+      </article>
+
+      <!-- 10 TapNow -->
+      <article class="card" style="--bar:#6b4dff">
+        <div class="chead">
+          <div class="logo">T</div>
+          <div class="ctitle">
+            <h3>TapNow <span class="tag">Agentic Canvas</span><span class="tag" style="background:#f0ecff;color:#5b3fd6">智能体画布</span></h3>
+            <div class="sub">app.tapnow.ai · Tapies 积分制</div>
+          </div>
+        </div>
+        <div class="price">
+          <div class="price-row"><span class="big">$15</span><span class="unit">/月（Basic，1,500 Tapies，4 并发）</span></div>
+          <div class="price-note">
+            <b>Pro $56–60/月</b>（6,000 Tapies，8 并发）· <b>Ultimate $216–258/月</b>（36,000）<br>
+            <b>Max $432–720/月</b>（72,000 Tapies）· 年付约 40% 折扣 · 免费 200 Tapies + 每周 40
+          </div>
+        </div>
+        <div class="blk">
+          <div class="blk-t">优势特点</div>
+          <ul>
+            <li><span class="hl">节点式无限画布</span>：像 Figma / Miro 一样拖拽串联 AI 节点，任意分支 fork 试方向不丢原稿</li>
+            <li>TapNow Agent「AI 执行导演」：理解全图连接关系，主动推进步骤</li>
+            <li><span class="hl">TapTV 社区 12 万+ 公开工作流可克隆复用</span>——开源式创意代码库</li>
+          </ul>
+        </div>
+        <div class="verdict">
+          <div class="vd good"><b>适合</b>广告创意团队、电商卖家、分镜预演；批量出多条且风格统一的场景。</div>
+          <div class="vd bad"><b>注意</b>节点画布学习曲线 3.9/5，新手需 1–2 天；积分消耗不透明，先用免费额度跑真实项目。</div>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- 能力矩阵 -->
+    <div class="blk" style="margin-top:40px">
+      <div class="blk-t" style="color:var(--accent)">能力矩阵速查（√ 已具备，括号内为相对强度）</div>
+      <div class="tbl-wrap scroll">
+        <table style="min-width:1000px">
+          <thead><tr><th>平台</th><th>无限/节点画布</th><th>角色一致性</th><th>多剧集连载</th><th>多模型聚合</th><th>社区 / 生态</th><th>团队协作</th></tr></thead>
+          <tbody>
+            <tr><td>即梦 AI</td><td>√ 智能画布（弱）</td><td>√√</td><td>—</td><td>√ 字节矩阵</td><td>√ 抖音/剪映联动</td><td>—</td></tr>
+            <tr><td>小云雀 AI</td><td>—</td><td>√√ (92 分)</td><td>√√ 短剧 Agent</td><td>√ Seedance 全系</td><td>√√ 创作者社群</td><td>—</td></tr>
+            <tr><td>LibTV</td><td>√√ 无限画布</td><td>√√ 主体库/三视图</td><td>√√</td><td>√ 可灵/Seedance</td><td>√ 建设中</td><td>√ 20 并发</td></tr>
+            <tr><td>NeoWOW</td><td>√√ 无限画布</td><td>√ 资产库</td><td>√√ 漫剧</td><td>√ Seedance/Seedream</td><td>√√ WowTV + Skill 商城</td><td>√ Max×5</td></tr>
+            <tr><td>Seko</td><td>√ 画布 + 智能体</td><td>√√ SekoIDX</td><td>√√√ 100 集</td><td>√√ Seedance/可灵/万相/Veo</td><td>√ OPC 基地 + 45% 分成</td><td>√ 企业版</td></tr>
+            <tr><td>Shotlab</td><td>√√ 节点画布</td><td>√ 3D 导演台</td><td>√</td><td>√√ 不掺水聚合</td><td>√√ 新片场 1500 万社区</td><td>√✓ 精细化分配</td></tr>
+            <tr><td>Updream</td><td>√√ 无限画布</td><td>√√ 长期记忆 Agent</td><td>√ 分镜链</td><td>√√ 10+ 视频模型</td><td>√ Skill 社区 + B 站大赛</td><td>√ 实时多人协作</td></tr>
+            <tr><td>OiiOii</td><td>√ 画布</td><td>√√√ 角色设定表跨镜持久</td><td>√√ 逐镜审核</td><td>√√ 30+ 第三方模型</td><td>√ 7 Agent 流水 + 150+ 风格</td><td>√ 团队版（Team Pro/Max）</td></tr>
+            <tr><td>Higgsfield</td><td>√ Canvas</td><td>—</td><td>—</td><td>√√ (50+)</td><td>√ Marketplace</td><td>√ Team 席位</td></tr>
+            <tr><td>TapNow</td><td>√√ 节点画布</td><td>√ Agent 主动维持</td><td>√ 分镜链</td><td>√√ (15+)</td><td>√√ TapTV 12 万模板</td><td>√ 共享积分池</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AGGREGATORS ============ -->
+<section id="agg">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <h2>聚合型平台全景 · 四条赛道</h2>
+        <p>一个入口、一套额度、几十上百个模型随便切。这类平台打法完全不同，先分赛道再挑人。</p>
+      </div>
+    </div>
+
+    <p style="font-size:15px;color:var(--ink-2);max-width:880px;margin-bottom:26px">
+      Seko / Updream / OiiOii 的本质不是「做模型」，而是 <span class="hl">把上游所有模型调度起来，按镜头挑最合适的那个</span>，
+      再叠一层社区 / 作品 / 变现。市场上按「面向谁」分成四条赛道。
+    </p>
+
+    <!-- 赛道一 -->
+    <div class="blk" style="margin-bottom:30px">
+      <div class="blk-t" style="color:var(--accent)">赛道一 · 创作者向多模型工作台「买一个订阅，调度几十个模型」</div>
+      <div class="tbl-wrap scroll">
+        <table style="min-width:1120px">
+          <thead><tr><th>平台</th><th>聚合了多少</th><th>核心优势 / 差异化</th><th>计费口径</th><th>价格（2026 口径）</th></tr></thead>
+          <tbody>
+            <tr><td><b>Krea</b><span class="mini">krea.ai</span></td>
+              <td>45+ 视频模型 + 图像 / 3D / 口型 / 超分；自有 Krea 2</td>
+              <td><span class="hl">全部模型一个订阅、免费档可用全部模型</span>（100 compute units/天，无卡、含商用授权）；实时画布 1–2 秒出预览；Krea Nodes 画布</td>
+              <td>compute units<span class="mini">同额度不同模型差 12 倍产出</span></td>
+              <td>Free $0 / Basic ≈$9–12<br>Pro <b>年付 $21/月</b>（2 万 units）· Max 年付 $63/月</td></tr>
+            <tr><td><b>OpenArt</b><span class="mini">openart.ai</span></td>
+              <td>40+ 图像 / 视频 / 音频模型；40 万+ 创作者</td>
+              <td><span class="hl">行业模板最深</span>；节点式 Flow Builder；Character Reference 最多 4 张参考图锁角色；公开 prompt 市场</td>
+              <td>credits，当月不清零结转少</td>
+              <td>Free $0（<b>不含商用授权</b>）· Plus ≈$39（1k credits）· Ultra $99 · Business $62/席</td></tr>
+            <tr><td><b>Lovart</b><span class="mini">lovart.ai</span></td>
+              <td>Nano Banana Pro、Seedream 4.0、GPT Image 2、Flux + Veo 3</td>
+              <td><span class="hl">设计 Agent，不是生图工具</span>：一句话出整套品牌 kit，单轮约 40 张，文字独立可编辑</td>
+              <td>积分（每日约 100 免费，不滚存）</td>
+              <td>Free ¥0（个人用途）· Starter ≈$9.9–19.9 · Pro ≈$29.9–89.9 · Ultimate ≈$49.9–159.9</td></tr>
+            <tr><td><b>invideo</b><span class="mini">invideo.ai</span></td>
+              <td>200+ 模型 + iStock / Storyblocks 素材库</td>
+              <td><span class="hl">单条 prompt 直接出 30 分钟长片</span>（v4 Agent）；自带商用素材版权</td>
+              <td>credits，不结转</td>
+              <td>Plus $17 / Max $85 / Generative $170 / Elite $900（年付）</td></tr>
+            <tr><td><b>Luma</b><span class="mini">luma.ai</span></td>
+              <td>自研 Ray3.14 + Nano Banana、Qwen、Veo、Kling、Seedance；音频走 ElevenLabs</td>
+              <td><span class="hl">Creative Agents 框架 + 团队共享额度池</span>；EXR 导出、镜头拼接</td>
+              <td>月订 + 团队共享池</td>
+              <td>Plus $30 / Pro $90（Agent 用量 4×）/ Ultra $300</td></tr>
+            <tr><td><b>Magnific</b><span class="mini">magnific.ai</span></td>
+              <td>Sora / Veo / Nano Banana / Kling / Seedance / ElevenLabs</td>
+              <td><span class="hl">生成 + 正版音乐音效素材库打包</span>；AI Studio 有选角、场景搭建、构图一致性工具</td>
+              <td>credits 全模型通用</td>
+              <td>AI Starter $11.99（16.5k credits）/ AI Professional $89.99</td></tr>
+            <tr><td><b>MyEdit</b><span class="mini">myedit.ai</span></td>
+              <td>10+ 图像 / 视频模型</td>
+              <td>中文界面友好、基础功能免费；走「轻量聚合」路线，适合只要一个多模型入口的人</td>
+              <td>免费 + 订阅</td>
+              <td>基础免费<span class="mini">高级模型需订阅</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 赛道二 -->
+    <div class="blk" style="margin-bottom:30px">
+      <div class="blk-t" style="color:#0f9b6c">赛道二 · 开发者向 API 聚合网关「不卖订阅，按秒 / 按条」</div>
+      <div class="tbl-wrap scroll">
+        <table style="min-width:1120px">
+          <thead><tr><th>平台</th><th>模型覆盖</th><th>核心优势 / 差异化</th><th>计费方式</th><th>Seedance 2.0 参考价（720p / 秒）</th></tr></thead>
+          <tbody>
+            <tr><td><b>Kinovi</b><span class="mini">kinovi.ai</span></td>
+              <td>主流视频 / 图像模型</td>
+              <td><span class="hl">同样画质下公开报价最低</span>；带参考视频时只按输出秒数计费（参考片段不计费），长参考素材明显更省</td>
+              <td>按输出秒</td><td><b>$0.188</b><span class="mini">1080p $0.4239</span></td></tr>
+            <tr><td><b>APIMart</b><span class="mini">apimart.ai</span></td>
+              <td>视频 / 图像 / 音频 / 部分 LLM</td>
+              <td>纯折扣价渠道，多分辨率档位定价最激进；适合单模型跑量</td>
+              <td>按输出秒</td><td><b>$0.142</b><span class="mini">1080p $0.3544</span></td></tr>
+            <tr><td><b>Kie.ai</b><span class="mini">kie.ai</span></td>
+              <td>100+ 视频 / 图像 / 音频 / LLM</td>
+              <td><span class="hl">贴牌价最低档</span>，标称比官方价低 30–80%；换模型只改 model_id；信用点 $0.005、$5 起充</td>
+              <td>信用点（转售层）</td><td><b>$0.205</b><span class="mini">480p $0.095 · 1080p $0.51</span></td></tr>
+            <tr><td><b>WaveSpeed</b><span class="mini">wavespeed.ai</span></td>
+              <td>1000+ 图像 / 视频 / 音频 / 3D</td>
+              <td>主打速度（视频约 4×）；<span class="hl">唯一带面向创作者的桌面客户端</span></td>
+              <td>按 unit</td><td><b>$0.24</b><span class="mini">1080p $0.60</span></td></tr>
+            <tr><td><b>fal.ai</b><span class="mini">fal.ai</span></td>
+              <td>1000+ 纯媒体模型</td>
+              <td><span class="hl">纯媒体目录最全、推理最快</span>；<b>无 LLM</b>，文本推理要另接一家</td>
+              <td>按产出 + GPU 时租</td><td><b>$0.3034</b><span class="mini">1080p $0.682 起</span></td></tr>
+            <tr><td><b>ATLAS Cloud</b><span class="mini">atlascloud.ai</span></td>
+              <td>视频 + 图像 + 文本（OpenAI 兼容）</td>
+              <td>换一个 OpenAI 兼容 endpoint 同时覆盖文本与媒体；SOC 2 + HIPAA、99.99% SLA，合规交付首选</td>
+              <td>按秒，无订阅无最低消费</td><td>约 $0.09</td></tr>
+            <tr><td><b>Replicate / Runware</b><span class="mini">replicate.com · runware.ai</span></td>
+              <td>社区模型市场 / 全模态</td>
+              <td>Replicate＝开源模型试新最快；Runware＝按次付费 + 高速推理，覆盖 3D、音频</td>
+              <td>按模型 / 按次</td><td>Replicate 720p ≈$0.18<span class="mini">Runware 需官网查档</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:13px;color:var(--ink-3);margin:10px 0 0">
+        ⚠️ 2026 年公开报价抓取，各家折扣期波动大（Seedance 2.0 曾从 $0.112 促销到 $0.09/秒）。签约前以官网当期价目表为准。
+      </p>
+    </div>
+
+    <!-- 赛道三 -->
+    <div class="blk" style="margin-bottom:30px">
+      <div class="blk-t" style="color:#5b3fd6">赛道三 · 通用大模型聚合（文本为主，图像视频为辅）</div>
+      <div class="tbl-wrap scroll">
+        <table style="min-width:1060px">
+          <thead><tr><th>平台</th><th>模型数</th><th>核心优势</th><th>价格</th><th>适合谁</th></tr></thead>
+          <tbody>
+            <tr><td><b>OpenRouter</b></td><td>200–300+</td><td>统一 API 兼容 OpenAI 格式，零成本迁移；模型最全</td><td>按量计费</td><td>开发者 / 工程团队</td></tr>
+            <tr><td><b>Poe</b></td><td>100+ 官方模型 + 数千社区 bot</td><td><span class="hl">bot 生态最庞大</span>；<b>不原生支持视频生成</b></td><td>免费 + Plus $19.99 + Pro $49.99</td><td>爱折腾模型对比的人</td></tr>
+            <tr><td><b>GlobalGPT</b></td><td>100+，含 Midjourney / Sora / Runway</td><td><span class="hl">把海外图生视频模型塞进一个账号</span></td><td>约 $11.90/月起</td><td>要 MJ+Sora 又不想付三份</td></tr>
+            <tr><td><b>Nolvia</b></td><td>40–50+ 全模态</td><td>少见的「文本/图像/视频都当一等公民」；国产模型可直接调</td><td>Standard $15 / Pro $30 / Ultimate $60</td><td>一个订阅替掉 ChatGPT＋MJ＋视频工具</td></tr>
+            <tr><td><b>Overchat AI</b></td><td>前沿文本 + 150+ 创意工具</td><td>35 万用户；工具矩阵最铺得开</td><td>$14.99/月 或 $49.99/年</td><td>重度工具党</td></tr>
+            <tr><td><b>Magai / Aymo / Monica / TypingMind</b></td><td>30–50+</td><td>Aymo 强在<b>多人实时协作 + 团队后台（$4/月起）</b>；TypingMind 一次买断 $29</td><td>$4–60/月</td><td>团队 / 浏览器党 / 买断党</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 赛道四 -->
+    <div class="blk" style="margin-bottom:30px">
+      <div class="blk-t" style="color:#d97706">赛道四 · 国内「自研模型 + 第三方」混合聚合</div>
+      <div class="tbl-wrap scroll">
+        <table style="min-width:980px">
+          <thead><tr><th>平台</th><th>自研 / 接入</th><th>核心优势</th><th>价格</th></tr></thead>
+          <tbody>
+            <tr><td><b>星流 Xingliu</b><span class="mini">xingliu.art · LiblibAI</span></td>
+              <td>自研 Star-3 Alpha + Kling / Hailuo / Nano / Qwen-Image；<span class="hl">10 万+ LoRA 风格库</span><br><b style="color:#d9534f">⚠️ 已官宣 2026-10-10 24:00 停服</b>，迁 Lovart.art，会员积分不互通不折算，仅可迁移作品一次<span class="mini">★ 官网公告</span></td>
+              <td>中文排版深度优化；图 / 视频 / 3D（导出 GLB 进 Blender、Unity）/ 音频全模态；无边画布 + 对话式改图</td>
+              <td>每日登录送 150 点<span class="mini">会员 ¥469/年起，会员图才可商用</span></td></tr>
+            <tr><td><b>WHEE</b><span class="mini">美图公司</span></td>
+              <td>自研 MiracleVision 5.0 + 50+ 风格模型（最多 3 个叠加）</td>
+              <td><span class="hl">中文海报全球首个支持自定义字体</span>（准确率 &gt;90%）；二次元物料编辑器；800 万注册用户</td>
+              <td>免费 + 会员订阅 + 美豆充值</td></tr>
+            <tr><td><b>万兴剧厂 Reelmate</b><span class="mini">万兴科技</span></td>
+              <td>接入 Seedance 2.0、Kling 3.0 4K、Vidu Q3、HappyHorse、Wan 2.6、即梦</td>
+              <td><span class="hl">漫剧工厂型聚合</span>：剧本解析→资产提取→导演级分镜→生成→成本核算全链路；1 人/天/10 集分镜；生成前即显示积分预估</td>
+              <td>标准版 ¥119/月首月 → <b>¥199/月</b>；包年 ¥949<span class="mini">1 积分 = ¥0.1（全场最贵单位单价）</span></td></tr>
+            <tr><td><b>咪咕悦创</b><span class="mini">中国移动咪咕数媒</span></td>
+              <td>多模型聚合调度 + 全流程工作流 + 项目级资产管控；近 3 万部全版权 IP</td>
+              <td><span class="hl">聚合 + 变现闭环</span>：自带运营商 / 互联网 / 海外三条分发渠道和 2 亿短剧分账生态；3D 导演台 + 无限画布</td>
+              <td><b>仅 B 端</b>，价格需商务洽谈<span class="mini">无公开月订阅价，不参与排序</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 接入模型库全清单 -->
+    <div class="blk" id="models" style="margin-bottom:30px">
+      <div class="blk-t" style="color:#111">聚合平台接入模型库 · 生图模型 / 视频生成模型全清单</div>
+      <p style="font-size:14px;color:var(--ink-2);margin:10px 0 16px;max-width:980px">
+        下表是各家「<b>模型选择器里实际能选到</b>」的清单，2026-10 口径，除特别标注外均取自平台官方模型页 / 官方画布页。
+        <span class="hl">横向看各家池子深浅差一倍，纵向看同一个聚合平台落后上游一代是常态</span>——同一批 2.0 代视频模型，谁能跑 2.5 决定它明年还活不活。
+      </p>
+      <div class="tbl-wrap scroll">
+        <table style="min-width:1240px">
+          <thead><tr><th style="min-width:150px">平台</th><th style="min-width:360px">生图 / 图像模型</th><th style="min-width:460px">视频生成模型</th><th style="min-width:230px">音频 / 其他</th></tr></thead>
+          <tbody>
+            <tr><td><b>Krea</b><span class="mini">krea.ai · 赛道一</span></td>
+              <td>Krea 2 / Krea 1（自有）、Flux 1.1 Pro / Pro Ultra、Flux.1 Krea、Flux 2 Pro / Flex / Max、Ideogram 3.0、Nano Banana Pro / Nano Banana、ChatGPT Image 1.5、Grok Imagine 2.0、Qwen Image Plus / Edit / Layered、SeedEdit、Flux Kontext 系列</td>
+              <td>Seedance 2.5 / 2.0 / 2.0 Fast / 2.0 Mini、Kling 3.0 / 3.0 Turbo、Veo 3.1 / 3.1 Lite / Veo 3、MiniMax H3 / H3 Max / H3 Max Turbo、Flux 3 Video、Gemini Omni Flash、Grok Imagine 1.5、Runway Gen-4.5、LTX-2.5 Pro / Fast、LTX-2.3 22B、Vidu Q3、Wan 3.0 / 2.6 / 2.5 / 2.2 / 2.1、Hailuo 2.3 / 02</td>
+              <td>3D 通道 · 口型同步 · Krea Enhance / Topaz 22K 超分<br><span class="mini">★★ 官方模型选择器</span></td></tr>
+
+            <tr><td><b>Higgsfield</b><span class="mini">赛道一 / 二</span></td>
+              <td>Nano Banana Pro、Nano Banana 2 Lite、Seedream 5.0 / 5.0 Lite、FLUX.2 Pro、Flux Kontext、GPT Image / GPT Image 2、Higgsfield Soul、Reve</td>
+              <td>Seedance 2.5 / 2.0（720p–4K）/ 2.0 Fast / 2.0 Pro / 1.5、Kling 3.0 / Omni 3 / 2.6 / 2.5 Turbo / 2.1 / Omni 1、Veo 3.1 / 3.1 Fast / Veo 3、Grok Video、Wan 3.0 / 2.6 / 2.5、Minimax Hailuo 2.3、Sora 2（OpenAI 正逐步下线其 API）、<b>自研</b> DoP Lite / Standard / Turbo、Soul 2.0、Genjutsu</td>
+              <td>MCP 暴露 30+ 模型<br>Python / Node SDK 覆盖 40+<br><span class="mini">★★ 官方模型库</span></td></tr>
+
+            <tr><td><b>OpenArt</b><span class="mini">openart.ai · 赛道一</span></td>
+              <td>GPT Image 2、Nano Banana 2 / Pro、Seedream 5.0 Pro、Grok Imagine 2.0、Qwen Image 3.0、Flux.2 Pro（历史档含 Imagen 4 / HiDream / Flux Krea / SDXL）</td>
+              <td>Seedance 2.5、Wan 3.0、Seedance 2.0 / 2.0 Mini、Google Omni Flash、Flux 3 Video、MiniMax H3、Kling 3.0 Omni、HappyHorse 1.1、Grok Imagine 1.5、PixVerse V6</td>
+              <td>lip-sync · Motion Sync · 配音 30+ 语种 · OpenArt Worlds（3D 场景）· Character 2.0<br><span class="mini">★★ 官方 Arena 名单</span></td></tr>
+
+            <tr><td><b>invideo</b><span class="mini">invideo.ai · 赛道一</span></td>
+              <td>GPT-Image-2、Nano Banana Pro、Qwen Image Edit Plus、FLUX Pro、Virtual Try-On（官方博客口径）</td>
+              <td><b>池子最厚的一个</b>：Veo 3.1 / Fast / Lite、Veo 3 / 2、Kling 3.0 / Turbo / Omni / V3 Omni、Kling 2.6 / 2.5 Turbo Pro / 2.1 全档、Seedance 2.0 / Fast / Pro / Pro Fast / 1.5 Pro / 2.0 Mini、Runway Gen-4.5 / Gen-4 / Aleph、Flux 3、PixVerse 5 / 5.5、LTX-2 Pro / 2.0、Wan 2.6 / 2.5 / 2.2、MiniMax Hailuo 02 / 2.3 / Fast、Higgsfield DoP、Grok Imagine 1.5、Sora 2 / Pro、DreamActor M2、P-Video 系列</td>
+              <td>iStock / Storyblocks 正版素材 · Crystal / SeedVR / Topaz 超分<br><span class="mini">★★ 官方 AI Models 页直列</span></td></tr>
+
+            <tr><td><b>TapNow</b><span class="mini">tapnow.ai · 赛道一 / 二</span></td>
+              <td>Gemini 2.5 Flash（Nano Banana）、Nano Banana Pro（4K）、Midjourney V7、MJ Niji 7、Seedream 5.0 Lite、TapNow Flash（自研）</td>
+              <td>Seedance 2.0、Seedance 1.5 Pro、Sora 2 Pro、Veo 3.1、Veo 3.1 Fast、Kling 3.0 Omni Pro；官网聚合图另有 Veo / Kling / Luma / Sora / Runway / PixVerse / Grok / Hailuo / Jimeng / Vidu / Flux 系列</td>
+              <td>35+ 模型 · JSON 级镜头参数 · TapTV 开源社区<br><span class="mini">★★ 官方实测 + 官网模型图</span></td></tr>
+
+            <tr><td><b>Shotlab</b><span class="mini">新片场 · 赛道二</span></td>
+              <td>G Image 2、香蕉 2.0、FLUX 2 Max、可灵 3.0 Omni、Seedream 5.0 Lite（亚洲风优化）、悠船（MJ）V7</td>
+              <td>Seedance 2.5 满血版、Seedance 2.0、MiniMax H3、可灵 3.0 / 3.0 Omni、通义万相 2.6、海螺 02（二次元）、HappyHorse 1.0</td>
+              <td>Suno（sono）音乐模型<br>节点式画布 · AI 画本工作流<br><span class="mini">★★ 官方百科 + 平台资料</span></td></tr>
+
+            <tr><td><b>Updream</b><span class="mini">B 站 · 视频聚合专项</span></td>
+              <td>香蕉 2 / 香蕉 Pro、Gimage 2、Seedream 4.5 / 5.0、Midjourney、GPT-Image-2、Nano Banana Pro</td>
+              <td>Seedance 2.0、HappyHorse、Kling 系列、Vidu、Hailuo 系列、Veo 系列、Wan 系列</td>
+              <td>文本：GPT-5.2 / Gemini 3.1·3.0 Pro / DeepSeek V3.2 / Qwen3 Max / Kimi K2.5 / MiniMax M2.5<br><span class="mini">★★ 官方公示</span></td></tr>
+
+            <tr><td><b>OiiOii</b><span class="mini">oiioii.ai · 视频聚合专项</span></td>
+              <td><b>官方 9 个</b>：Nano 2、Nano Pro、Seedream 5.0、Seedream 4.5、Midjourney niji 6 / niji 7、NovelAI、GPT Image-2、GPT-4o</td>
+              <td><b>官方 17 个</b>：Seedance 2.0 pro / fast、Seedance 1.5 Pro、Sora 2、Vidu Q3 Mix / Q3 Ref / Q3 Pro / Q2、Wan 2.7 / 2.6、Kling 3.0 Pro / 3.0 std / V3 Omni / O1 / 2.6、Hailuo 2.3 Pro / Std</td>
+              <td>150+ 内置风格 · 首尾帧垫图 · 全能参考<br><span class="mini">★★ 官方画布页逐条列出</span></td></tr>
+
+            <tr><td><b>Lovart</b><span class="mini">中文版＝星流 Agent · 赛道一</span></td>
+              <td>GPT Image-1、Flux Pro、Seedream 4.0、Gemini Imagen</td>
+              <td>Veo 3、Kling 3.0、Sora 2、Hailuo</td>
+              <td>3D：Tripo AI · 音乐/配音：Suno AI<br>推理：Claude / GPT-4o / DeepSeek<br><span class="mini">★ 官方信息 + 实测整合</span></td></tr>
+
+            <tr><td><b>Luma</b><span class="mini">luma.ai · 赛道一</span></td>
+              <td>自研 Ray3.14 / Ray 3.2、Nano Banana、Qwen、Flux</td>
+              <td>自研 Ray3 / Ray3.14、Veo 3.1、Kling 3.0、Seedance 2.0、Runway、Pika</td>
+              <td>音频 ElevenLabs · Creative Agents 框架 · EXR 导出<br><span class="mini">★ 官方 + 二手</span></td></tr>
+
+            <tr><td><b>Magnific</b><span class="mini">magnific.ai · 赛道一</span></td>
+              <td>Nano Banana、Flux 系列</td>
+              <td>Sora 2、Veo 3.1、Kling 3.0、Seedance 2.0、Runway、Pika</td>
+              <td>音频 ElevenLabs · 正版音乐音效素材库<br><span class="mini">★ 二手，代际待核</span></td></tr>
+
+            <tr><td><b>Seko</b><span class="mini">赛道四 · 短剧工厂</span></td>
+              <td>Seedream 系列、自研 SekoIDX 资产</td>
+              <td>Seedance 2.x、可灵 Kling、万相 Wan、Veo 系列<span class="mini">（官方公示，逐条代际以模型选择器为准）</span></td>
+              <td>100 集连载资产复用 · 45% 平台分成<br><span class="mini">✳ 逐模型清单待补</span></td></tr>
+
+            <tr><td><b>LibTV</b><span class="mini">赛道四</span></td>
+              <td>可灵图像 / 主体库三视图</td>
+              <td>可灵 Kling、Seedance 2.0<span class="mini">（官方公示）</span></td>
+              <td>主体库 / 三视图 · 20 并发<br><span class="mini">✳ 逐模型清单待补</span></td></tr>
+
+            <tr><td><b>万兴剧厂 Reelmate</b><span class="mini">赛道四 · 漫剧工厂</span></td>
+              <td>即梦 5.0 图像、资产批量提取</td>
+              <td>Seedance 2.0、Kling 3.0 4K、Vidu Q3、HappyHorse 1.0、Wan 2.6、即梦 5.0<br><span class="mini">App 版另列：Sora 2 / Veo 3.1 / Kling 2.5 / Hailuo 2.3 / Wan 2.5 / PixVerse / Tomoviee / Vidu / Midjourney</span></td>
+              <td>3D 导演台 · 剧本广场 IP 交易<br><span class="mini">★★ 上证报 + 官方</span></td></tr>
+
+            <tr><td><b>星流 Xingliu</b><span class="mini">LiblibAI ⚠️ 已停服</span></td>
+              <td>自研 Star-3 Alpha、Kling / Hailuo / Nano、Qwen-Image<span class="mini">10 万+ LoRA</span></td>
+              <td colspan="2"><b style="color:#d9534f">⚠️ 星流将于 2026-10-10 24:00 停止服务</b>，作品迁 Lovart.art、会员积分独立不折算不互通，原平台停服后内容彻底删除；已订阅用户自动续费已全部关闭。 migrations 仅一次机会。<span class="mini">官网停服公告（★★）</span></td></tr>
+
+            <tr><td><b>MyEdit</b><span class="mini">赛道一</span></td>
+              <td colspan="3">10+ 图像 / 视频模型<span class="mini">（未逐条公示，中文界面、基础功能免费）</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:13px;color:var(--ink-3);margin:10px 0 0">
+        标注 <span class="mini">★★</span>＝平台官方页面 / 后台实测；<span class="mini">★</span>＝官方信息 + 二手核实；<span class="mini">✳</span>＝只公示了系列名、没公示逐条代际，签约前请在模型选择器里自己数一遍。
+      </p>
+    </div>
+
+    <!-- 速查矩阵 -->
+    <div class="blk" style="margin-bottom:30px">
+      <div class="blk-t" style="color:#111">模型 × 平台 速查矩阵「我这条镜头该去哪家开」</div>
+      <p style="font-size:14px;color:var(--ink-2);margin:10px 0 16px;max-width:980px">
+        <span class="hl">● ＝该平台已接入并可直接在模型选择器里切到。</span> 空白＝公开资料未见该代际，**不代表一定没有**，只代表你 5 分钟内查不到就等于没有。
+      </p>
+      <div class="tbl-wrap scroll">
+        <table style="min-width:1080px">
+          <thead><tr><th>模型</th><th>Krea</th><th>Higgsfield</th><th>OpenArt</th><th>invideo</th><th>TapNow</th><th>Shotlab</th><th>Updream</th><th>OiiOii</th><th>Seko</th></tr></thead>
+          <tbody>
+            <tr><td><b>Seedance 2.0</b></td><td>●</td><td>●</td><td>●</td><td>●</td><td>●</td><td>●</td><td>●</td><td>●</td><td>●</td></tr>
+            <tr style="background:#fffaf5"><td><b>Seedance 2.5</b><span class="mini">代际分水岭</span></td><td>●</td><td>●</td><td>●</td><td></td><td></td><td>●</td><td></td><td>●</td><td></td></tr>
+            <tr><td><b>Kling 3.0</b></td><td>●</td><td>●</td><td>●</td><td>●</td><td>●</td><td>●</td><td>●</td><td>●</td><td>●</td></tr>
+            <tr><td><b>Veo 3.1</b></td><td>●</td><td>●</td><td></td><td>●</td><td>●</td><td></td><td>●</td><td></td><td>●</td></tr>
+            <tr><td><b>Sora 2</b><span class="mini">OpenAI 退场中</span></td><td></td><td>●</td><td></td><td>●</td><td>●</td><td></td><td></td><td>●</td><td></td></tr>
+            <tr style="background:#fffaf5"><td><b>HappyHorse 1.1</b><span class="mini">中文短剧首选</span></td><td></td><td></td><td>●</td><td>●</td><td></td><td>●</td><td>●</td><td>●</td><td></td></tr>
+            <tr><td><b>Wan 3.0 / 2.6</b></td><td>●</td><td>●</td><td>●</td><td>●</td><td></td><td>●</td><td>●</td><td>●</td><td>●</td></tr>
+            <tr><td><b>Hailuo 2.3 / MiniMax H3</b></td><td>●</td><td>●</td><td>●</td><td>●</td><td></td><td>●</td><td>●</td><td>●</td><td></td></tr>
+            <tr><td><b>Vidu Q3</b></td><td>●</td><td></td><td></td><td></td><td></td><td></td><td>●</td><td>●</td><td></td></tr>
+            <tr><td><b>Nano Banana Pro</b></td><td>●</td><td>●</td><td>●</td><td>●</td><td>●</td><td></td><td>●</td><td>●</td><td></td></tr>
+            <tr><td><b>Seedream 5.0</b></td><td>●</td><td>●</td><td>●</td><td></td><td>●</td><td>●</td><td>●</td><td>●</td><td></td></tr>
+            <tr><td><b>MJ / niji / NovelAI</b></td><td>●</td><td></td><td></td><td></td><td>●</td><td>●</td><td>●</td><td>●</td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:13px;color:var(--ink-3);margin:10px 0 0">
+        <b>三个能直接用的结论：</b>① <span class="hl">要 2.5 代 Seedance 只有 Krea / Higgsfield / OpenArt / Shotlab / OiiOii 五家</span>，跑满血 Seedance 的团队别选池子浅的；
+        ② <span class="hl">要中文对白走 HappyHorse</span>，OpenArt / invideo / Shotlab / Updream / OiiOii 都接了，万兴剧厂是原生价格洼地（五折后 1080p ≈ ¥1.19/秒）；
+        ③ <span class="hl">Sora 2 已经在退场流程里</span>，只有 Higgsfield / invideo / TapNow / OiiOii 还在挂，别把产线压在这一个模型上。
+      </p>
+    </div>
+
+    <!-- 视频生成聚合专项 -->
+    <div class="blk">
+      <div class="blk-t" style="color:#d9534f">视频生成聚合专项 · Updream 与 OiiOii 的换模型省钱表</div>
+      <p style="font-size:14px;color:var(--ink-2);margin:10px 0 16px;max-width:900px">
+        <span class="hl">聚合平台 90% 的价值在模型池深度，10% 在界面。</span> 同一账号、同一档位，换个模型单条价能差 5 倍——
+        下表是 OiiOii APEX 档（每 100 盒饭 ¥5.16）按<b>统一口径 1080p</b> 折算的秒价速查：
+      </p>
+      <div class="tbl-wrap scroll">
+        <table style="min-width:880px">
+          <thead><tr><th>模型</th><th>分辨率</th><th>盒饭 / 秒</th><th class="px">¥ / 秒</th><th class="px">10 秒单条 ¥</th><th>定位</th></tr></thead>
+          <tbody>
+            <tr><td><b>Oii Omini</b></td><td>1080p</td><td>7</td><td class="px"><b style="color:#0f9b6c">¥0.36</b></td><td class="px"><b style="color:#0f9b6c">¥3.6</b></td><td>自研廉价档，草稿/素材首选</td></tr>
+            <tr><td>Vidu Q3 Mix</td><td>720p</td><td>6</td><td class="px">¥0.31</td><td class="px">¥3.1</td><td>720p 里最便宜，角本一致性强</td></tr>
+            <tr><td>Kling 3.0 std</td><td>默认</td><td>8</td><td class="px">¥0.41</td><td class="px">¥4.1</td><td>—</td></tr>
+            <tr><td>Seedance 2.0 mini</td><td>720p</td><td>8</td><td class="px">¥0.41</td><td class="px">¥4.1</td><td>分镜预演</td></tr>
+            <tr><td><b>Wan 3.0</b></td><td>1080p</td><td>13</td><td class="px">¥0.67</td><td class="px">¥6.7</td><td>开源系，1080p 性价比王</td></tr>
+            <tr><td>Kling V3 Omni</td><td>1080p</td><td>12</td><td class="px">¥0.62</td><td class="px">¥6.2</td><td>角色一致性强</td></tr>
+            <tr><td>Seedance 2.0 fast</td><td>720p</td><td>11</td><td class="px">¥0.57</td><td class="px">¥5.7</td><td>要速度不要画质</td></tr>
+            <tr style="background:#fffaf5"><td><b>Seedance 2.0 pro</b></td><td>1080p</td><td>35</td><td class="px">¥1.81</td><td class="px worst">¥18.1</td><td><span class="hl">满血档，交付级才用</span></td></tr>
+            <tr style="background:#fffaf5"><td><b>HappyHorse 1.1</b></td><td>1080p</td><td>26</td><td class="px">¥1.34</td><td class="px worst">¥13.4</td><td>盲测榜首模型，值得溢价</td></tr>
+            <tr style="background:#fffaf5"><td><b>Seedance 2.5</b></td><td>1080p</td><td>55</td><td class="px worst">¥2.83</td><td class="px worst">¥28.3</td><td><span class="hl">比 2.0 贵 56%，非必要别碰</span></td></tr>
+            <tr><td><b>Updream / Kling o3</b><span class="mini">对照：Updream Pro 会员价 ¥0.00652/积分</span></td><td>720p</td><td class="mini">40 积分/秒</td><td class="px">¥0.26</td><td class="px">¥2.6</td><td>Updream 全平台最便宜的可用镜头</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:13px;color:var(--ink-3);margin:10px 0 0">
+        同样 ¥239/月的 STAR 档（3,930 盒饭）：只跑满血 Seedance 2.0 pro 1080p 出 <b>11 条</b>，换成 Wan 3.0 / Oii Omini 能出 <b>52–112 条</b>。<b>这就是选聚合平台的全部意义。</b>
+      </p>
+
+      <div class="card" style="--bar:#d9534f;padding:26px 28px;margin-top:26px">
+        <div class="blk-t" style="color:#d9534f">选聚合平台前必读的三个坑</div>
+        <ul>
+          <li><span class="hl">「一个订阅全囊括」不等于「同样额度能全用完」。</span> Krea Pro 同样 2 万 units，MiniMax H3 Max 出 432 条、LTX-2.5 Pro 只出 37 条——<b>差 12 倍</b>。签约前先问：你最常用的两个模型，各自 1 万 units 能出几条？</li>
+          <li><span class="hl">中间商不一定便宜。</span> HappyHorse 1.0 的 1080p/15 秒，官方 Qwen 直连约 $1.14，四大聚合商 Fal / WaveSpeed / ATLAS 报价整齐划一到 $4.20，Kie 约 $4.0——<b>贵 3.7 倍</b>。</li>
+          <li><span class="hl">免费档的商用授权要单独看。</span> OpenArt 免费档<b>不给商用</b>、Krea 免费档<b>给</b>、Lovart 免费版限个人、星流要会员才商用。接单交付别在免费档上踩合规。</li>
+          <li><span class="hl">两个视频聚合都极严。</span> OiiOii 界面不显示消耗、必须一步步走「剧本→角色→场景→分镜」，空降要先花一两条试错（约 80 盒饭 ≈ ¥4.4）；两家退款都极严（OiiOii 需 7 天内零消耗才全退、特惠会员 / 积分不退），并发数是隐藏产能天花板（OiiOii STAR 13 / APEX 20；Updream Max 才从 2 提到 6）。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PICKS ============ -->
+<section id="picks">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <h2>选型建议 · 按身份对号入座</h2>
+        <p>不要问哪个最强，要问哪个和你今天的产能匹配。</p>
+      </div>
+    </div>
+
+    <div class="picks">
+      <div class="pick" style="--bar:#2b6cff">
+        <div class="ico">L</div>
+        <h4>¥3000–4000 预算：优先即梦高级（¥5199，年出 448 条），要更便宜就 LibTV 旗舰（¥2999，279 条）</h4>
+        <p class="who">¥1.16/秒 · ¥11.60/条 · 年出 448 条（LibTV ¥1.08/秒 · 279 条）</p>
+        <p>各自取真实档位后量够用的两家。即梦最接近预算带的档是<b>高级 ¥5199/年</b>（¥1.16/秒、月出 37.3 条），超级档 ¥19656/年 只要 ¥0.99/秒、月出 165 条，但入门基础档（¥393/年）只出 2.2 条，别被首月 ¥33 吸引。<span class="hl">务必走年付</span>——连续包月 ¥499/月 是 ¥2.67/秒、贵 2.3 倍。</p>
+      </div>
+      <div class="pick" style="--bar:#f5a518">
+        <div class="ico">J</div>
+        <h4>追求画质与镜头精度</h4>
+        <p class="who">即梦 AI（图片 4.0 4K + Seedance 2.0 VIP 通道）</p>
+        <p>需要多模型 / 多模型并列对比时叠加 <b>Higgsfield Plus</b>（$39/月 年付，70+ 电影感镜头预设点选即用），或用 <b>Updream</b>（取 Pro ¥129/月 ≈¥1548/年，¥1.95/秒、年出 79 条）的 3D 白模预演台先把机位定死再生成，从源头压抽卡率。</p>
+      </div>
+      <div class="pick" style="--bar:#6b4dff">
+        <div class="ico">T</div>
+        <h4>电商 / 批量素材生产</h4>
+        <p class="who">TapNow Pro（8 并发 + TapTV 12 万模板）</p>
+        <p>电商套图 2 分钟出 20 张，节点画布任意分支 fork 试方向不丢原稿；团队协同选 <b>Shotlab 超级会员</b>（团队协作空间 + 积分精细分配，3D 导演台解决越轴 / 站位）。</p>
+      </div>
+      <div class="pick" style="--bar:#00a3a3">
+        <div class="ico">M</div>
+        <h4>漫剧 / 短剧工作室</h4>
+        <p class="who">各自真实档位：小云雀 ¥1.15/秒（年 313 条，唯一落在预算带内）｜ LibTV ¥1.08/秒（年 279 条）｜ Seko ¥2.22/秒（年 129 条，垫底）</p>
+        <p>Shotlab 赢在「年卡越贵单条越便宜」（360 创作币 = ¥398 卡 ¥119.4/条 → ¥1998 卡 <b>¥12.0/条</b> → ¥8888 卡 <b>¥9.3/条</b>），节点画布 + 3D 导演台适合多镜头剧集；<span class="hl">小云雀是这一轮的新晋最优解</span> —— 高级年付 ¥3600（唯一档位正好落在 ¥3000–4000 内）给 8,600 积分/月，月出 26.1 条，<b>¥1.15/秒 只比 LibTV 贵 ¥0.07</b>，代价是次年 ¥7199 直接翻倍。Seko 赢在多集连载（100 集跨集资产复用）与 45% 平台分成，但 ¥2880/年 只含 36,000 积分、除以 278 积分/条后年出 <b>129 条</b>全场最低，¥/积分 ¥0.0800 也是全场最高——<span class="hl">务必降模型跑 Happy Horse / 普惠版，满血跑一年封顶 300 秒</span>。OiiOii 赢在角色设定表 + 逐镜审核（坏镜头单独重生成），取 STAR ¥239/月 年出 135 条，APEX ¥1009/月 出 55.9 条是另一条路径。</p>
+      </div>
+    </div>
+
+    <div class="blk" style="margin-top:34px">
+      <div class="blk-t" style="color:#0f9b6c">一条通用公式（各家通用，可自己套）</div>
+      <p style="font-size:15px;color:var(--ink-2);margin:12px 0;line-height:2">
+        <b style="color:#d9534f">单条 ¥ ＝ 单条消耗单位数 ×（该档年订价 ÷ 该档年含单位）　→　¥/秒 ＝ 单条 ¥ ÷ 时长（10s）</b><br>
+        <span class="mini" style="display:inline"><b>「该档」＝ 这家官方档位里最接近 ¥3000–4000 年付预算的那一条</b>，不插值、不外推、不折算成统一价。
+        例：即梦 330 积分 ×（¥5199 ÷ 147,840）= ¥11.60 → <b>¥1.16/秒</b>，年出 448 条 ｜ LibTV 680 ×（¥2999 ÷ 189,600）= ¥10.76 → <b>¥1.08/秒</b> ｜ Shotlab 360 币 ×（¥1998 ÷ 60,000）= ¥11.99 → <b>¥1.20/秒</b></span><br>
+        <span class="mini" style="display:inline">本轮实取档位年订价：LibTV ¥2999（旗舰）・小云雀 ¥3600（高级年付首年） ・ 即梦 ¥5199（高级） ・ Shotlab ¥1998（超级年卡） ・ Updream ¥1548（Pro ¥129/月） ・ NeoWOW ¥11996（MAX ¥2999/季 年化） ・ OiiOii ¥2868（STAR ¥239/月） ・ Seko ¥2880（高级 1 年，限时价）；年含单位取各自官方月额 ×12，Seko 是年额直给 36,000 积分。小云雀 <b>¥7199</b>（次年续费）、Seko <b>¥3600</b>（活动价到期）都是翻倍陷阱，别按这两个数算。</span>
+      </p>
+    </div>
+
+    <div class="blk" style="margin-top:34px">
+      <div class="blk-t" style="color:#3d5afe">补齐清单：还缺这些平台的后台实测值</div>
+      <p style="font-size:14px;color:var(--ink-2);margin:10px 0 16px;max-width:900px">
+        <b>操作一致，5 分钟能贴完：</b>在各平台生成页把参数设成
+        <span class="hl">Seedance 2.0（或该平台最强的那个视频模型）· 9:16 · 1080P · 1 · 10s · 图生视频（全指参考 / 首帧图）</span>，
+        截下单前的「预估消耗」那一行发我，我按同一公式统一回表。
+      </p>
+      <div class="tbl-wrap scroll">
+        <table style="min-width:900px">
+          <thead><tr><th>平台</th><th>状态</th><th>已知 / 还缺</th><th>已知月订价</th></tr></thead>
+          <tbody>
+            <tr style="background:#f6fbf7"><td><b>即梦 AI</b></td><td style="color:#0f9b6c"><b>✅ 双封死</b></td><td>四档积分已核（725 / 2210 / 12320 / 54600）；图生（全指参考）= <b>330 积分/条</b>、全能参考 = 594。<b>×1.80</b></td><td>¥393 / ¥1099 / ¥5199 / ¥19656 每年</td></tr>
+            <tr style="background:#f6fbf7"><td><b>小云雀 AI</b></td><td style="color:#0f9b6c"><b>✅ 实测封死</b></td><td>SD 2.0 VIP · 9:16 · 1080P · 10s · 全参 + 运镜 + 音频 = <b>330 积分/条</b>（33/秒）；订阅页 <b>高级年付 ¥3600/年 含 8,600 积分/月</b>，官方自报「SD 2.0 VIP ¥0.44 起/秒」</td><td><b>¥3600 / 年（首年）</b> · ¥7199 次年 · 包月 ¥419</td></tr>
+            <tr style="background:#f6fbf7"><td><b>LibTV</b></td><td style="color:#0f9b6c"><b>✅ 实测封死</b></td><td>SD 2.0 · 9:16 · 1080P · 10s · 文生 + 音频 = <b>680 积分/条</b>；官方「120 积分/条」是低配口径，真实值 ×5.7</td><td>¥499 / ¥1299 / ¥2999 / ¥6599 每年</td></tr>
+            <tr style="background:#f6fbf7"><td><b>Seko</b></td><td style="color:#0f9b6c"><b>✅ 已收实测</b></td><td>278 积分/条（全能参考 1080p 10s）；订阅页 <b>高级会员 1 年 ¥2880/年 含 36,000 积分/年</b>（划线 ¥3600），官方赠 SD 2.0 年 3,000 秒 / Happy Horse 1.1 年 7,200 秒；图生口径未测</td><td><b>¥2880 / 年（限时）</b> · ¥3600 原价 · ¥240/月</td></tr>
+            <tr style="background:#f6fbf7"><td><b>NeoWOW</b></td><td style="color:#e8a33d"><b>⚠ 已收实测 · 待复核</b></td><td>3,750 星/条（9:16 · 1080p · 10s · 音频开）；订阅页 <b>MAX ¥2999/季 含 188,000 星/月</b>（53 折，¥11996/年）。<b>与官方自报「月产 5,371 秒视频」反算 350 星/条 差 10.7 倍</b>，需再截一次参数面板封死</td><td><b>¥2999 / 季（MAX）</b> · 旧「¥60/月 会员」档已作废</td></tr>
+            <tr style="background:#f6fbf7"><td><b>OiiOii</b></td><td style="color:#0f9b6c"><b>✅ 官方定价表</b></td><td>盒饭/秒全套已公示（SD 2.0 pro 1080p 35）</td><td>¥86.3 / ¥239 / ¥519 / ¥1009</td></tr>
+            <tr><td><b>Updream</b></td><td>⚠️ 官网公示</td><td>要一张 Seedance 2.0 图生 1080p 10s 的预估截图（现按 300 积分/秒 官网值）</td><td>¥129 / ¥419 / ¥839</td></tr>
+            <tr><td><b>万兴剧厂 Reelmate</b></td><td>❌ 待实测</td><td>要 Seedance 2.0 图生 1080p 10s 积分预估（现只有 HappyHorse 折算，1 积分 = ¥0.1）</td><td>¥99 / ¥199 / ¥949</td></tr>
+            <tr><td><b>可灵 Kling 3.0</b></td><td>✅ 官方会员页</td><td>1080p 12 灵感值/秒（有音频）、8（静音）；套餐单位数口径待复核</td><td>¥58 / ¥234 / ¥586 / ¥1149</td></tr>
+            <tr style="background:#f6fbf7"><td><b>Shotlab</b></td><td style="color:#0f9b6c"><b>✅ 已收实测</b></td><td>全能参考 + Seedance 2.0 + 1080P 9:16 10s + 音频开 = <b>360 创作币/条</b>；图生（不带参考）系数未测</td><td>¥398 / ¥1998 / ¥6799 / ¥8888 年卡四档</td></tr>
+            <tr><td><b>有戏 AI</b> / <b>海螺</b></td><td>❌ 待实测</td><td>要 1080p 图生口径的 10s 预估（现只有 720p / 自家模型的二手调研）</td><td>¥698 / ¥68–1399</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MORE ============ -->
+<section id="more">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <h2>同类还有哪些 · 三层延伸图谱</h2>
+        <p>前面 12 家全在中间层（平台化生产），这三层补的是它们不做的边角。</p>
+      </div>
+    </div>
+
+    <p style="font-size:15px;color:var(--ink-2);max-width:880px;margin-bottom:26px">
+      判断标准：<span class="hl">上层是「引擎」，下层是「流水线」，再往下是「零成本试错层」。</span>
+      想本地跑不想外发素材、预算为零、或要做面向海外的商业交付，都在这三层里找。
+    </p>
+
+    <div class="tbl-wrap scroll" style="margin-bottom:18px">
+      <table style="min-width:1020px">
+        <thead>
+          <tr><th>第一层 · 模型引擎（可作为底层被调用）</th><th>厂商</th><th>核心优势</th><th>单次时长 / 分辨率</th><th>价格参考</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><b>可灵 Kling 3.0 Omni</b><span class="mini">klingai.com</span></td><td>快手</td>
+            <td><span class="hl">物理互动真实 + 3 角色一致性（91 分）</span>，可续写到 2–3 分钟，海外生态成熟</td>
+            <td>15s / 4K</td><td>¥30 月起</td></tr>
+          <tr><td><b>海螺 AI（Hailuo H3）</b></td><td>MiniMax</td>
+            <td><span class="hl">原生音画同步第一梯队</span>；人脸一致性 95%+，开源权重可本地跑（12G 显存）</td>
+            <td>4–15s / 1080P–4K</td><td>¥29 月起</td></tr>
+          <tr><td><b>Vidu Q3</b><span class="mini">vidu.ai</span></td><td>生数科技</td>
+            <td>多角色一致性最强（Face ID），原生带对白与音效，2D 动画 / 漫剧优化</td>
+            <td>3–16s / 1080P</td><td>¥48.25 月起</td></tr>
+          <tr><td><b>通义万相 / 万相 3.0</b></td><td>阿里巴巴</td>
+            <td>「电影美学控制系统」+ R2V 多主体锁定；开源 Wan 3.0 可本地部署</td>
+            <td>15–30s / 1080P</td><td>¥47 月起</td></tr>
+          <tr><td><b>HappyHorse 1.0</b><span class="mini">阿里 · 开源</span></td><td>阿里巴巴</td>
+            <td>Video Arena 盲测图生视频榜首（1411 分），压过 Seedance 2.0 与可灵 3.0；开源可自托管</td>
+            <td>10s / 1080P</td><td><b>开源免费</b></td></tr>
+          <tr><td><b>智谱清影</b><span class="mini">chatglm.cn</span></td><td>智谱 AI</td>
+            <td><span class="hl">免费不限量 + 无水印 + 可商用</span>，4K/60fps，藏在大模型 App 里零门槛</td>
+            <td>6–10s</td><td>¥0<span class="mini">加速 ¥5/天 或 ¥199/年</span></td></tr>
+          <tr><td><b>Google Veo 3.1 / Runway Gen-4.5</b></td><td>Google / Runway</td>
+            <td>Veo 原生 4K 电影级光影 + 音频同步；Runway 内置完整编辑器与 VFX</td>
+            <td>15s / 4K–8K</td><td>Veo 约 ¥0.42/秒<span class="mini">Runway $15/月起</span></td></tr>
+          <tr style="background:#fff5f5"><td style="color:#d9534f">Sora 2</td><td>OpenAI</td>
+            <td colspan="3" style="color:var(--ink-3)">⚠️ <b>已于 2026 年 3 月关闭</b>，不再作为可订阅平台存在。做方案时勿列入选列表。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="font-size:13px;color:var(--ink-3);margin:0 0 40px">
+      另有天幕（万兴，昇腾算力 60s+）、拍我 AI / PixVerse（爱诗，二次元 + 国内首个「分镜 + 音频」一键直出）、
+      CogVideoX（商汤开源 4K/25s）、腾讯混元 / 腾讯智影、百度绘想与蒸汽机、白日梦 AI（光魔，最长 6 分钟）、
+      智小象、Video Ocean（潞晨）——共 14+ 款图生视频工具在跑。
+    </p>
+
+    <div class="picks" style="grid-template-columns:repeat(3,1fr);margin-bottom:14px">
+      <div class="pick" style="--bar:#0f9b6c">
+        <div class="ico">🆓</div>
+        <h4>零预算：先跑通一集再谈钱</h4>
+        <p class="who">智谱清影 + 三家每日免费额度</p>
+        <p>清影免费不限量、无水印、可商用（单条约 6 秒），<b>先做出一集能看的短剧完全够</b>。剩下镜头用即梦 / 可灵 / 小云雀每日免费额度补量，总投入 ¥0。</p>
+      </div>
+      <div class="pick" style="--bar:#5b3fd6">
+        <div class="ico">🔓</div>
+        <h4>要私有化：素材不出内网</h4>
+        <p class="who">只有 Wan 3.0 / MiniMax H3 / HappyHorse 三个主流选项</p>
+        <p>想本地部署、无限试错、数据不外发，闭源平台一律出局。<b>开源权重 + 自托管</b>是当前唯一路径，成本从「订阅费」变成「显卡钱」。</p>
+      </div>
+      <div class="pick" style="--bar:#d97706">
+        <div class="ico">🌏</div>
+        <h4>要出海外：面向国际交付</h4>
+        <p class="who">Veo 3.1 / Runway / Pika + Synthesia、HeyGen</p>
+        <p>国内平台在合规审核与支付上更顺，但海外商业交付、多语言数字人、跨境广告要接 <b>Synthesia（$18/月，240+ 虚拟人）</b> 和 <b>HeyGen（$29/月）</b>。</p>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:26px;--bar:#3d5afe;padding:28px 30px">
+      <div class="blk-t" style="color:var(--accent)">2026 年真正的趋势判断</div>
+      <ul>
+        <li><span class="hl">按镜头选模型，而不是按项目选一个工具。</span> 风景镜头用 A、人物特写用 B、动态场景用 C 已成标准工作流——这也是聚合型平台比单一模型平台活得好的根本原因。</li>
+        <li><span class="hl">单纯的模型能力越来越不构成壁垒。</span> 字节把 Seedance 2.0 的 API 全面开放后，第三方平台都能调用，下一轮竞争全在「谁先钻进创作者的日常生产里」。</li>
+        <li><span class="hl">算力供需长期偏紧。</span> 短剧公司为抢低峰时段资源凌晨三点上班、即梦会员在二手平台被倒卖——不挑时段的用户选错峰额度更友好的平台有明显成本优势。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NOTES ============ -->
+<section id="notes">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <h2>关于这份数据</h2>
+        <p>价格会动，尤其是限时折扣和年付首年价，购买前以官网实时页面为准。</p>
+      </div>
+    </div>
+    <div class="stats" style="grid-template-columns:repeat(4,1fr)">
+      <div class="stat"><b>取档口径</b><span>全站按<b>「年付 ¥3000–4000 档」</b>预算比价，但<b>不折算成统一价</b>：每家取自己官方档位里最接近该预算带的那一档，档位价即实付价（不插值、不外推）；官方档位里没有这档的就取最接近的现档，并标出差距。</span></div>
+      <div class="stat"><b>折扣口径</b><span>表中多数为「首年 / 限时折后价」，次年续费普遍翻倍：<b>小云雀高级首年 ¥3600 → 次年 ¥7199（+100%）</b>、即梦高级首年 ¥5199 → 次年 ¥10398、Seko ¥2880 → ¥3600（活动价到期）。<span class="hl">本表主算折后价，次年月价另标。</span></span></div>
+      <div class="stat"><b>单位口径</b><span>各家单位名目不同：积分 / 灵感值 / 星 / 盒饭 / 算力 / 创作币 / Tapies。<b>名字不一样不要紧，能统一折算到 ¥ 才可比。</b></span></div>
+      <div class="stat"><b>汇率口径</b><span>Higgsfield / TapNow / Shotlab 为美元标价，年付省 25%–40%；本页统一按 1 USD ≈ 7.2 CNY 折算，与官网人民币价可能有差。</span></div>
+    </div>
+
+    <div class="blk" style="margin-top:34px">
+      <div class="blk-t" style="color:#d9534f">数据溯源：四个版本里被推翻的三处锚点</div>
+      <div class="tbl-wrap scroll">
+        <table style="min-width:960px">
+          <thead><tr><th>版本</th><th>当时怎么记的</th><th>一手证据（你的截图 / PDF）</th><th>现在的数</th></tr></thead>
+          <tbody>
+            <tr><td>v1</td><td>Seko「¥0.05/秒 ≈ ¥0.5/条」——全场最低</td><td>Seko 后台：全能参考 + SD 2.0 + 1080P + 10S = <b>278 积分</b>；订阅页高级 1 年 <b>¥2880/年 含 36,000 积分</b></td><td>高级年档 <b>¥22.2/条</b>（¥2.22/秒）</td></tr>
+            <tr><td>v1</td><td>NeoWOW「¥0.17/秒 ≈ ¥1.7/条」——全场最低</td><td>NeoWOW 后台：SD 2.0 · 1080p · 10s · 9:16 · 音频开 = <b>3,750 星</b>；订阅页 MAX <b>¥2999/季 含 188,000 星/月</b></td><td>MAX 档 <b>¥19.9/条</b>（¥1.99/秒）</td></tr>
+            <tr style="background:#fff8f0"><td><b>v8</b></td><td><b>小云雀「年付 ¥379 / ¥759，四档统一 1,200 积分/月，全系没有 3000 元档」</b></td><td>小云雀订阅页：高级会员年付 <b>¥3600/年</b>（划线 ¥7199），含 <b>+8,600 积分/月</b>，「换算 ¥10 = 286 积分」</td><td><b>¥1.15/秒 · ¥11.51/条 · 年出 313 条</b>，且是八家里唯一落在 ¥3000–4000 内的档位</td></tr>
+            <tr style="background:#fff8f0"><td><b>v8</b></td><td><b>Seko「取高级 ¥195/月（¥2340/年），¥1.81/秒」</b></td><td>Seko 订阅页：高级会员 -1 年 ¥2880（划线 ¥3600），「每年 36,000 积分，有效期 1 年」，SD 2.0 送 3,000 秒</td><td>改按年直给口径重算 → <b>¥2.22/秒</b>（¥/积分 从 ¥0.0600 抬到 <b>¥0.0800</b>，全场最高）</td></tr>
+            <tr><td>v2</td><td>LibTV「官方 120 积分/条 → ¥1.95–2.77，全场地板」</td><td>LibTV 后台：2.0 · 文生 · 1080P · 10s · 音频 = <b>680 积分</b></td><td>专业版 <b>¥15.7/条</b>，每月只出 2.6 条</td></tr>
+            <tr><td>v2</td><td>即梦按「标准通道 8 积分/秒」算 → ¥2.8/条</td><td>即梦后台：VIP · 图生（全指参考）1080P 10s = <b>330 积分</b></td><td>高级档 <b>¥11.6/条</b>（VIP 通道 33 积分/秒）</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:13.5px;color:var(--ink-2);margin:12px 0 0">
+        <b>三处共同的错误来源：</b>① 引用二手段落站（内容农场 / AI 生成的对比文）而不是各家官方定价页——同一平台它能给出差一个数量级的两个数；
+        ② <b>量纲错</b>——把「每单位积分的价格」当成「每秒消耗」直接相乘；
+        ③ 各家默认展示最便宜的开关组合（低配口径 / 标准通道 / 无参考），拿它当普遍价去横向比。
+        <span class="hl">本页已全站统一到「年付 ¥3000–4000 档 · Seedance 2.0 VIP · 9:16 · 1080P · 1 · 10s · 图生视频」这两条。</span>
+        主表的新口径：不插值、不外推，每家只取自己最接近 ¥3000–4000 预算带的真实档位，档位差距直接标在每一行。
+      </p>
+    </div>
+
+    <div class="blk" style="margin-top:34px">
+      <div class="blk-t" style="color:#3d5afe">下单前必做的一件事</div>
+      <p style="font-size:15px;color:var(--ink-2);line-height:2;margin:0">
+        无论选哪家，把生成页设到 <b>Seedance 2.0 · 9:16 · 1080P · 10s · 图生视频</b>，
+        看一眼<b>下单前那一行「预估消耗」</b>，然后套公式 <b>单条 ¥ ＝ 消耗 ×（月订价 ÷ 套餐单位数）</b>。
+        这是唯一不会随折扣、档位、活动变的价格。
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>
+      <b>数据来源：</b>各平台官网定价页（即梦 jimeng.jianying.com、小云雀 xyq.jianying.com、LibTV libtv.gongke.net、
+      NeoWOW story.neodomain.cn、Seko 官方套餐、Updream 官网、OiiOii 官方定价表、新片场 vip.xinpianchang.com、
+      Higgsfield higgsfield.ai、TapNow app.tapnow.ai、火山方舟豆包视频模型定价）及 2026 年 9–10 月第三方评测交叉核对，
+      另含<b>后台下单前实测预估（Seko / NeoWOW / 即梦 / 小云雀 / LibTV 五组）</b>与<b>订阅页直读（小云雀高级年付 ¥3600＋8,600 积分/月、Seko 高级 1 年 ¥2880＋36,000 积分/年、NeoWOW MAX ¥2999/季＋188,000 星/月）</b>。<br>
+      <b>免责声明：</b>本页为信息整理与选型参考，不含任何商业推广；所有商标与品牌归各自所有者。
+      积分、并发数、生成量估算均会随活动变化，实际权益请以官方最新套餐页为准。<br>
+      整理时间：2026 年 10 月 3 日 · 统一口径版本。
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

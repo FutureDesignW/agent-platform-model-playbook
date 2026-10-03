@@ -2,7 +2,9 @@
 
 WorkBuddy 内置模型 × 豆包 × 通义千问 × GPT-6 × Claude Code 的横向对比与选型方案。
 
-**[→ 打开手册（index.html）](index.html)**
+**[→ 打开模型手册（index.html）](index.html)**
+
+**[→ AI 生图 / 视频平台年会员单价对比（ai-creative-platforms.html）](ai-creative-platforms.html)**
 
 ---
 
@@ -25,6 +27,7 @@ WorkBuddy 内置模型 × 豆包 × 通义千问 × GPT-6 × Claude Code 的横�
 - **一致性靠上下文长度**（hy4-preview-f / 1M 档）、**文笔靠 Kimi**、**代码靠 MiniMax · GLM**、**跑量靠免费档**
 - 倍率是积分相对值，模型之间可直接比较，但不能与外部 API 的人民币单价直接换算
 - 不是所有任务都该留在 WorkBuddy 里：整仓重构用 Claude Code、可控改图用 Seedream、自建服务用 Qwen 开源权重
+- 落到**按量付费**的创意生产时，另一本手册更直接：8 家 AI 生图 / 视频平台（即梦、LibTV、小云雀、Shotlab、NeoWOW、OiiOii、Seko、Updream）统一折算成「一条 1080P 图生视频」的 ¥/秒与年产能，并给出砍价顺序
 
 ## 数据来源
 
@@ -39,6 +42,7 @@ WorkBuddy 内置模型 × 豆包 × 通义千问 × GPT-6 × Claude Code 的横�
 
 ## 附加文件
 
+- `ai-creative-platforms.html` — **AI 生图 / 视频平台年会员单价对比**：8 家平台各取官方 ¥3000–4000 档年会员，统一按 `Seedance 2.0 VIP · 9:16 · 1080P · 1 · 10s 图生视频` 折算 ¥/秒、¥/条与年可出条数；附 16 家聚合平台（Krea / Higgsfield / OpenArt / Seko / 即梦 …）支持的生图与视频生成模型清单、星流 Xingliu 停服等硬情报
 - `life-planning-intake.md` — 人生 / 职业规划类对话的信息采集表（配合第 11 节使用）
 
 ---
