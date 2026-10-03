@@ -8,9 +8,12 @@
 | **平台** | 在哪家买、怎么花钱、一年能出多少量 | 平台层（`ai-creative-platforms.html`） |
 | **模型** | 具体调哪个型号、成本怎么算 | 模型层（本仓 `index.html`） |
 
-**[→ 平台层：AI 生图 / 视频平台年会员单价对比（ai-creative-platforms.html）](ai-creative-platforms.html)**
+**[→ 平台层：AI 生图 / 视频平台年会员单价对比（ai-creative-platforms.html）](https://futuredesignw.github.io/agent-platform-model-playbook/ai-creative-platforms.html)**
 
-**[→ 模型层：WorkBuddy 内置 × 豆包 × 通义千问 × GPT-6 × Claude Code（index.html）](index.html)**
+**[→ 模型层：WorkBuddy 内置 × 豆包 × 通义千问 × GPT-6 × Claude Code（index.html）](https://futuredesignw.github.io/agent-platform-model-playbook/index.html)**
+
+> 站点已部署在 GitHub Pages。在 GitHub 网页里点上面的链接会直接打开渲染好的页面；
+> 直接点仓库文件名（blob 页）只会看到 HTML 源码，需要先保存再用浏览器打开。
 
 ---
 
@@ -74,6 +77,8 @@
 
 - `index.html` — 模型层手册：Agent 资产 × 四大阵营 × 等价替代表 × 场景映射
 - `ai-creative-platforms.html` — 平台层手册：8 家 AI 生图 / 视频平台年会员单价对比 + 16 家聚合平台模型库
+
+线上预览（GitHub Pages，两份 HTML 为自包含单文件，无需构建）：<https://futuredesignw.github.io/agent-platform-model-playbook/>
 
 > 说明：此前与第 11 节配套的人生 / 职业规划信息采集表 `life-planning-intake.md` 已移除，第 11 节改为直接对话式采集——按「阶段 ① 信息采集 → ② 深度思辨 → ③ 取舍推演 → ④ 落成文档 → ⑤ 交叉验证」的顺序与模型分工走，不再依赖离线表格。
 
