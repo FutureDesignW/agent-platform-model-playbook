@@ -3,318 +3,1985 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Agent · 平台 · 模型 对比选择手册 · 模型层：WorkBuddy × 豆包 × 千问 × GPT-6 × Claude Code</title>
+<title>模型层选型手册 · WorkBuddy 内置 × 豆包 × 千问 × GPT-6 × Claude Code · 附各模型档案 / 新闻 / 口碑</title>
+<meta name="description" content="Agent · 平台 · 模型三层选型手册的模型层：WorkBuddy 内置 19 个可手动指定模型的倍率与规格、OpenRouter 周调用量实榜、每个模型的详细档案 / 近期新闻 / 第三方口碑、四大阵营横评、等价替代表与场景映射。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
+/* ============================================================
+   定调：工业测控台 / Industrial Instrument Deck
+   深色基底 + 钢灰中间调 + 琥珀单强调色（60 / 30 / 10）
+   展示字 Bebas Neue（拉丁工业标牌）+ Noto Sans SC 900（中文）
+   正文字 IBM Plex Sans + Noto Sans SC；数据一律 JetBrains Mono 等宽
+   记忆点：双轨「周调用量赛道」条形图 + 每张模型档案卡的新闻时间线
+   ============================================================ */
 :root{
---bg:#f6f7f9;--card:#fff;--line:#e6e8ec;--line2:#f0f1f4;
---txt:#14181f;--sub:#5c6472;--hint:#8a919e;
---acc:#2f6feb;--acc-soft:#eaf1fd;
---free:#c0392b;--free-bg:#fdeceb;
---ok:#178a52;--ok-bg:#e7f5ee;
---warn:#a86a08;--warn-bg:#fdf3e2;
---max:#5538b8;--max-bg:#eeecfb;
---new:#8a5a00;--new-bg:#fdf5e4;
---r:12px;
+  /* 色彩 */
+  --bg:#0b0c0d;
+  --surface:#131518;
+  --surface-2:#191c20;
+  --surface-3:#20242a;
+  --line:rgba(236,233,226,.10);
+  --line-2:rgba(236,233,226,.16);
+  --line-3:rgba(236,233,226,.28);
+  --text:#ece9e2;
+  --text-2:#a8adb3;
+  --text-3:#8b9096;   /* 最小文字色：在 surface-3 上仍 ≥4.5:1 */
+  --accent:#f2a03d;
+  --accent-dim:#8a5f22;
+  --accent-wash:rgba(242,160,61,.10);
+  --up:#d9534a;      /* 增长 = 红，同 A 股习惯 */
+  --down:#5aa06f;    /* 下滑 = 绿 */
+  --flat:#7f848a;
+
+  /* 阵营识别色：只用于 3px 左侧色条、小圆点与数据条填充，不做大色块 */
+  --c-hy:#4f9ad8;      /* 腾讯混元 */
+  --c-glm:#6fb58f;     /* 智谱 */
+  --c-ds:#9585d6;      /* DeepSeek */
+  --c-kimi:#d68fae;    /* Moonshot */
+  --c-mm:#d99a5c;      /* MiniMax */
+  --c-step:#c98a5e;    /* 阶跃星辰 */
+  --c-bd:#d97b6c;      /* 字节豆包 */
+  --c-qw:#b08ad4;      /* 阿里千问 */
+  --c-oai:#e0c15c;     /* OpenAI */
+  --c-ant:#d08a6a;     /* Anthropic */
+  --c-stealth:#8f949c; /* 匿名 */
+
+  /* 字阶（1.25 模块化） */
+  --fs-mono:12px;
+  --fs-xs:12px;
+  --fs-sm:13px;
+  --fs-base:15px;
+  --fs-md:17px;
+  --fs-lg:22px;
+  --fs-xl:30px;
+  --fs-2xl:44px;
+  --fs-display:clamp(56px,11vw,128px);
+
+  /* 间距梯度 */
+  --s-1:4px; --s-2:8px; --s-3:16px; --s-4:24px;
+  --s-5:40px; --s-6:64px; --s-7:96px;
+
+  /* 圆角 / 阴影 / 动效 */
+  --r-sm:2px; --r-md:3px; --r-lg:6px;
+  --sh-1:0 2px 8px rgba(0,0,0,.35);
+  --sh-2:0 8px 28px rgba(0,0,0,.42);
+  --sh-3:0 24px 64px rgba(0,0,0,.5);
+  --ease:cubic-bezier(.16,1,.3,1);
+  --d-fast:170ms; --d-base:330ms; --d-slow:660ms;
+
+  --font-display:"Bebas Neue","Noto Sans SC",sans-serif;
+  --font-body:"IBM Plex Sans","Noto Sans SC",-apple-system,"Microsoft YaHei",sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
 }
+
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--txt);
-font:15px/1.65 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;
--webkit-font-smoothing:antialiased}
-.wrap{max-width:1120px;margin:0 auto;padding:0 24px 80px}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font:400 var(--fs-base)/1.7 var(--font-body);
+  -webkit-font-smoothing:antialiased;
+  letter-spacing:.01em;
+}
 
-header.hero{padding:44px 0 26px}
-header.hero h1{font-size:27px;font-weight:650;margin:0 0 8px;letter-spacing:-.2px}
-header.hero p{margin:0;color:var(--sub);font-size:14px;max-width:760px}
-.meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-.chip{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 11px;font-size:12px;color:var(--sub)}
-.chip.hot{background:var(--new-bg);border-color:#e8d3a8;color:var(--new)}
+/* ---------- 氛围层：冷调仪表网格 + 顶部琥珀信号光 + 颗粒 ---------- */
+.atmos{position:fixed;inset:0;pointer-events:none;z-index:0}
+.atmos::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(58rem 34rem at 8% -14%,rgba(242,160,61,.16),transparent 62%),
+    radial-gradient(46rem 30rem at 104% 6%,rgba(79,154,216,.10),transparent 58%);
+}
+.atmos::after{
+  content:"";position:absolute;inset:0;opacity:.5;
+  background-image:
+    linear-gradient(rgba(236,233,226,.028) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(236,233,226,.028) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:linear-gradient(180deg,#000 0%,transparent 78%);
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,transparent 78%);
+}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode:overlay}
 
-nav.toc{position:sticky;top:0;z-index:10;background:rgba(246,247,249,.92);
-backdrop-filter:blur(8px);border-bottom:1px solid var(--line);margin-bottom:30px}
-nav.toc ul{display:flex;gap:4px;list-style:none;margin:0;padding:10px 0;overflow-x:auto}
-nav.toc a{font-size:13px;color:var(--sub);text-decoration:none;padding:4px 10px;border-radius:8px;white-space:nowrap}
-nav.toc a:hover{background:var(--acc-soft);color:var(--acc)}
+.wrap{position:relative;z-index:2;max-width:1220px;margin:0 auto;padding:0 var(--s-4) var(--s-7)}
 
-section{margin-bottom:38px;scroll-margin-top:60px}
-h2{font-size:19px;font-weight:650;margin:0 0 6px;letter-spacing:-.1px}
-h2 .num{color:var(--acc);margin-right:8px;font-variant-numeric:tabular-nums}
-.sub{color:var(--sub);font-size:13.5px;margin:0 0 16px}
+/* ---------- 无障碍 ---------- */
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;
+  overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:var(--r-sm)}
+::selection{background:var(--accent);color:#14100a}
 
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;margin-bottom:14px}
-.card.hot{border-color:#e8d3a8;background:#fffdf7}
+/* ---------- HERO：非对称破格 ---------- */
+.deck{position:relative;padding:var(--s-6) 0 var(--s-5);overflow:hidden}
+.deck-kicker{
+  display:flex;align-items:center;gap:var(--s-3);
+  font:500 var(--fs-xs)/1 var(--font-mono);color:var(--accent);
+  text-transform:uppercase;letter-spacing:.24em;margin-bottom:var(--s-4)
+}
+.deck-kicker::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--accent-dim),transparent)}
+.deck h1{
+  font-family:var(--font-display);
+  font-size:var(--fs-display);line-height:.86;margin:0;
+  letter-spacing:-.01em;font-weight:400;
+}
+.deck h1 .zh{
+  font-family:"Noto Sans SC",sans-serif;font-weight:900;
+  font-size:.62em;letter-spacing:-.04em;
+}
+.deck h1 .thin{color:var(--accent)}
+.deck-lede{
+  margin:var(--s-4) 0 0;max-width:62ch;color:var(--text-2);
+  font-size:var(--fs-base);line-height:1.85
+}
+.deck-lede b{color:var(--text);font-weight:600}
+.deck-lede a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-dim)}
+.deck-lede a:hover{border-bottom-color:var(--accent)}
 
-table{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);
-border:1px solid var(--line);border-radius:var(--r);overflow:hidden;font-size:13.5px}
-th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line2);vertical-align:top}
-thead th{background:#f4f6f9;font-weight:600;color:var(--sub);font-size:12.5px;white-space:nowrap}
+/* 快照条：等宽数字 */
+.snapshot{
+  margin-top:var(--s-5);border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  display:grid;grid-template-columns:repeat(4,1fr);
+}
+.snapshot div{padding:var(--s-3) var(--s-3) var(--s-3) 0;position:relative}
+.snapshot div+div{padding-left:var(--s-4);border-left:1px solid var(--line)}
+.snapshot b{
+  display:block;font:500 26px/1.1 var(--font-mono);
+  color:var(--text);font-variant-numeric:tabular-nums;letter-spacing:-.02em
+}
+.snapshot b em{font-style:normal;font-size:14px;color:var(--text-3)}
+.snapshot span{display:block;margin-top:6px;font-size:var(--fs-xs);color:var(--text-3);line-height:1.5}
+
+.chips{display:flex;flex-wrap:wrap;gap:var(--s-2);margin-top:var(--s-4)}
+.chip{
+  font:500 var(--fs-xs)/1 var(--font-mono);padding:7px 11px;
+  border:1px solid var(--line-2);color:var(--text-2);
+  background:var(--surface);border-radius:var(--r-sm);
+  display:inline-flex;align-items:gap:7px
+}
+.chip::before{content:"";width:5px;height:5px;background:var(--text-3)}
+.chip.hot{border-color:var(--accent-dim);color:var(--accent);background:var(--accent-wash)}
+.chip.hot::before{background:var(--accent)}
+.chip.new::before{background:var(--up);box-shadow:0 0 0 3px rgba(217,83,74,.16)}
+
+/* ---------- 目录 ---------- */
+nav.toc{position:sticky;top:0;z-index:30;background:rgba(11,12,13,.92);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line);margin-bottom:var(--s-6)}
+/* 条目会换行成多行，而不是横向溢出后被裁掉 */
+nav.toc ul{display:flex;flex-wrap:wrap;justify-content:center;gap:0 var(--s-1);
+  list-style:none;margin:0;padding:0}
+nav.toc a{
+  display:block;font-size:var(--fs-sm);color:var(--text-3);text-decoration:none;
+  padding:12px 11px;white-space:nowrap;border-bottom:2px solid transparent;
+  transition:color var(--d-fast) ease-out,border-color var(--d-fast) ease-out
+}
+nav.toc a:hover{color:var(--text);border-bottom-color:var(--line-3)}
+nav.toc a.on{color:var(--accent);border-bottom-color:var(--accent)}
+/* 窄屏：目录默认收起，点标题栏展开，避免吃掉整屏 */
+.toc-bar{display:none;align-items:center;justify-content:space-between;gap:var(--s-3);
+  width:100%;padding:11px 2px;font:600 var(--fs-sm)/1 var(--font-sans);color:var(--text-2);
+  background:none;border:0;cursor:pointer;text-align:left}
+.toc-bar .caret{transition:transform var(--d-fast) ease-out;color:var(--text-3);flex:none}
+.toc-bar .cnt{font:400 var(--fs-xs)/1 var(--font-mono);color:var(--text-3);letter-spacing:.08em}
+nav.toc[data-open="1"] .toc-bar .caret{transform:rotate(180deg)}
+@media (max-width:860px){
+  .toc-bar{display:flex}
+  nav.toc ul{display:none;padding-bottom:6px}
+  nav.toc ul{animation:tocIn .18s ease-out}
+@keyframes tocIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+  nav.toc a{padding:9px 10px}
+}
+
+/* ---------- 区块 ---------- */
+/* scroll-margin 跟随导航实际高度：窄屏收起时是一行，展开时是两行 */
+section{margin-bottom:var(--s-6);scroll-margin-top:calc(var(--toc-h,64px) + 14px)}
+.sec-head{display:flex;align-items:baseline;gap:var(--s-3);margin-bottom:var(--s-2)}
+.sec-num{
+  font:400 15px/1 var(--font-mono);color:var(--accent);
+  letter-spacing:.1em;flex:none;padding-top:4px
+}
+.sec-head h2{
+  font:900 var(--fs-xl)/1.15 "Noto Sans SC",sans-serif;
+  margin:0;letter-spacing:-.03em
+}
+.sec-sub{margin:0 0 var(--s-4);color:var(--text-2);font-size:var(--fs-sm);max-width:78ch;line-height:1.8}
+.sec-sub b{color:var(--text);font-weight:600}
+.rule{height:1px;background:var(--line);margin:var(--s-5) 0}
+
+/* ---------- 通用卡片 ---------- */
+.panel{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--r-md);padding:var(--s-4)
+}
+.panel+.panel{margin-top:var(--s-3)}
+.panel>h4,.dossier h4{
+  font:700 var(--fs-xs)/1 var(--font-mono);text-transform:uppercase;
+  letter-spacing:.18em;color:var(--text-3);margin:0 0 var(--s-3)
+}
+
+/* ---------- 00 周调用量赛道（记忆点） ---------- */
+.track{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--r-md);overflow:hidden
+}
+.track-head{
+  display:flex;flex-wrap:wrap;gap:var(--s-3);align-items:baseline;
+  justify-content:space-between;padding:var(--s-3) var(--s-4);
+  border-bottom:1px solid var(--line);background:var(--surface-2)
+}
+.track-head h3{margin:0;font:900 var(--fs-md)/1.2 "Noto Sans SC",sans-serif;letter-spacing:-.02em}
+.track-head .src{font:400 var(--fs-xs)/1.4 var(--font-mono);color:var(--text-3)}
+.legend{display:flex;gap:var(--s-4);padding:var(--s-3) var(--s-4);border-bottom:1px solid var(--line);
+  font:400 var(--fs-xs)/1 var(--font-mono);color:var(--text-3);flex-wrap:wrap}
+.legend i{display:inline-block;width:14px;height:9px;margin-right:7px;vertical-align:-1px;border-radius:1px}
+.legend .now{background:var(--accent)}
+.legend .prev{background:transparent;border:1px dashed var(--line-3)}
+.legend .up{color:var(--up)}
+.legend .down{color:var(--down)}
+
+.track-row{
+  display:grid;grid-template-columns:52px minmax(150px,1.15fr) minmax(120px,3fr) 92px;
+  gap:var(--s-3);align-items:center;padding:12px var(--s-4);
+  border-bottom:1px solid var(--line);position:relative
+}
+.track-row:last-child{border-bottom:none}
+.track-row:hover{background:var(--surface-2)}
+.track-row.top{background:linear-gradient(90deg,var(--accent-wash),transparent 65%)}
+.t-rank{font:400 30px/1 var(--font-display);color:var(--text-3);text-align:center}
+.track-row.top .t-rank{color:var(--accent)}
+.t-name{min-width:0}
+.t-name b{display:block;font-weight:600;font-size:var(--fs-sm);line-height:1.35}
+.t-name span{display:block;font:400 11px/1.4 var(--font-mono);color:var(--text-3);margin-top:3px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.t-bar{position:relative;height:34px;background:rgba(236,233,226,.045);border-radius:1px;overflow:hidden}
+.t-ghost{position:absolute;left:0;top:0;height:100%;
+  border-right:1px dashed var(--line-3);background:rgba(236,233,226,.055)}
+.t-fill{position:absolute;left:0;top:0;height:100%;background:var(--accent);
+  transform-origin:left;transition:width var(--d-slow) var(--ease)}
+.t-fill.cn{background:var(--line-3)}
+.t-val{
+  font:500 var(--fs-xs)/1.2 var(--font-mono);text-align:right;
+  font-variant-numeric:tabular-nums;color:var(--text-2)
+}
+.t-val b{display:block;color:var(--text);font-size:var(--fs-sm)}
+.t-val .d{display:block;margin-top:4px}
+.d.up{color:var(--up)} .d.down{color:var(--down)} .d.flat{color:var(--flat)}
+
+.readout{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-3);margin-top:var(--s-3)}
+.readout .panel{padding:var(--s-3) var(--s-4)}
+.readout b{display:block;font:500 var(--fs-lg)/1.1 var(--font-mono);color:var(--accent);
+  font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.readout span{display:block;margin-top:6px;font-size:var(--fs-xs);color:var(--text-2);line-height:1.65}
+
+/* ---------- 表格 ---------- */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r-md);background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:var(--fs-sm);min-width:640px}
+thead th{
+  background:var(--surface-3);font:600 var(--fs-xs)/1.4 var(--font-mono);
+  text-transform:uppercase;letter-spacing:.1em;color:var(--text-3);
+  text-align:left;padding:11px var(--s-3);white-space:nowrap;border-bottom:1px solid var(--line-2)
+}
+tbody td{padding:11px var(--s-3);border-bottom:1px solid var(--line);vertical-align:top;line-height:1.65}
 tbody tr:last-child td{border-bottom:none}
-tbody tr:hover{background:#fafbfc}
-tr.hl td{background:#fffdf7}
+tbody tr:hover{background:var(--surface-2)}
+tbody tr.hl{background:var(--accent-wash)}
+tbody tr.hl:hover{background:rgba(242,160,61,.16)}
 td b{font-weight:600}
-code{background:#eef1f5;padding:1.5px 6px;border-radius:5px;font-size:12px;
-font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+td .dash{color:var(--text-3)}
+code,b.mdl{
+  font:500 var(--fs-xs)/1.4 var(--font-mono);background:var(--surface-3);
+  padding:2px 7px;border-radius:var(--r-sm);color:var(--text);
+  border:1px solid var(--line);white-space:nowrap
+}
+.num{font-family:var(--font-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
 
-.tag{display:inline-block;padding:1px 8px;border-radius:999px;font-size:11.5px;margin-right:4px;white-space:nowrap}
-.t-free{background:var(--free-bg);color:var(--free)}
-.t-cheap{background:var(--ok-bg);color:var(--ok)}
-.t-mid{background:var(--warn-bg);color:var(--warn)}
-.t-max{background:var(--max-bg);color:var(--max)}
-.t-new{background:var(--new-bg);color:var(--new)}
+/* ---------- 标签 ---------- */
+.tag{
+  display:inline-block;font:500 11px/1 var(--font-mono);padding:4px 7px;
+  border-radius:var(--r-sm);white-space:nowrap;margin:0 4px 4px 0;
+  border:1px solid var(--line-2);color:var(--text-2)
+}
+.t-free{color:#8fd0a8;border-color:rgba(90,160,111,.4);background:rgba(90,160,111,.10)}
+.t-cheap{color:#a8c98f;border-color:rgba(180,200,120,.35);background:rgba(180,200,120,.08)}
+.t-mid{color:var(--accent);border-color:var(--accent-dim);background:var(--accent-wash)}
+.t-max{color:#e0919a;border-color:rgba(217,83,74,.4);background:rgba(217,83,74,.09)}
+.t-new{color:#8fb8e8;border-color:rgba(79,154,216,.4);background:rgba(79,154,216,.10)}
+.t-live{color:#8fd0a8;border-color:rgba(90,160,111,.4);background:rgba(90,160,111,.10)}
+.t-warn{color:#e8b96a;border-color:rgba(232,185,106,.35);background:rgba(232,185,106,.08)}
 
-.grid{display:grid;gap:14px}
+/* ---------- 02 模型档案卡（新增核心） ---------- */
+.dossiers{display:grid;gap:var(--s-4)}
+.dossier{
+  position:relative;background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--r-md);padding:var(--s-4);padding-left:calc(var(--s-4) + 3px);
+  border-left:3px solid var(--camp,var(--line-3))
+}
+.dossier.flag::after{
+  content:"重点档案";position:absolute;top:-1px;right:-1px;
+  font:700 10px/1 var(--font-mono);letter-spacing:.16em;
+  background:var(--accent);color:#14100a;padding:6px 10px;border-radius:0 var(--r-md) 0 var(--r-md)
+}
+.d-top{display:flex;flex-wrap:wrap;gap:var(--s-4);justify-content:space-between;align-items:flex-start}
+.d-id{min-width:240px;flex:1 1 260px}
+.d-id h3{
+  margin:0;font:900 var(--fs-lg)/1.2 "Noto Sans SC",sans-serif;letter-spacing:-.03em;
+  display:flex;align-items:baseline;gap:10px;flex-wrap:wrap
+}
+.d-id h3 code{font-size:11px;font-weight:500}
+.d-id .aka{margin:6px 0 0;font-size:var(--fs-xs);color:var(--text-3);font-family:var(--font-mono)}
+.d-id .verdict-inline{margin:8px 0 0;font-size:var(--fs-sm);color:var(--text-2);line-height:1.7}
+.d-specs{
+  display:grid;grid-template-columns:repeat(4,minmax(64px,auto));gap:0;
+  border:1px solid var(--line);border-radius:var(--r-sm);flex:none
+}
+.d-specs div{padding:10px 12px;text-align:center}
+.d-specs div+div{border-left:1px solid var(--line)}
+.d-specs b{display:block;font:500 var(--fs-base)/1 var(--font-mono);color:var(--text);
+  font-variant-numeric:tabular-nums}
+.d-specs span{display:block;margin-top:5px;font-size:10px;color:var(--text-3);letter-spacing:.04em}
+.d-body{display:grid;grid-template-columns:1.15fr 1fr;gap:var(--s-4);margin-top:var(--s-4)}
+.d-body>*+*{padding-left:var(--s-4);border-left:1px solid var(--line)}
+
+/* 新闻时间线 */
+.timeline{list-style:none;margin:0;padding:0}
+.timeline li{
+  position:relative;padding:0 0 var(--s-3) 26px;
+  font-size:var(--fs-sm);line-height:1.7;color:var(--text-2)
+}
+.timeline li::before{
+  content:"";position:absolute;left:4px;top:8px;width:7px;height:7px;
+  border:1px solid var(--accent);border-radius:50%;background:var(--bg)
+}
+.timeline li::after{
+  content:"";position:absolute;left:7.5px;top:19px;bottom:-2px;width:1px;background:var(--line-2)
+}
+.timeline li:last-child{padding-bottom:0}
+.timeline li:last-child::after{display:none}
+.timeline time{
+  display:block;font:500 11px/1 var(--font-mono);color:var(--accent);
+  letter-spacing:.08em;margin-bottom:3px
+}
+.timeline b{color:var(--text);font-weight:600}
+
+/* 证据链 */
+.evidence{list-style:none;margin:0;padding:0;counter-reset:ev}
+.evidence li{
+  counter-increment:ev;position:relative;padding:0 0 var(--s-3) 30px;
+  font-size:var(--fs-sm);line-height:1.7;color:var(--text-2)
+}
+.evidence li::before{
+  content:counter(ev);position:absolute;left:0;top:1px;
+  width:20px;height:20px;border:1px solid var(--accent-dim);border-radius:50%;
+  font:500 11px/19px var(--font-mono);color:var(--accent);text-align:center
+}
+.evidence li:last-child{padding-bottom:0}
+.evidence b{color:var(--text);font-weight:600}
+
+/* 口碑引述 */
+.quote{
+  margin:0;padding:var(--s-3) var(--s-4);background:var(--surface-2);
+  border-left:2px solid var(--camp,var(--line-3));border-radius:0 var(--r-sm) var(--r-sm) 0;
+  font-size:var(--fs-sm);line-height:1.75;color:var(--text-2)
+}
+.quote+.quote{margin-top:var(--s-2)}
+.quote p{margin:0}
+.quote p::before{content:"「";color:var(--text-3)}
+.quote p::after{content:"」";color:var(--text-3)}
+.quote cite{display:block;margin-top:7px;font:500 11px/1 var(--font-mono);color:var(--text-3);font-style:normal;letter-spacing:.06em}
+
+.d-verdict{
+  margin-top:var(--s-4);padding:var(--s-3) var(--s-4);
+  background:linear-gradient(90deg,var(--accent-wash),rgba(242,160,61,.02));
+  border:1px solid var(--accent-dim);border-radius:var(--r-sm);
+  display:flex;gap:var(--s-3);align-items:flex-start
+}
+.d-verdict .lb{
+  flex:none;font:700 10px/1.7 var(--font-mono);letter-spacing:.14em;
+  color:var(--accent);border:1px solid var(--accent-dim);padding:3px 8px;border-radius:var(--r-sm)
+}
+.d-verdict p{margin:0;font-size:var(--fs-sm);line-height:1.75;color:var(--text)}
+.d-verdict p b{color:var(--accent);font-weight:600}
+
+/* 档案网格（小档案两列） */
+.dossier.mini .d-body{grid-template-columns:1fr 1fr}
+
+/* ---------- 网格 ---------- */
+.grid{display:grid;gap:var(--s-3)}
 .g2{grid-template-columns:repeat(2,1fr)}
 .g3{grid-template-columns:repeat(3,1fr)}
 .g4{grid-template-columns:repeat(4,1fr)}
-.card b.t{display:block;font-size:14.5px;font-weight:650;margin-bottom:6px}
-.card span{color:var(--sub);font-size:13px;display:block}
-.card .kv{margin-top:8px;font-size:12.5px;color:var(--hint)}
-.kv b{color:var(--txt);font-weight:600}
+.tile{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);
+  padding:var(--s-3) var(--s-4);border-top:2px solid var(--camp,var(--line-3))
+}
+.tile h5{margin:0 0 4px;font:600 var(--fs-sm)/1.3 "Noto Sans SC",sans-serif;letter-spacing:-.01em}
+.tile .ct{font:400 11px/1.4 var(--font-mono);color:var(--text-3)}
+.tile p{margin:var(--s-2) 0 0;font-size:var(--fs-xs);color:var(--text-2);line-height:1.7}
+.tile .kv{margin-top:var(--s-2);font:500 var(--fs-xs)/1.6 var(--font-mono);color:var(--accent)}
 
-ul{margin:8px 0 0;padding-left:20px}
-li{margin:4px 0;font-size:13.5px}
-.hint{font-size:12.5px;color:var(--hint);margin-top:10px;line-height:1.55}
-footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);font-size:12.5px;color:var(--hint)}
-@media(max-width:900px){.g3,.g4{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:640px){.g2,.g3,.g4{grid-template-columns:1fr}.wrap{padding:0 16px 60px}}
-@media print{nav.toc{display:none}body{background:#fff}}
+/* ---------- 列表 ---------- */
+.list{list-style:none;margin:0;padding:0;display:grid;gap:var(--s-2)}
+.list li{
+  padding-left:var(--s-4);position:relative;font-size:var(--fs-sm);
+  line-height:1.75;color:var(--text-2)
+}
+.list li::before{
+  content:"";position:absolute;left:2px;top:11px;width:8px;height:1px;background:var(--accent)
+}
+.list b{color:var(--text);font-weight:600}
+.hint{
+  margin-top:var(--s-3);font-size:var(--fs-xs);color:var(--text-3);line-height:1.75;
+  padding-left:var(--s-3);border-left:2px solid var(--line-2)
+}
+.hint b{color:var(--text-2);font-weight:600}
+
+/* ---------- 折叠 / 交互 ---------- */
+details{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);
+  padding:0;overflow:hidden
+}
+details+details{margin-top:var(--s-2)}
+summary{
+  cursor:pointer;padding:var(--s-3) var(--s-4);list-style:none;
+  display:flex;align-items:center;gap:var(--s-3);
+  font:600 var(--fs-sm)/1.4 "Noto Sans SC",sans-serif;
+  transition:background var(--d-fast) ease-out
+}
+summary::-webkit-details-marker{display:none}
+summary::before{
+  content:"+";font:400 15px/1 var(--font-mono);color:var(--accent);
+  width:18px;height:18px;display:grid;place-items:center;flex:none;
+  border:1px solid var(--accent-dim);border-radius:var(--r-sm)
+}
+details[open] summary::before{content:"−"}
+summary:hover{background:var(--surface-2)}
+summary .meta{margin-left:auto;font:400 11px/1 var(--font-mono);color:var(--text-3);letter-spacing:.06em}
+details .body{padding:0 var(--s-4) var(--s-4);border-top:1px solid var(--line)}
+
+/* ---------- 页脚 ---------- */
+footer{margin-top:var(--s-6);padding-top:var(--s-4);border-top:1px solid var(--line-2);
+  font-size:var(--fs-xs);color:var(--text-3);line-height:1.85}
+footer a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-dim)}
+footer a:hover{border-bottom-color:var(--accent)}
+footer .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-5)}
+footer h4{font:700 10px/1 var(--font-mono);letter-spacing:.18em;color:var(--text-2);
+  text-transform:uppercase;margin:0 0 var(--s-2)}
+footer .stamp{margin-top:var(--s-5);padding-top:var(--s-3);border-top:1px solid var(--line);
+  font-family:var(--font-mono);font-size:11px;color:var(--text-3);letter-spacing:.04em}
+
+/* ---------- 入场编排 ---------- */
+.rv{opacity:0;transform:translateY(22px)}
+.rv.in{opacity:1;transform:none;
+  transition:opacity var(--d-base) var(--ease),transform var(--d-base) var(--ease)}
+.rv:nth-child(2){transition-delay:70ms}
+.rv:nth-child(3){transition-delay:140ms}
+.rv:nth-child(4){transition-delay:210ms}
+.rv:nth-child(5){transition-delay:280ms}
+.rv:nth-child(6){transition-delay:350ms}
+.deck-kicker,.deck h1,.deck-lede,.snapshot,.chips{animation:rise var(--d-slow) var(--ease) both}
+.deck h1{animation-delay:80ms}
+.deck-lede{animation-delay:200ms}
+.snapshot{animation-delay:300ms}
+.chips{animation-delay:380ms}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+
+/* ---------- 响应式 ---------- */
+@media(max-width:1080px){
+  .d-body,.d-body>*+*{grid-template-columns:1fr;padding-left:0;border-left:none}
+  .readout{grid-template-columns:1fr 1fr}
+}
+@media(max-width:900px){
+  .g3,.g4{grid-template-columns:repeat(2,1fr)}
+  .snapshot{grid-template-columns:repeat(2,1fr)}
+  .snapshot div:nth-child(3){border-left:none}
+  .snapshot div:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .track-row{grid-template-columns:38px 1fr 70px;grid-template-areas:"r n v" ". b b";gap:6px var(--s-3)}
+  .t-rank{grid-area:r;font-size:22px}
+  .t-name{grid-area:n}
+  .t-val{grid-area:v}
+  .t-bar{grid-area:b;height:26px}
+  .dossier.mini .d-body{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  :root{--fs-xl:25px;--fs-2xl:32px}
+  .wrap{padding:0 var(--s-3) var(--s-6)}
+  .g2,.g3,.g4{grid-template-columns:1fr}
+  .readout{grid-template-columns:1fr}
+  .snapshot{grid-template-columns:1fr}
+  .snapshot div+div{border-left:none;padding-left:0}
+  .snapshot div{border-bottom:1px solid var(--line)}
+  .d-specs{grid-template-columns:repeat(2,1fr)}
+  .d-specs div:nth-child(3){border-left:none}
+  .d-specs div:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  footer .fgrid{grid-template-columns:1fr}
+  .d-verdict{flex-direction:column;gap:var(--s-2)}
+}
+@media (prefers-reduced-motion:reduce){
+  nav.toc ul{animation:none}
+}
+@media print{
+  .atmos,.grain,nav.toc{display:none}
+  body{background:#fff;color:#111}
+  .panel,.dossier,.track,.tile,table{break-inside:avoid}
+}
 </style>
+<!-- 无 JS 时：滚动揭示失效也不该让内容隐形；窄屏目录强制展开（noscript 在 head 内合法） -->
+<noscript><style>.rv{opacity:1;transform:none}.toc-bar{display:none!important}@media (max-width:860px){nav.toc ul{display:flex!important}}</style></noscript>
 </head>
 <body>
+<div class="atmos" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
 <div class="wrap">
 
-<header class="hero">
-<h1>Agent · 平台 · 模型 <span style="color:var(--acc)">对比选择手册</span><span class="chip" style="margin-left:6px">模型层</span></h1>
-<p>本册只解决<b>模型层</b>：WorkBuddy 内置 × 豆包 × 通义千问 × GPT-6 × Claude Code 横向对比，以及每个阵营该挑谁、在 WorkBuddy 内部用什么等价替代。跨层选型按 <b>Agent → 平台 → 模型</b> 的顺序走，<b>平台层</b>（8 家 AI 生图 / 视频平台的年会员单价折算）见 <a href="https://futuredesignw.github.io/agent-platform-model-playbook/ai-creative-platforms.html" style="color:var(--acc)">ai-creative-platforms.html</a>。</p>
-<div class="meta">
-<span class="chip hot">全套：Agent · 平台 · 模型 对比选择手册</span>
-<span class="chip">更新 2026-10-03</span>
-<span class="chip">WorkBuddy 内置 57 条模型定义 · 可手动选 19 个</span>
-<span class="chip hot">新增 Space-Bunny（x0.03，折扣至 10/7）</span>
-</div>
+<header class="deck">
+  <p class="deck-kicker">Model Layer · 模型层选型手册 v15</p>
+  <h1>模型层<br><span class="zh thin">该调谁，跑多少</span></h1>
+  <p class="deck-lede">本册只解决<b>模型层</b>：WorkBuddy 内置 19 个可手动指定模型的倍率与规格、外部四大阵营横评、以及每个模型的<b>详细档案 / 近期新闻 / 第三方口碑</b>，以及你已付费的 <b>ChatGPT Plus 内含 Codex</b>、<b>三份订阅该各干什么</b>（见 09），以及<b>六家厂商各自的打法与资本状态</b>（见 10）。跨层选型按 <b>Agent → 平台 → 模型</b> 的顺序走；平台层（8 家 AI 生图 / 视频平台年会员单价折算）见 <a href="https://futuredesignw.github.io/agent-platform-model-playbook/ai-creative-platforms.html">ai-creative-platforms.html</a>。</p>
+  <div class="snapshot">
+    <div><b>38.7<em> T</em></b><span>Space Bunny Alpha 本周调用量 · 全球第 1（环比 +179%）</span></div>
+    <div><b>57.46<em> T</em></b><span>中国模型本周调用量 · 连续 23 周超过美国</span></div>
+    <div><b>2.8T</b><span>Kimi K3 · 全球最大开源模型 · 智谱港股当日跌 27%</span></div>
+    <div><b>5× / 20×</b><span>豆包工作标准 / 加强套餐额度倍率 · 硬墙是 5h / 7d 滚动窗口</span></div>
+  </div>
+  <div class="chips">
+    <span class="chip hot">数据快照 2026-10-05 · OpenRouter · Codex 额度 2026-10-01 核对</span>
+    <span class="chip new">v10 新增：调用量实榜 + 11 张模型档案 + 新闻与口碑</span>
+    <span class="chip hot">v11 新增：Codex 纳入对比（你的 Plus 已含）</span>
+    <span class="chip hot">v12 新增：三订阅任务分配（豆包工作 ¥68 / Plus $20 / WorkBuddy）</span>
+    <span class="chip hot">v13 新增：六家厂商档案（DeepSeek / 智谱 / 千问 / 腾讯混元 / 月之暗面 / MiniMax·阶跃）</span>
+    <span class="chip new">v14 修复：目录溢出被裁（改为换行 + 窄屏可折叠）</span>
+    <span class="chip hot">v15 新增：OpenAI / Anthropic / Claude Code / 小米 MiMo 四家厂商档案</span>
+    <span class="chip">WorkBuddy 内置 57 条模型定义 · 可手动选 19 个</span>
+    <span class="chip">美元按 1 USD ≈ 7.2 CNY 折算</span>
+  </div>
 </header>
 
-<nav class="toc">
-<ul>
-<li><a href="#s1">WorkBuddy 资产</a></li>
-<li><a href="#s2">四阵营总览</a></li>
-<li><a href="#s3">豆包</a></li>
-<li><a href="#s4">千问</a></li>
-<li><a href="#s5">GPT-6</a></li>
-<li><a href="#s6">Claude Code</a></li>
-<li><a href="#s7">等价替代表</a></li>
-<li><a href="#s8">促销窗口</a></li>
-<li><a href="#s9">场景映射</a></li>
-<li><a href="#s10">你的方向</a></li>
-<li><a href="#s11">深度对话</a></li>
-<li><a href="#s12">纪律</a></li>
-</ul>
+<nav class="toc" id="toc" data-open="0" aria-label="目录">
+  <button class="toc-bar" id="tocBar" aria-expanded="false" aria-controls="tocList">
+    <span>目录 · 17 节</span>
+    <span style="display:flex;align-items:center;gap:10px">
+      <span class="cnt" id="tocNow">调用量实榜</span>
+      <span class="caret" aria-hidden="true">
+        <svg width="11" height="7" viewBox="0 0 11 7" fill="none"><path d="M1 1l4.5 4.5L10 1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </span>
+    </span>
+  </button>
+  <ul id="tocList">
+    <li><a href="#s0">调用量实榜</a></li>
+    <li><a href="#s1">WorkBuddy 资产</a></li>
+    <li><a href="#s2">模型档案</a></li>
+    <li><a href="#s3">四阵营总览</a></li>
+    <li><a href="#s4">豆包</a></li>
+    <li><a href="#s5">千问</a></li>
+    <li><a href="#s6">GPT-6</a></li>
+    <li><a href="#s7">Claude Code</a></li>
+    <li><a href="#s7b">Codex</a></li>
+    <li><a href="#salloc">三订阅分配</a></li>
+    <li><a href="#svend">厂商档案</a></li>
+    <li><a href="#s11">等价替代表</a></li>
+    <li><a href="#s12">促销窗口</a></li>
+    <li><a href="#s13">场景映射</a></li>
+    <li><a href="#s14">你的方向</a></li>
+    <li><a href="#s15">深度对话</a></li>
+    <li><a href="#s16">使用纪律</a></li>
+  </ul>
 </nav>
 
-<section id="s1">
-<h2><span class="num">01</span>WorkBuddy 现有资产</h2>
-<p class="sub">先看三档自动路由，再看能手动指定的 19 个模型。倍率是相对积分，不是绝对价——倍率之间可以直接比，但和外部 API 的人民币单价不能直接换算。</p>
-<div class="grid g4">
-<div class="card"><b class="t">快速 fast-model</b><span>速度优先</span><div class="kv"><b>x0.21</b> · 300k/48k</div><span style="margin-top:6px">问答、改写、格式转换、批量小任务</span></div>
-<div class="card"><b class="t">均衡 balanced-model</b><span>速度/质量兼顾</span><div class="kv"><b>x0.65</b> · 300k/48k</div><span style="margin-top:6px">日常主力：文档、常规代码、整理</span></div>
-<div class="card"><b class="t">极致 deep-model</b><span>深度优先</span><div class="kv"><b>x1.20</b> · 300k/48k</div><span style="margin-top:6px">复杂分析、长程 Agent、疑难调试</span></div>
-<div class="card"><b class="t">Auto</b><span>自动匹配，倍率浮动</span><div class="kv">256k/32k</div><span style="margin-top:6px">不确定难度时的兜底</span></div>
-</div>
+<!-- ============ 00 调用量实榜 ============ -->
+<section class="rv" id="s0">
+  <div class="sec-head"><span class="sec-num">00</span><h2>调用量实榜：开发者用 token 投出来的票</h2></div>
+  <p class="sec-sub">厂商发布会说的是自己的故事，<b>OpenRouter 周调用量是全球开发者在真实生产里花出去的钱</b>。下面是 2026-09-28 至 10-04 这一周的排名，实心条为本期、虚线轮廓为上一期（截至 09-27）。<b>↑ 红为增长、↓ 绿为下滑，与 A 股配色习惯一致。</b></p>
 
-<table style="margin-top:16px">
-<thead><tr><th>模型</th><th>官方定位</th><th>上下文 入/出</th><th>倍率</th><th>推荐场景</th></tr></thead>
-<tbody>
-<tr class="hl"><td><code>space-bunny</code> <span class="tag t-new">新</span></td><td>推理极快、编码强、原生多模态的<b>匿名</b>模型；纯推理，思考强度 5 档默认最高且不可关闭</td><td>1M / 128k<br>（可切 300k·600k）</td><td><span class="tag t-cheap">x0.03</span><span class="tag t-free">折扣至 10/7</span></td><td>编码、长上下文、多模态混合任务首选；被服务端同时登记为轻量档与推理档关联模型</td></tr>
-<tr><td><code>hy3</code> / hy3-b / hy3-c</td><td>混元思考模型（CLI 列表现为 hy3-c）</td><td>192k / 64k</td><td><span class="tag t-free">免费 0x</span></td><td>白嫖首选：日常推理、写作、中文内容</td></tr>
-<tr><td><code>hy4-preview-f</code></td><td>混元新一代思考模型</td><td>1M / 64k</td><td><span class="tag t-free">免费 0x</span></td><td>当前会话默认；长上下文复杂推理</td></tr>
-<tr><td><code>hy3-x</code></td><td>混元思考模型</td><td>192k / 64k</td><td><span class="tag t-cheap">x0.05</span></td><td>hy3 排队时的低价替代</td></tr>
-<tr><td><code>glm-5.3-flash</code></td><td>原生多模态，视觉理解与专业任务</td><td>1M / 131k</td><td><span class="tag t-cheap">x0.06</span></td><td>看图识图 + 长文档，性价比之王</td></tr>
-<tr><td><code>deepseek-v4.1-flash</code></td><td>DeepSeek 旗舰，1M 上下文，原生多模态</td><td>1M / 128k</td><td><span class="tag t-cheap">x0.11</span></td><td>超长文本、批量抽取</td></tr>
-<tr><td><code>glm-5.3-flashx</code></td><td>原生多模态</td><td>1M / 131k</td><td><span class="tag t-cheap">x0.14</span></td><td>flash 加强版，输出更长</td></tr>
-<tr><td><code>minimax-m3-pay</code></td><td>原生多模态，擅长代码与智能体</td><td>512k / 128k</td><td><span class="tag t-cheap">x0.25</span></td><td>代码 + 多模态混合任务</td></tr>
-<tr><td><code>step-5-preview</code></td><td>阶跃星辰新一代旗舰基模</td><td>1M / 64k</td><td><span class="tag t-mid">x0.43</span></td><td>真实任务型 Agent</td></tr>
-<tr><td><code>deepseek-v4-pro</code></td><td>DeepSeek 旗舰，1M 上下文</td><td>1M / 128k</td><td><span class="tag t-mid">x0.51</span></td><td>数学、逻辑、严谨推理</td></tr>
-<tr><td><code>kimi-k2.6</code> / <code>k2.7</code></td><td>多模态，日常任务</td><td>256k / 32k</td><td><span class="tag t-mid">x0.52 / 0.57</span></td><td>中文长文写作、摘要</td></tr>
-<tr><td><code>glm-5v-turbo</code></td><td>原生多模态</td><td>200k / 64k</td><td><span class="tag t-mid">x0.71</span></td><td>图片/截图理解为主</td></tr>
-<tr><td><code>kimi-k2.8-preview</code></td><td>长程自主任务、前端开发突出</td><td>1M / 64k</td><td><span class="tag t-mid">x0.77</span></td><td>前端页面/组件开发</td></tr>
-<tr><td><code>glm-5.1</code></td><td>能力均衡</td><td>200k / 48k</td><td><span class="tag t-mid">x0.79</span></td><td>通用兜底</td></tr>
-<tr><td><code>glm-5.2</code></td><td>1M 上下文，长程任务</td><td>1M / 64k</td><td><span class="tag t-mid">x0.79</span></td><td>长程任务；23:00–7:50 五折</td></tr>
-<tr><td><code>glm-5.3</code></td><td>旗舰：复杂软件工程与长程 Agent</td><td>1M / 64k</td><td><span class="tag t-mid">x0.79</span></td><td>大型重构、多文件工程、长跑 Agent</td></tr>
-<tr><td><code>kimi-k3-2</code></td><td>长程自主任务、前端、科研推理</td><td>1M / 32k</td><td><span class="tag t-max">x1.62</span></td><td>最贵：只用于高价值难点</td></tr>
-<tr><td><code>auto</code></td><td>自动匹配</td><td>256k / 32k</td><td>浮动</td><td>懒人默认</td></tr>
-</tbody>
-</table>
+  <div class="track">
+    <div class="track-head">
+      <h3>OpenRouter 周调用量 · Top 10</h3>
+      <span class="src">DATA / OpenRouter · 2026-09-28 → 10-04 · 单位：万亿 token</span>
+    </div>
+    <div class="legend">
+      <span><i class="now"></i>本期周调用量</span>
+      <span><i class="prev"></i>上一期（截至 09-27）</span>
+      <span>前十中华为厂商占 <span class="up">6 席</span>（DeepSeek 3、智谱 1、腾讯 1、小米 1、匿名 1）；计至第 15 位，中国模型 8 席、美国 5 席</span>
+    </div>
+
+    <div class="track-row top">
+      <div class="t-rank">01</div>
+      <div class="t-name"><b>Space Bunny Alpha</b><span>stealth · 匿名 · 极可能为 MiniMax M3.1-Flash</span></div>
+      <div class="t-bar"><div class="t-ghost" style="width:35.9%"></div><div class="t-fill" data-w="100%" style="width:100%"></div></div>
+      <div class="t-val"><b>38.7 T</b><span class="d up">↑ 179%</span></div>
+    </div>
+    <div class="track-row">
+      <div class="t-rank">02</div>
+      <div class="t-name"><b>DeepSeek V4.1 Flash</b><span>deepseek · 开源权重 · 峰谷定价</span></div>
+      <div class="t-bar"><div class="t-ghost" style="width:50.6%"></div><div class="t-fill cn" data-w="66.2%" style="width:66.2%"></div></div>
+      <div class="t-val"><b>25.6 T</b><span class="d up">↑ 31%</span></div>
+    </div>
+    <div class="track-row">
+      <div class="t-rank">03</div>
+      <div class="t-name"><b>GLM 5.3 Flash</b><span>z-ai · 智谱 · 最便宜的开源旗舰级</span></div>
+      <div class="t-bar"><div class="t-ghost" style="width:42.1%"></div><div class="t-fill cn" data-w="25.1%" style="width:25.1%"></div></div>
+      <div class="t-val"><b>9.73 T</b><span class="d down">↓ 40%</span></div>
+    </div>
+    <div class="track-row">
+      <div class="t-rank">04</div>
+      <div class="t-name"><b>MiMo-V2.6-Flash</b><span>xiaomi · 小米 · 本期最大黑马</span></div>
+      <div class="t-bar"><div class="t-ghost" style="width:14.2%"></div><div class="t-fill cn" data-w="24.9%" style="width:24.9%"></div></div>
+      <div class="t-val"><b>9.63 T</b><span class="d up">↑ 75%</span></div>
+    </div>
+    <div class="track-row">
+      <div class="t-rank">05</div>
+      <div class="t-name"><b>Hy4 preview</b><span>tencent · 腾讯混元 · 当前会话默认模型的正式版</span></div>
+      <div class="t-bar"><div class="t-ghost" style="width:24.9%"></div><div class="t-fill cn" data-w="16.8%" style="width:16.8%"></div></div>
+      <div class="t-val"><b>6.51 T</b><span class="d down">↓ 32%</span></div>
+    </div>
+    <div class="track-row">
+      <div class="t-rank">06</div>
+      <div class="t-name"><b>GPT-6 Luna</b><span>openai · 本期涨幅最大的美国模型</span></div>
+      <div class="t-bar"><div class="t-ghost" style="width:7.4%"></div><div class="t-fill" data-w="16.0%" style="width:16.0%"></div></div>
+      <div class="t-val"><b>6.18 T</b><span class="d up">↑ 116%</span></div>
+    </div>
+    <div class="track-row">
+      <div class="t-rank">07</div>
+      <div class="t-name"><b>DeepSeek V4 Flash 0731</b><span>deepseek</span></div>
+      <div class="t-bar"><div class="t-ghost" style="width:20.2%"></div><div class="t-fill cn" data-w="15.5%" style="width:15.5%"></div></div>
+      <div class="t-val"><b>5.99 T</b><span class="d down">↓ 23%</span></div>
+    </div>
+    <div class="track-row">
+      <div class="t-rank">08</div>
+      <div class="t-name"><b>Nemotron 3 Ultra</b><span>nvidia · 免费</span></div>
+      <div class="t-bar"><div class="t-ghost" style="width:14.6%"></div><div class="t-fill" data-w="14.6%" style="width:14.6%"></div></div>
+      <div class="t-val"><b>5.65 T</b><span class="d flat">— 持平</span></div>
+    </div>
+    <div class="track-row">
+      <div class="t-rank">09</div>
+      <div class="t-name"><b>GPT-5.6 Luna</b><span>openai</span></div>
+      <div class="t-bar"><div class="t-ghost" style="width:22.0%"></div><div class="t-fill" data-w="11.3%" style="width:11.3%"></div></div>
+      <div class="t-val"><b>4.37 T</b><span class="d down">↓ 49%</span></div>
+    </div>
+    <div class="track-row">
+      <div class="t-rank">10</div>
+      <div class="t-name"><b>DeepSeek V4 Flash 0423</b><span>deepseek</span></div>
+      <div class="t-bar"><div class="t-ghost" style="width:8.7%"></div><div class="t-fill cn" data-w="8.3%" style="width:8.3%"></div></div>
+      <div class="t-val"><b>3.23 T</b><span class="d down">↓ 4%</span></div>
+    </div>
+  </div>
+
+  <div class="readout">
+    <div class="panel"><b>166 T</b><span>本周全球总调用量，环比 +13.69%。中国模型合计 57.46 T，美国合计 16.2 T——中国大模型调用量已<b>连续 23 周</b>超过美国。</span></div>
+    <div class="panel"><b>100% Flash</b><span>前十里除匿名位，语言类几乎全是 Flash 档。<b>Flash 已从"降配版"变成主战场</b>——Google 六周连更三次 Flash，国内 DeepSeek / 智谱 / 小米全在挤。</span></div>
+    <div class="panel"><b>1 周 = 2.8 倍</b><span>Space Bunny Alpha 从 13.9 T 涨到 38.7 T，是本期唯一完成"从第三到第一"的模型。<b>但它是免费的</b>——免费期的调用量不等于付费认可。</span></div>
+  </div>
+  <p class="hint">口径提醒：<b>免费 / 折扣期的调用量会被显著放大</b>，Space Bunny Alpha 在 OpenRouter 上至 10-05 是零价试用。看榜时把"免费"和"付费"分开读，否则会得出错误结论。</p>
 </section>
 
-<section id="s2">
-<h2><span class="num">02</span>四大阵营总览</h2>
-<p class="sub">外部价格按官方公开价折算人民币（美元按 1 USD ≈ 7.2 CNY 估算，仅供量级参考）。</p>
-<table>
-<thead><tr><th>阵营</th><th>当前主力</th><th>上下文</th><th>价格（每百万 token 入/出）</th><th>最强项</th><th>主要短板</th></tr></thead>
-<tbody>
-<tr><td><b>字节 · 豆包</b><br><span class="hint">火山方舟</span></td><td>Doubao-Seed-Evolving<br>Doubao-Seed-2.1-Pro</td><td>未公开统一值<br>（2.1 系列长上下文）</td><td>¥6 / ¥30（Evolving·Pro）<br>¥3 / ¥15（Turbo）</td><td><b>多模态编程</b>：草图/录屏/设计图直接变代码；3D 场景、前端还原、游戏开发；Agent 长程执行</td><td>生态偏国内；第三方独立评测少；价格不算便宜</td></tr>
-<tr><td><b>阿里 · 千问</b><br><span class="hint">百炼 / Qwen Cloud</span></td><td>Qwen3.8-Max<br>Qwen3.8-27B（开源）</td><td>1M（Max）<br>262k 原生 → 1M 外推</td><td>¥2.5 / ¥7.5（Max）<br>¥0.4 / ¥1.6（Plus）<br>¥0.03 / ¥0.06（Flash）</td><td><b>性价比 + 开源</b>：2.4T MoE 旗舰，PaperBench 93.0、OSWorld 86.1；可私有化部署</td><td>旗舰闭源；开源版与 Max 有差距；版本命名混乱</td></tr>
-<tr><td><b>OpenAI · GPT-6</b><br><span class="hint">ChatGPT / API</span></td><td>GPT-6 Astra<br>GPT-6 Sol<br>GPT-6 Luna</td><td>未公开统一值</td><td>Sol ≈¥14 / ¥72<br>Luna ≈¥0.7 / ¥3.6</td><td><b>综合智能 + 办公自动化</b>：AutomationBench 上 Sol 以约 Opus 5 九分之一的单任务成本胜出；生态最成熟</td><td>境内访问受限；Astra 贵；数据合规需评估</td></tr>
-<tr><td><b>Anthropic · Claude Code</b><br><span class="hint">CLI 编程事实标准</span></td><td>Claude Fable 5.1<br>Claude Opus 5.5<br>Claude Sonnet 5.5</td><td>均为 1M / 128k 输出</td><td>Fable 5.1 ≈¥72 / ¥360<br>Opus 5.5 ≈¥29 / ¥144<br>Sonnet 5.5 ≈¥14 / ¥72</td><td><b>长程 agentic coding</b>：整仓理解、多文件重构、自主跑测试；Terminal-Bench 4.0 66–71%</td><td>最贵档高得离谱；纯终端界面；容易过度修改文件</td></tr>
-</tbody>
-</table>
-<div class="hint">一句话区分：<b>豆包赢在"看懂图就能写代码"，千问赢在"旗舰能力配白菜价 + 能开源自部署"，GPT-6 赢在"综合智能与办公自动化生态"，Claude Code 赢在"整仓级长程编程"。</b></div>
+<!-- ============ 01 WorkBuddy 资产 ============ -->
+<section class="rv" id="s1">
+  <div class="sec-head"><span class="sec-num">01</span><h2>WorkBuddy 现有资产</h2></div>
+  <p class="sec-sub">先看三档自动路由，再看能手动指定的 19 个模型。<b>倍率是 WorkBuddy 内部相对积分，不是绝对价</b>——倍率之间可以直接比，但和外部 API 的人民币单价不能直接换算。最后一列是这批模型的近期动态，详细档案见 <a href="#s2">02</a>。</p>
+  <div class="grid g4">
+    <div class="tile" style="--camp:var(--c-hy)"><h5>快速 fast-model</h5><span class="ct">速度优先</span><p>问答、改写、格式转换、批量小任务。</p><div class="kv">×0.21 · 300k / 48k</div></div>
+    <div class="tile" style="--camp:var(--c-glm)"><h5>均衡 balanced-model</h5><span class="ct">速度 / 质量兼顾</span><p>日常主力：文档、常规代码、整理。</p><div class="kv">×0.65 · 300k / 48k</div></div>
+    <div class="tile" style="--camp:var(--c-ds)"><h5>极致 deep-model</h5><span class="ct">深度优先</span><p>复杂分析、长程 Agent、疑难调试。</p><div class="kv">×1.20 · 300k / 48k</div></div>
+    <div class="tile" style="--camp:var(--c-stealth)"><h5>Auto</h5><span class="ct">自动匹配，倍率浮动</span><p>不确定难度时的兜底。</p><div class="kv">256k / 32k</div></div>
+  </div>
+
+  <div class="tbl-wrap" style="margin-top:16px">
+    <table>
+      <thead><tr><th>模型</th><th>官方定位</th><th>上下文 入 / 出</th><th>倍率</th><th>推荐场景</th><th>近期动态</th></tr></thead>
+      <tbody>
+      <tr class="hl"><td><code>space-bunny</code> <span class="tag t-new">新</span></td><td>推理极快、编码强、原生多模态的<b>匿名</b>模型；纯推理，思考强度 5 档默认最高且不可关闭</td><td>1M / 128k<br><span class="dash">（可切 300k·600k）</span></td><td><span class="tag t-cheap">×0.03</span><span class="tag t-max">折扣至 10/07</span></td><td>编码、长上下文、多模态混合任务首选；被服务端同时登记为轻量档与推理档关联模型</td><td>9/23 上线，10/04 周调用 <b>38.7 T 全球第一</b>；10/02 起 WorkBuddy 国内独家接入</td></tr>
+      <tr><td><code>hy3</code> / hy3-b / hy3-c</td><td>混元思考模型（CLI 列表现为 hy3-c）</td><td>192k / 64k</td><td><span class="tag t-free">免费 0×</span></td><td>白嫖首选：日常推理、写作、中文内容</td><td>OpenRouter 周调用 <b>2.19 T</b>；262k 上下文是其短板</td></tr>
+      <tr><td><code>hy4-preview-f</code></td><td>混元新一代思考模型</td><td>1M / 64k</td><td><span class="tag t-free">免费 0×</span></td><td>当前会话默认；长上下文复杂推理</td><td>8/28 开源（Apache 2.0），770B / 49B 激活；OpenRouter 周调用 <b>6.51 T（↓32%）</b>，近 30 日 53.5 T（↑570%）</td></tr>
+      <tr><td><code>hy3-x</code></td><td>混元思考模型</td><td>192k / 64k</td><td><span class="tag t-cheap">×0.05</span></td><td>hy3 排队时的低价替代</td><td>—</td></tr>
+      <tr><td><code>glm-5.3-flash</code></td><td>原生多模态，视觉理解与专业任务</td><td>1M / 131k</td><td><span class="tag t-cheap">×0.06</span></td><td>看图识图 + 长文档，性价比之王</td><td>近 30 日调用 <b>56.4 T（↑378%）</b>，但本周 9.73 T <b>跌 40%</b>；外部价 $0.04 / $0.5</td></tr>
+      <tr><td><code>deepseek-v4.1-flash</code></td><td>DeepSeek 旗舰，1M 上下文，原生多模态</td><td>1M / 128k</td><td><span class="tag t-cheap">×0.11</span></td><td>超长文本、批量抽取</td><td>本周 <b>25.6 T 全球第二</b>（↑31%）；AA 智能指数 39；近 30 日 58.6 T 第一</td></tr>
+      <tr><td><code>glm-5.3-flashx</code></td><td>原生多模态</td><td>1M / 131k</td><td><span class="tag t-cheap">×0.14</span></td><td>flash 加强版，输出更长</td><td>—</td></tr>
+      <tr><td><code>minimax-m3-pay</code></td><td>原生多模态，擅长代码与智能体</td><td>512k / 128k</td><td><span class="tag t-cheap">×0.25</span></td><td>代码 + 多模态混合任务</td><td>OpenRouter 周调用 1.23 T；外部价 $0.23 / $0.96</td></tr>
+      <tr><td><code>step-5-preview</code></td><td>阶跃星辰新一代旗舰基模</td><td>1M / 64k</td><td><span class="tag t-mid">×0.43</span></td><td>真实任务型 Agent</td><td>9/20 发布，AA 指数 <b>44 全球开源前三</b>；<b>10/15 开源权重</b></td></tr>
+      <tr><td><code>deepseek-v4-pro</code></td><td>DeepSeek 旗舰，1M 上下文</td><td>1M / 128k</td><td><span class="tag t-mid">×0.51</span></td><td>数学、逻辑、严谨推理</td><td>OpenRouter 周调用 1.59 T；GPQA Diamond 90.9</td></tr>
+      <tr><td><code>kimi-k2.6</code> / <code>k2.7</code></td><td>多模态，日常任务</td><td>256k / 32k</td><td><span class="tag t-mid">×0.52 / 0.57</span></td><td>中文长文写作、摘要</td><td>—</td></tr>
+      <tr><td><code>glm-5v-turbo</code></td><td>原生多模态</td><td>200k / 64k</td><td><span class="tag t-mid">×0.71</span></td><td>图片 / 截图理解为主</td><td>—</td></tr>
+      <tr><td><code>kimi-k2.8-preview</code></td><td>长程自主任务、前端开发突出</td><td>1M / 64k</td><td><span class="tag t-mid">×0.77</span></td><td>前端页面 / 组件开发</td><td>同门旗舰 Kimi K3 的 Coding Index <b>76.2</b> 高于 GLM 5.3 的 74.8，但输出仅 56 tok/s、$0.72 / $13</td></tr>
+      <tr><td><code>glm-5.1</code></td><td>能力均衡</td><td>200k / 48k</td><td><span class="tag t-mid">×0.79</span></td><td>通用兜底</td><td>—</td></tr>
+      <tr><td><code>glm-5.2</code></td><td>1M 上下文，长程任务</td><td>1M / 64k</td><td><span class="tag t-mid">×0.79</span></td><td>长程任务；23:00–7:50 五折</td><td>OpenRouter 周调用 1.31 T</td></tr>
+      <tr><td><code>glm-5.3</code></td><td>旗舰：复杂软件工程与长程 Agent</td><td>1M / 64k</td><td><span class="tag t-mid">×0.79</span></td><td>大型重构、多文件工程、长跑 Agent</td><td>OpenRouter 周调用 2.55 T；中位输出 <b>99 tok/s</b>，是 Kimi K3 的近两倍</td></tr>
+      <tr><td><code>kimi-k3-2</code></td><td>长程自主任务、前端、科研推理</td><td>1M / 32k</td><td><span class="tag t-max">×1.62</span></td><td>最贵：只用于高价值难点</td><td>OpenRouter 周调用 1.57 T；外部价 $0.72 / $13，是 GLM 5.3 的 7 倍</td></tr>
+      <tr><td><code>auto</code></td><td>自动匹配</td><td>256k / 32k</td><td>浮动</td><td>懒人默认</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
 </section>
 
-<section id="s3">
-<h2><span class="num">03</span>豆包（字节）</h2>
-<div class="grid g2">
-<div class="card"><b class="t">Doubao-Seed-Evolving</b><span>聚焦 Coding 与 Agent 场景、高频迭代的主力旗舰。</span><div class="kv">价格 <b>¥6 / ¥30</b> 每百万 token</div></div>
-<div class="card"><b class="t">Doubao-Seed-2.1-Pro（0915 新版）</b><span>多模态编程国内领先：草图、录屏、设计图直接生成可运行代码；3D 建模、前端还原、游戏场景。</span><div class="kv">公开案例：38.7 万行仓库的 1000 个真实 issue，约 36 小时内 83% 修复至可合并标准；图像/视频推理 token 消耗比上代降 30%+</div></div>
-</div>
-<div class="card hot"><b class="t">对做视觉的人更有价值的是 Seedream 5.0</b><span>图像创作模型（非语言模型），四项升级直接命中商业设计场景：交互式精准编辑（画箭头/圈区域即可改图）、多图层分离（任意区域任意粒度拆层）、高密度信息表达（精细图表、多层结构、整页 PPT）、原生多语种文字生成（10 余种语言，理解排版与字体习惯）。约 ¥0.22–0.30/张。</span><div class="kv">与 Midjourney 的关系：MJ 强在美学与风格一致性，Seedream 强在<b>可控编辑与文字排版</b>——海报、分镜、带字设计这类活，它是补位而不是替代。</div></div>
+<!-- ============ 02 模型档案（新增） ============ -->
+<section class="rv" id="s2">
+  <div class="sec-head"><span class="sec-num">02</span><h2>模型档案：详细规格 · 近期新闻 · 第三方口碑</h2></div>
+  <p class="sec-sub">每张档案卡给四样东西：<b>硬规格</b>、<b>近期动态时间线</b>、<b>媒体与社区实测口碑</b>、<b>腾子判断</b>。厂商自测数据一律标注，不跟第三方数据混排。带「重点档案」标的是本期最值得读的两张。</p>
+
+  <div class="dossiers">
+
+    <!-- 档案 1：space-bunny -->
+    <article class="dossier rv flag" style="--camp:var(--c-stealth)">
+      <div class="d-top">
+        <div class="d-id">
+          <h3>space-bunny <code>stealth/space-bunny-alpha</code> <span class="tag t-live">WorkBuddy 内可用</span></h3>
+          <p class="aka">中文社区称「太空兔」· 匿名 stealth 模型 · 官方身份未确认 · 社区已基本认定 = MiniMax M3.1-Flash-Preview 预览版</p>
+          <p class="verdict-inline">一款<b>用免费期把全球调用量榜打穿</b>的 Flash 档模型。能力上它不是最强，但它把「便宜 / 快 / 1M 上下文 / 原生多模态」四件事同时做到了够用的水位，这是它登顶的真实原因。</p>
+        </div>
+        <div class="d-specs">
+          <div><b>1M</b><span>上下文窗口</span></div>
+          <div><b>524K</b><span>最大输出</span></div>
+          <div><b>5 档</b><span>推理强度 low→max</span></div>
+          <div><b>文本/图/视频</b><span>输入模态</span></div>
+          <div><b>免费</b><span>OpenRouter · 至 10-05</span></div>
+          <div><b>×0.03</b><span>WorkBuddy 倍率</span></div>
+          <div><b>强制推理</b><span>不可关闭</span></div>
+          <div><b>38.7 T</b><span>周调用量 · 全球 1</span></div>
+        </div>
+      </div>
+      <div class="d-body">
+        <div>
+          <h4>近期动态</h4>
+          <ol class="timeline">
+            <li><time>2026-09-23</time><b>匿名上线</b> OpenRouter 与 OpenCode，OpenRouter 模型名写作 <code>stealth/space-bunny-alpha</code>，官方标注 Flash 档，限时免费试用。</li>
+            <li><time>2026-09-24</time><b>身份第一次被扒</b>：独立研究者跑 tokenizer 比对，50 条测试串的 token 计数与 MiniMax 系列完全一致。</li>
+            <li><time>2026-09-27</time><b>登顶双榜</b>：中秋假期连续三天居 OpenRouter / OpenCode 日调用量第一，单日 OpenRouter 约 3.99 T。</li>
+            <li><time>2026-09-28</time><b>证据链闭合</b>：MiniMax 官宣 M3.1-Flash-Preview 公测，1M 上下文、多模态、可调推理强度与兔子逐条重合，多家媒体直接称「太空兔本尊」。</li>
+            <li><time>2026-10-02</time><b>进入 WorkBuddy</b>：腾讯 WorkBuddy 宣布内置模型国内独家接入，×0.03 折扣，本周持续有效。</li>
+            <li><time>2026-10-04</time><b>周调用 38.7 T</b>（环比 +179%），OpenRouter 全球第一，同期全球总调用量 166 T。</li>
+          </ol>
+        </div>
+        <div>
+          <h4>它是谁家的：三条证据链</h4>
+          <ol class="evidence">
+            <li><b>分词器指纹。</b>50 条测试字符串的 token 计数与 MiniMax 系列完全一致；Reddit 另有七组字符串比对，MiniMax M 系列的变化模式与之吻合。</li>
+            <li><b>仓库提前泄露。</b>MiniMax 官方开源仓库 9 月 18 日已写入 <code>MiniMax-M3.1</code> 配置——1M 上下文、三档推理，与兔子上架仅差 5 天，比上架还早。</li>
+            <li><b>时间线无缝衔接。</b>9/28 M3.1-Flash-Preview 公测，官方介绍与 Space Bunny 能力逐条重合。</li>
+          </ol>
+          <h4 style="margin-top:20px">第三方口碑</h4>
+          <blockquote class="quote"><p>没人知道它是谁：神秘「太空兔」免费打赢 GPT-6 Astra，三天登顶全球调用量榜首</p><cite>百家号 · 2026-09-29</cite></blockquote>
+          <blockquote class="quote"><p>元素识别准、速度快，但只给了一个「底座」——草图里的功能模块与交互细节几乎没有实现，离能用还有距离。</p><cite>搜狐科技 · 草图转网页实测</cite></blockquote>
+          <blockquote class="quote"><p>在 3D 建模和前端设计方面能力突出，但也存在赛车穿模、左右方向相反等细节问题；由于调用量激增，模型速度未达预期。</p><cite>智东西 · OpenCode 实测</cite></blockquote>
+        </div>
+      </div>
+      <div class="d-verdict"><span class="lb">腾子判断</span><p><b>当跑量主力用，别当生产依赖。</b>便宜是真便宜，1M 上下文 + 原生多模态也是真省事。但三条硬伤绕不开：① <b>身份未官宣</b>，随时可能改名、涨价、下线；② <b>强制最高档推理且关不掉</b>，简单任务也在烧 token，实测「极致」档积分消耗约为 DeepSeek V4.1 Flash 的 2 倍；③ <b>工具调用约 3% 出错率</b>，早期可用率不稳。<b>敏感内容一律别喂</b>——stealth 条款写明对话可能被提供方记录保留；合同、源码、客户名单走本地或身份明确的模型。</p></div>
+    </article>
+
+    <!-- 档案 2：step-5-preview -->
+    <article class="dossier rv flag" style="--camp:var(--c-step)">
+      <div class="d-top">
+        <div class="d-id">
+          <h3>step-5-preview <code>stepfun/step-5-preview</code> <span class="tag t-new">阶跃星辰</span></h3>
+          <p class="aka">2026-09-20 发布 · 跳过 Step 4 系列 · <b>10-15 开源权重</b></p>
+          <p class="verdict-inline">这代的卖点不是"更强"，是<b>更划算</b>：用 600B 而非万亿级参数，在 AA 指数上追平 2.8T 的 Kimi K3，单任务成本压到 Claude Opus 5 的 1/8。</p>
+        </div>
+        <div class="d-specs">
+          <div><b>600B</b><span>总参数</span></div>
+          <div><b>27B</b><span>每 token 激活</span></div>
+          <div><b>92 层</b><span>窄而深架构</span></div>
+          <div><b>1M</b><span>上下文窗口</span></div>
+          <div><b>64K</b><span>最大输出</span></div>
+          <div><b>$1.00</b><span>输入 / 百万 token</span></div>
+          <div><b>$2.70</b><span>输出 / 百万 token</span></div>
+          <div><b>44</b><span>AA 智能指数</span></div>
+        </div>
+      </div>
+      <div class="d-body">
+        <div>
+          <h4>近期动态</h4>
+          <ol class="timeline">
+            <li><time>2026-09-20</time><b>发布并全量开放</b>，阶跃星辰新一代旗舰基座模型，重点面向 AI 编程、软件工程、专业知识工作、金融。</li>
+            <li><time>同期</time><b>AA 智能指数 44 分</b>，跻身全球开源前三，与 Kimi K3、Grok 4.6 (high) 同级，落后 Claude Opus 5（51）与 GPT-6 Astra / Claude Fable 5.1（53）。</li>
+            <li><time>厂商自测</time><b>长程实验两个 24 小时任务</b>：H100 MLA kernel 从零调优到 508 TFLOPS（Claude Opus 5 为 493）；用 API 标注器自动后训练 Qwen3-30B-A3B，AIME24 从 53.3% 提到 60%。</li>
+            <li><time>厂商自测</time><b>无障碍跑完宝可梦红三徽章</b>：3,000+ 回合、600 万 token。</li>
+            <li><time>2026-10-15</time><b>计划开源权重</b>，届时可本地部署——这是它最大的未兑现变量。</li>
+          </ol>
+          <h4 style="margin-top:20px">架构上真正值得看的一件事</h4>
+          <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0">业界做 MoE 习惯把网络做宽（并行专家多），阶跃反其道：<b>堆深到 92 层</b>。理由是 Agent 任务里有大量多跳依赖——第 8 步搜到的结论，可能第 40 步才用得上，网络深，信息在层间流转的路径就长。配套 <b>Sparse GQA + Block-wise Token Merging</b>，把 1M 上下文里 Indexer 与 Top-k 选择的开销降到稠密基线的 <b>1/8</b>，百万 token 会话才跑得动。</p>
+        </div>
+        <div>
+          <h4>硬指标（官方口径已标注）</h4>
+          <div class="tbl-wrap" style="border:none;background:transparent">
+            <table style="min-width:0">
+              <thead><tr><th>基准</th><th>得分</th><th>口径</th></tr></thead>
+              <tbody>
+              <tr><td>DeepSWE v1.1</td><td class="num">67.7%</td><td>自测 · High 档 vs 竞品 Max</td></tr>
+              <tr><td>FrontierFinance</td><td class="num">66.4</td><td>自测 · 仅次于 Opus 5 的 69.7</td></tr>
+              <tr><td>DRACO</td><td class="num">83.3</td><td>自测</td></tr>
+              <tr><td>Terminal-Bench 4.0</td><td class="num">33.3%</td><td>第三方 · 明显落后 GLM 5.3</td></tr>
+              <tr><td>StepCodeBench</td><td class="num">49.0%</td><td>自建 · 553 仓库 / 33 语言</td></tr>
+              <tr><td>GDPval-AA v2</td><td class="num">1571</td><td>第三方 · 弱项</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h4 style="margin-top:20px">第三方口碑</h4>
+          <blockquote class="quote"><p>能力跃升但速度承压：首个回答 token 延迟约 23 秒，完整 benchmark 任务平均耗时超过 12 分钟。</p><cite>Artificial Analysis 测试数据</cite></blockquote>
+          <blockquote class="quote"><p>它在 AA 评测里生成了 1.6 亿输出 token，中位数只有 9,200 万——啰嗦本身就在吃钱。</p><cite>OfficeChai / MarkTechPost</cite></blockquote>
+          <blockquote class="quote"><p>官方自己在 StepCodeBench 上承认：bug 修复、特性修改、重构表现最好，但在最长的任务上与前沿存在有意义的差距。</p><cite>CellCog · 官方 benchmark 表解读</cite></blockquote>
+        </div>
+      </div>
+      <div class="d-verdict"><span class="lb">腾子判断</span><p><b>等 10/15 开源，现在先用云 API 小样。</b>它最对味的场景是"量大但单条不难"：剧本批量改写、提示词库结构扩写、竞品拆解文档抽取——1M 上下文 + 缓存命中 $0.05 的价格结构就是为这个设计的。<b>三个坑先记住</b>：① 慢，急活别交给它；② 话多，长任务的输出成本要单独算；③ 厂商自测用的是 High 档、竞品是 Max 档，<b>这个对比口径不对等</b>，别照着发布会表格做决策。</p></div>
+    </article>
+
+    <!-- 档案 3：hy4-preview -->
+    <article class="dossier rv" style="--camp:var(--c-hy)">
+      <div class="d-top">
+        <div class="d-id">
+          <h3>hy4-preview-f <code>hy4-preview-f</code> <span class="tag t-free">WorkBuddy 内免费至 10-10</span></h3>
+          <p class="aka">腾讯混元 · 姚顺雨团队 · 2026-08-28 开源（Apache 2.0）· 距 hy3 GA 仅约八周</p>
+          <p class="verdict-inline"><b>当前会话的默认模型。</b>770B MoE 里每 token 只激活 49B，API 却比 GLM / Kimi 便宜；官方盲测小胜 GLM-5.3 与 Kimi K3，但差距不到 0.1 分，胜率接近抛硬币。</p>
+        </div>
+        <div class="d-specs">
+          <div><b>770B</b><span>总参数</span></div>
+          <div><b>49B</b><span>每 token 激活</span></div>
+          <div><b>78 层</b><span>256 专家 top-8</span></div>
+          <div><b>1M</b><span>上下文</span></div>
+          <div><b>$0.83</b><span>输入 / 百万</span></div>
+          <div><b>$2.50</b><span>输出 / 百万</span></div>
+          <div><b>纯文本</b><span>无视觉变体</span></div>
+          <div><b>2.99 / 4</b><span>内部盲测</span></div>
+        </div>
+      </div>
+      <div class="d-body">
+        <div>
+          <h4>近期动态</h4>
+          <ol class="timeline">
+            <li><time>2026-08-28</time><b>开源发布</b>，权重上 Hugging Face，Apache 2.0 可商用无营收门槛；WorkBuddy / CodeBuddy 两周免费。</li>
+            <li><time>2026-08-28</time><b>Gated DSA + IndexCache</b>：用门控稀疏注意力 + 跨层稀疏索引复用撑住 1M 上下文，避免简单堆全注意力。</li>
+            <li><time>2026-08-28</time><b>自带 MTP 草稿层</b>（10B 总参 / 0.7B 激活）做投机解码，vLLM / SGLang 可直接启用。</li>
+            <li><time>2026-08-28</time><b>递归自改进</b>：官方称模型参与优化了自身的训练方法、数据策略与底层算子，端到端吞吐较基线 +31.8%（内部结果）。</li>
+            <li><time>2026-09-28→10-04</time><b>OpenRouter 周调用 6.51 T（↓32%）</b>，全球第五；但近 30 日累计 53.5 T，环比 <b>+570%</b>。</li>
+          </ol>
+        </div>
+        <div>
+          <h4>盲测战绩（163 名专家 × 203 个工程任务）</h4>
+          <div class="tbl-wrap" style="border:none;background:transparent">
+            <table style="min-width:0">
+              <thead><tr><th>模型</th><th>均分</th><th>胜 / 平 / 负</th></tr></thead>
+              <tbody>
+              <tr class="hl"><td><b>Hy4 preview</b></td><td class="num">2.99</td><td class="num">—</td></tr>
+              <tr><td>Kimi K3</td><td class="num">2.94</td><td class="num">51.2% 胜 / 40.9% 负</td></tr>
+              <tr><td>GLM-5.3</td><td class="num">2.92</td><td class="num">46.8% 胜 / 40.4% 负</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h4 style="margin-top:20px">第三方口碑</h4>
+          <blockquote class="quote"><p>Terminal-Bench 2.1 拿到 85.4，领先 DeepSeek V4 Pro；DeepSWE 从上一代的 28.0 跳到 64.3。</p><cite>Konfabula / Gate 新闻整理</cite></blockquote>
+          <blockquote class="quote"><p>第三方独立评测显示，Hy4 在通用基准上落后于阿里的 Qwen3.8 Max——厂商自测口径只覆盖自家擅长的工程任务。</p><cite>Semalt 研究 · 译自 NOVAC</cite></blockquote>
+          <blockquote class="quote"><p>770B 总参数听起来吓人，但真正驱动推理成本的是激活的 49B；可惜纯文本，没有官方视觉 / 音频变体。</p><cite>尧图网站实测</cite></blockquote>
+        </div>
+      </div>
+      <div class="d-verdict"><span class="lb">腾子判断</span><p><b>免费窗口到 10-10，重活趁这两天跑掉。</b>它是本册里少数"身份明确 + 权重开源 + 价格不贵 + 上下文 1M"四项全占的模型，作为默认底座没有明显短板。但要清楚两点：<b>盲测是腾讯自己组织的</b>，且差距小到可以忽略；<b>看图这类多模态活它做不了</b>，视觉理解仍要交给 GLM 5.3 Flash 或 space-bunny。</p></div>
+    </article>
+
+    <!-- 档案 4-6：三小张 -->
+    <article class="dossier rv mini" style="--camp:var(--c-glm)">
+      <div class="d-top">
+        <div class="d-id">
+          <h3>glm-5.3 / glm-5.3-flash <code>z-ai</code> <span class="tag t-new">智谱</span></h3>
+          <p class="aka">OpenRouter 周调用：5.3 计 2.55 T · 5.3 Flash 计 9.73 T</p>
+        </div>
+      </div>
+      <div class="d-body">
+        <div>
+          <h4>规格与实价</h4>
+          <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0">均为 1M 上下文。<b>GLM 5.3</b> $0.10 / $4.40，中位输出 99 tok/s；<b>GLM 5.3 Flash</b> $0.04 / $0.5，是榜上最便宜的开源旗舰级。AA 智能指数：GLM 5.3 为 45，比 Step 5 Preview 高 1 分。</p>
+        </div>
+        <div>
+          <h4>近期动态与口碑</h4>
+          <ol class="timeline">
+            <li><time>近 30 日</time>GLM 5.3 Flash 累计 56.4 T（↑378%），是过去一个月调用量爬升最猛的开源模型。</li>
+            <li><time>本周</time>却环比 <b>下滑 40%</b> 至 9.73 T——正值 Space Bunny 免费放量，明显被分流。</li>
+          </ol>
+          <blockquote class="quote"><p>同等智能水平下，GLM 5.3 的单任务成本只有 Kimi K3 的约三分之一，速度快近一倍。</p><cite>OpenRouter Kimi K3 vs GLM 5.3 对比页</cite></blockquote>
+        </div>
+      </div>
+      <div class="d-verdict"><span class="lb">腾子判断</span><p><b>本册性价比之王，没有争议。</b>需要长上下文 + 视觉理解 + 便宜时，glm-5.3-flash（×0.06）是默认答案；需要真长程工程推进时才上 glm-5.3（×0.79）。</p></div>
+    </article>
+
+    <article class="dossier rv mini" style="--camp:var(--c-ds)">
+      <div class="d-top">
+        <div class="d-id">
+          <h3>deepseek-v4.1-flash / v4-pro <code>deepseek</code> <span class="tag t-new">DeepSeek</span></h3>
+          <p class="aka">OpenRouter 周调用：V4.1 Flash 计 25.6 T（全球第 2）· V4 Pro 计 1.59 T</p>
+        </div>
+      </div>
+      <div class="d-body">
+        <div>
+          <h4>规格与实价</h4>
+          <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0">1M 上下文。<b>V4.1 Flash</b> 仅 $0.02 / $0.6，权重开源、峰谷定价（闲时半价）；AA 智能指数 39。<b>V4 Pro</b> GPQA Diamond 90.9、HLE 36.8、Terminal-Bench 2.1 90.6，Codeforces 评分 3471。</p>
+        </div>
+        <div>
+          <h4>近期动态与口碑</h4>
+          <ol class="timeline">
+            <li><time>近 30 日</time>V4.1 Flash 累计 58.6 T，全球第一——<b>Space Bunny 之前它就是榜主</b>。</li>
+            <li><time>本周</time>25.6 T（↑31%），被免费试用的 Space Bunny 挤到第二。</li>
+          </ol>
+          <blockquote class="quote"><p>要极致速度、丰富代码细节，且能接受匿名模型风险，Space Bunny 是值得试的奇兵；要稳定可靠、可验证基准、透明定价与开源生态，DeepSeek V4.1 Flash 更稳妥成熟。</p><cite>今日头条 · 对比实测</cite></blockquote>
+        </div>
+      </div>
+      <div class="d-verdict"><span class="lb">腾子判断</span><p><b>10/07 之后 space-bunny 折扣到期，就轮到它是跑量首选。</b>$0.02 / $0.6 的价格在 1M 档里几乎没有对手；数学与严谨推理仍然交给 v4-pro（×0.51）。</p></div>
+    </article>
+
+    <article class="dossier rv mini" style="--camp:var(--c-mm)">
+      <div class="d-top">
+        <div class="d-id">
+          <h3>minimax-m3-pay <code>minimax-m3-pay</code> <span class="tag t-new">MiniMax</span></h3>
+          <p class="aka">OpenRouter 周调用 1.23 T · 512k 上下文 · 外部价 $0.23 / $0.96</p>
+        </div>
+      </div>
+      <div class="d-body">
+        <div>
+          <h4>规格与实价</h4>
+          <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0">原生多模态，擅长代码与智能体。同门 <b>M3.1-Flash-Preview</b> 于 9/28 公测，六档推理强度、1M 上下文、文本 / 图片 / 视频输入。</p>
+        </div>
+        <div>
+          <h4>与 space-bunny 的关系</h4>
+          <ol class="timeline">
+            <li><time>2026-09-28</time>M3.1-Flash-Preview 公测，多项官方介绍与 Space Bunny 能力完全重合，多家媒体直接报道为「太空兔本尊」。</li>
+            <li><time>至今</time>MiniMax 与 OpenRouter 均未正式认领，匿名状态未解除。</li>
+          </ol>
+          <blockquote class="quote"><p>中国大模型日调用量持续霸榜，神秘的「玉兔」大模型来自 MiniMax？</p><cite>百家号 · 2026-09-28</cite></blockquote>
+        </div>
+      </div>
+      <div class="d-verdict"><span class="lb">腾子判断</span><p><b>space-bunny 的身份兜底。</b>如果哪天兔子下线或改名，minimax-m3-pay（×0.25）就是最接近的替身——社区认定的同门、同样的多模态 + 编码取向。两者留一个当回退方案。</p></div>
+    </article>
+
+    <article class="dossier rv mini" style="--camp:var(--c-kimi)">
+      <div class="d-top">
+        <div class="d-id">
+          <h3>kimi-k2.8-preview / kimi-k3-2 <code>moonshotai</code> <span class="tag t-new">Moonshot</span></h3>
+          <p class="aka">OpenRouter 周调用：K3 计 1.57 T · 外部价 $0.72 / $13</p>
+        </div>
+      </div>
+      <div class="d-body">
+        <div>
+          <h4>规格与实价</h4>
+          <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0">1,048,576 上下文。<b>Kimi K3</b> Coding Index <b>76.2</b>，高于 GLM 5.3 的 74.8；但中位输出仅 56 tok/s（GLM 5.3 为 99），价格是 GLM 5.3 的 7 倍。</p>
+        </div>
+        <div>
+          <h4>在盲测里的位置</h4>
+          <ol class="timeline">
+            <li><time>腾讯盲测</time>203 个工程任务里排第二（2.94），略低于 Hy4 preview 的 2.99。</li>
+            <li><time>开源榜</time>AA 智能指数 44，与 Step 5 Preview 同级。</li>
+          </ol>
+          <blockquote class="quote"><p>Kimi K3 scores higher on coding, with an Artificial Analysis Coding Index of 76.2 compared with 74.8 for GLM 5.3.</p><cite>OpenRouter 模型对比页</cite></blockquote>
+        </div>
+      </div>
+      <div class="d-verdict"><span class="lb">腾子判断</span><p><b>写作与审美描述优先它，跑量永远别用它。</b>kimi-k2.7 / k2.8 的中英语感和细腻度在本册里最好，做 IP 角色 prompt、双语剧本、成稿润色是对的选择；但 ×0.52 起、K3 更是 ×1.62，拿它跑批量小活等于烧积分。</p></div>
+    </article>
+
+  </div>
 </section>
 
-<section id="s4">
-<h2><span class="num">04</span>通义千问（阿里）</h2>
-<table>
-<thead><tr><th>模型</th><th>定位</th><th>关键指标</th></tr></thead>
-<tbody>
-<tr><td><b>Qwen3.8-Max</b><br>2026-08-02</td><td>家族最强旗舰，2.4T 参数 MoE、95B 激活、1M 上下文、原生多模态</td><td>GPQA Diamond 92.6 · PaperBench 93.0 · OSWorld 86.1 · CodeArena 第 4；官方演示 10+ 天自主编码构建 self-evolving harness</td></tr>
-<tr><td><b>Qwen3.8-27B</b><br>开源</td><td>270 亿参数原生多模态稠密模型，262k 原生上下文，YaRN 外推至 1M</td><td>SWE-bench Pro 61.7；可本地部署</td></tr>
-<tr><td><b>Qwen3.8-Flash-Next</b><br>2026-08-26 开源</td><td>基于下一代 Qwen4 架构的多模态 MoE 预览版</td><td>为 Qwen4 家族铺路，适合提前适配</td></tr>
-<tr><td><b>Qwen3.7-Plus / Max</b></td><td>Plus 为多模态 Agent 基座；Max 侧重纯文本推理与长文本分析</td><td>Plus ¥0.4 / ¥1.6，Max ¥2.5 / ¥7.5，Flash ¥0.03 / ¥0.06</td></tr>
-</tbody>
-</table>
-<div class="hint">务实判断：要<b>自建服务或私有化部署</b>，Qwen 是唯一现实选项（开源权重可商用）；只要 API 效果，Max 档能力配 ¥2.5/¥7.5 的价格，是全表性价比最高的旗舰。</div>
+<!-- ============ 03 四阵营总览 ============ -->
+<section class="rv" id="s3">
+  <div class="sec-head"><span class="sec-num">03</span><h2>四大阵营总览</h2></div>
+  <p class="sec-sub">外部价格按官方公开价折算人民币（美元按 1 USD ≈ 7.2 CNY 估算，仅供量级参考）。</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>阵营</th><th>当前主力</th><th>上下文</th><th>价格（每百万 token 入 / 出）</th><th>最强项</th><th>主要短板</th></tr></thead>
+      <tbody>
+      <tr><td><b>字节 · 豆包</b><br><span class="dash">火山方舟</span></td><td>Doubao-Seed-Evolving<br>Doubao-Seed-2.1-Pro</td><td>未公开统一值<br><span class="dash">（2.1 系列长上下文）</span></td><td class="num">¥6 / ¥30（Evolving·Pro）<br>¥3 / ¥15（Turbo）</td><td><b>多模态编程</b>：草图 / 录屏 / 设计图直接变代码；3D 场景、前端还原、游戏开发；Agent 长程执行</td><td>生态偏国内；第三方独立评测少；价格不算便宜</td></tr>
+      <tr><td><b>阿里 · 千问</b><br><span class="dash">百炼 / Qwen Cloud</span></td><td>Qwen3.8-Max<br>Qwen3.8-27B（开源）</td><td>1M（Max）<br>262k 原生 → 1M 外推</td><td class="num">¥2.5 / ¥7.5（Max）<br>¥0.4 / ¥1.6（Plus）<br>¥0.03 / ¥0.06（Flash）</td><td><b>性价比 + 开源</b>：2.4T MoE 旗舰，PaperBench 93.0、OSWorld 86.1；可私有化部署</td><td>旗舰闭源；开源版与 Max 有差距；版本命名混乱</td></tr>
+      <tr><td><b>OpenAI · GPT-6</b><br><span class="dash">ChatGPT / API</span></td><td>GPT-6 Astra<br>GPT-6 Sol<br>GPT-6 Luna</td><td>未公开统一值</td><td class="num">Sol ≈¥14 / ¥72<br>Luna ≈¥0.7 / ¥3.6</td><td><b>综合智能 + 办公自动化</b>：AutomationBench 上 Sol 以约 Opus 5 九分之一的单任务成本胜出；生态最成熟</td><td>境内访问受限；Astra 贵；数据合规需评估</td></tr>
+      <tr><td><b>Anthropic · Claude Code</b><br><span class="dash">CLI 编程事实标准</span></td><td>Claude Fable 5.1<br>Claude Opus 5.5<br>Claude Sonnet 5.5</td><td>均为 1M / 128k 输出</td><td class="num">Fable 5.1 ≈¥72 / ¥360<br>Opus 5.5 ≈¥29 / ¥144<br>Sonnet 5.5 ≈¥14 / ¥72</td><td><b>长程 agentic coding</b>：整仓理解、多文件重构、自主跑测试；Terminal-Bench 4.0 66–71%</td><td>最贵档高得离谱；纯终端界面；容易过度修改文件</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="hint">一句话区分：<b>豆包赢在"看懂图就能写代码"，千问赢在"旗舰能力配白菜价 + 能开源自部署"，GPT-6 赢在"综合智能与办公自动化生态"，Claude Code 赢在"整仓级长程编程"。</b></p>
 </section>
 
-<section id="s5">
-<h2><span class="num">05</span>GPT-6（OpenAI）</h2>
-<div class="grid g3">
-<div class="card"><b class="t">GPT-6 Astra</b><span>全家族最强，"要最好结果、不妥协"时选它。</span><div class="kv">价格未公开，属最高档</div></div>
-<div class="card"><b class="t">GPT-6 Sol</b><span>主力档：专业工作、事实性、编码、计算机操作全面强。</span><div class="kv"><b>$2 / $10</b>（≈¥14/¥72），比 GPT-5.6 Sol 便宜 50%</div></div>
-<div class="card"><b class="t">GPT-6 Luna</b><span>最省档，日常高频调用。</span><div class="kv"><b>$0.10 / $0.50</b>（≈¥0.7/¥3.6），同样降价 50%</div></div>
-</div>
-<div class="card"><b class="t">值得注意的一点</b><span>OpenAI 官方把对比基准放在 Claude 上：AutomationBench（47 个工具的端到端业务流程）中，GPT-6 Sol 在 xhigh 强度下超过 max 强度的 Claude Opus 5，单任务成本只有后者约 9%。</span><div class="kv">但这是厂商自测数据，且测的是<b>办公流程自动化</b>，不等于编程更强——编程场景 Claude Code 依然是事实标准。</div></div>
+<!-- ============ 04 豆包 ============ -->
+<section class="rv" id="s4">
+  <div class="sec-head"><span class="sec-num">04</span><h2>豆包（字节）</h2></div>
+  <div class="grid g2">
+    <div class="tile" style="--camp:var(--c-bd)"><h5>Doubao-Seed-Evolving</h5><span class="ct">聚焦 Coding 与 Agent 的高频迭代主力旗舰</span><p>官方公开价 ¥6 / ¥30 每百万 token。</p><div class="kv">¥6 / ¥30 · per M token</div></div>
+    <div class="tile" style="--camp:var(--c-bd)"><h5>Doubao-Seed-2.1-Pro（0915 新版）</h5><span class="ct">多模态编程国内领先</span><p>草图、录屏、设计图直接生成可运行代码；3D 建模、前端还原、游戏场景。公开案例：38.7 万行仓库的 1000 个真实 issue，约 36 小时内 83% 修复至可合并标准；图像 / 视频推理 token 消耗比上代降 30%+。</p><div class="kv">SVG · 1000 issue · 83% 修复率</div></div>
+  </div>
+  <div class="panel" style="border-left:3px solid var(--c-bd);margin-top:16px">
+    <h4>对做视觉的人更有价值的是 Seedream 5.0</h4>
+    <p style="margin:0;font-size:var(--fs-sm);line-height:1.8;color:var(--text-2)">图像创作模型（非语言模型），四项升级直接命中商业设计场景：交互式精准编辑（画箭头 / 圈区域即可改图）、多图层分离（任意区域任意粒度拆层）、高密度信息表达（精细图表、多层结构、整页 PPT）、原生多语种文字生成（10 余种语言，理解排版与字体习惯）。约 ¥0.22–0.30 / 张。<br><br>与 Midjourney 的关系：MJ 强在美学与风格一致性，Seedream 强在<b style="color:var(--text)">可控编辑与文字排版</b>——海报、分镜、带字设计这类活，它是补位而不是替代。</p>
+  </div>
 </section>
 
-<section id="s6">
-<h2><span class="num">06</span>Claude Code（Anthropic）</h2>
-<table>
-<thead><tr><th>模型</th><th>价格（每百万 入/出）</th><th>上下文 / 输出</th><th>定位与表现</th></tr></thead>
-<tbody>
-<tr><td><b>Claude Fable 5.1</b><br>2026-09-01</td><td>$10 / $50（≈¥72/¥360）</td><td>1M / 128k</td><td>最强档：高难推理与超长程 Agent，默认 high effort。只在 Opus 5.5 开到 xhigh/max 仍不够时才上</td></tr>
-<tr><td><b>Claude Opus 5.5</b><br>2026-09-22 起为默认 Opus</td><td>$4 / $20（≈¥29/¥144）<br>缓存读取 $0.20</td><td>1M / 128k</td><td>长程 agentic coding 与知识工作；Terminal-Bench 4.0 66.4%，FrontierCode 54.4%，CursorBench 57.8%</td></tr>
-<tr><td><b>Claude Sonnet 5.5</b><br>2026-09-28 起为默认 Sonnet</td><td>$2 / $10（≈¥14/¥72）</td><td>1M / 128k</td><td>速度与智能的最佳平衡，每日主力；Terminal-Bench 4.0 70.6%（高于 Opus），但 FrontierCode 仅 46.2%</td></tr>
-<tr><td><b>Claude Haiku 4.5</b></td><td>$1 / $5</td><td>200k / 64k</td><td>最快档，但知识截止 2025-02，官方退役承诺只到 2026-10-15，新项目不要起在上面</td></tr>
-</tbody>
-</table>
-<div class="hint">选型规则（Anthropic 自己的建议也是这个）：<b>默认 Sonnet 5.5 → 诊断不清、跨架构边界、改错代价高时上 Opus 5.5 → 仍不够才上 Fable 5.1。</b>不要因为"贵就是好"直接开 Fable。</div>
+<!-- ============ 05 千问 ============ -->
+<section class="rv" id="s5">
+  <div class="sec-head"><span class="sec-num">05</span><h2>通义千问（阿里）</h2></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>模型</th><th>定位</th><th>关键指标</th></tr></thead>
+      <tbody>
+      <tr><td><b>Qwen3.8-Max</b><br><span class="dash">2026-08-02</span></td><td>家族最强旗舰，2.4T 参数 MoE、95B 激活、1M 上下文、原生多模态</td><td>GPQA Diamond 92.6 · PaperBench 93.0 · OSWorld 86.1 · CodeArena 第 4；官方演示 10+ 天自主编码构建 self-evolving harness</td></tr>
+      <tr><td><b>Qwen3.8-27B</b><br><span class="dash">开源</span></td><td>270 亿参数原生多模态稠密模型，262k 原生上下文，YaRN 外推至 1M</td><td>SWE-bench Pro 61.7；可本地部署</td></tr>
+      <tr><td><b>Qwen3.8-Flash-Next</b><br><span class="dash">2026-08-26 开源</span></td><td>基于下一代 Qwen4 架构的多模态 MoE 预览版</td><td>为 Qwen4 家族铺路，适合提前适配</td></tr>
+      <tr><td><b>Qwen3.7-Plus / Max</b></td><td>Plus 为多模态 Agent 基座；Max 侧重纯文本推理与长文本分析</td><td class="num">Plus ¥0.4 / ¥1.6，Max ¥2.5 / ¥7.5，Flash ¥0.03 / ¥0.06</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="hint">务实判断：要<b>自建服务或私有化部署</b>，Qwen 是唯一现实选项（开源权重可商用）；只要 API 效果，Max 档能力配 ¥2.5 / ¥7.5 的价格，是全表性价比最高的旗舰。</p>
 </section>
 
-<section id="s7">
-<h2><span class="num">07</span>等价替代表：外部模型 → WorkBuddy 内部</h2>
-<p class="sub">如果活必须留在 WorkBuddy 里（本地文件、技能、连接器），按这张表映射。</p>
-<table>
-<thead><tr><th>想用外部哪个</th><th>WorkBuddy 内用什么</th><th>说明</th></tr></thead>
-<tbody>
-<tr><td>豆包 2.1-Pro（看图写代码）</td><td><b>space-bunny</b> + <b>glm-5.3</b></td><td>space-bunny 原生多模态 + 编码强（x0.03）；glm-5.3 负责长程工程推进</td></tr>
-<tr><td>Seedream 5.0（可控改图 / 带字设计）</td><td><b>ImageGen</b>（hunyuan-image-alpha）+ MJ</td><td>WorkBuddy 内置生图走混元；真要可控编辑建议直接用 Seedream 或 MJ，别硬凑</td></tr>
-<tr><td>Qwen3.8-Max（旗舰推理）</td><td><b>glm-5.3</b> / <b>kimi-k3-2</b></td><td>同为长程 + 强推理定位；kimi-k3-2 更贵但科研推理更强</td></tr>
-<tr><td>Qwen3.8-27B / Flash（便宜量大）</td><td><b>glm-5.3-flash</b> / <b>deepseek-v4.1-flash</b></td><td>x0.06 / x0.11，跑量首选</td></tr>
-<tr><td>GPT-6 Sol（综合主力）</td><td><b>hy4-preview-f</b>（免费期）/ <b>glm-5.3</b></td><td>1M 上下文 + 强推理的最接近组合</td></tr>
-<tr><td>GPT-6 Luna（最省档）</td><td><b>space-bunny</b>（x0.03）</td><td>折扣期内比 Luna 还便宜；到期后改用 hy3（免费）</td></tr>
-<tr><td>Claude Opus 5.5（长程 agentic coding）</td><td><b>glm-5.3</b>（x0.79）</td><td>官方定位同样是"复杂软件工程与长程 Agent"；成本约为 Opus 5.5 的几十分之一</td></tr>
-<tr><td>Claude Sonnet 5.5（日常编码）</td><td><b>space-bunny</b> / <b>minimax-m3-pay</b></td><td>10/7 前用 space-bunny，之后回落 minimax-m3-pay</td></tr>
-<tr><td>Claude Fable 5.1（最难推理）</td><td><b>kimi-k3-2</b> / <b>deepseek-v4-pro</b></td><td>WorkBuddy 内的天花板；数学逻辑优先 deepseek-v4-pro</td></tr>
-</tbody>
-</table>
-<div class="hint">反向建议：<b>不是所有活都该留在 WorkBuddy 里</b>。整仓级重构用 Claude Code、可控改图用 Seedream、自建服务用 Qwen 开源权重——这些是各自阵营的真优势，WorkBuddy 内没有等价物。</div>
+<!-- ============ 06 GPT-6 ============ -->
+<section class="rv" id="s6">
+  <div class="sec-head"><span class="sec-num">06</span><h2>GPT-6（OpenAI）</h2></div>
+  <div class="grid g3">
+    <div class="tile" style="--camp:var(--c-oai)"><h5>GPT-6 Astra</h5><span class="ct">全家族最强</span><p>"要最好结果、不妥协"时选它。OpenRouter 周调用 1.51 T，外部价 $5 / $25。</p><div class="kv">AA 指数 53 · 并列第一</div></div>
+    <div class="tile" style="--camp:var(--c-oai)"><h5>GPT-6 Sol</h5><span class="ct">主力档</span><p>专业工作、事实性、编码、计算机操作全面强。比 GPT-5.6 Sol 便宜 50%。</p><div class="kv">$2 / $10 ≈ ¥14 / ¥72</div></div>
+    <div class="tile" style="--camp:var(--c-oai)"><h5>GPT-6 Luna</h5><span class="ct">最省档</span><p>日常高频调用。本期 OpenRouter 涨幅最大的美国模型，周调用 6.18 T（↑116%）。</p><div class="kv">$0.10 / $0.50 ≈ ¥0.7 / ¥3.6</div></div>
+  </div>
+  <div class="panel" style="margin-top:16px">
+    <h4>值得注意的一点</h4>
+    <p style="margin:0;font-size:var(--fs-sm);line-height:1.8;color:var(--text-2)">OpenAI 官方把对比基准放在 Claude 上：AutomationBench（47 个工具的端到端业务流程）中，GPT-6 Sol 在 xhigh 强度下超过 max 强度的 Claude Opus 5，单任务成本只有后者约 9%。<br><br>但这是<b style="color:var(--text)">厂商自测数据，且测的是办公流程自动化，不等于编程更强</b>——编程场景 Claude Code 依然是事实标准。</p>
+  </div>
 </section>
 
-<section id="s8">
-<h2><span class="num">08</span>促销窗口（会过期，先抢这些）</h2>
-<div class="grid g2">
-<div class="card hot"><b class="t">space-bunny 限时折扣</b><span>2026-10-02 → 10-07 结束（配置生效至 10/08 00:00）。x0.03 全表最低，到期后价格大概率上浮。</span></div>
-<div class="card"><b class="t">hy3 / hy3-b / hy3-c 全免费</b><span>2026-07-06 → 10-31，每日赠送免费额度。日常任务默认挂这三个。</span></div>
-<div class="card"><b class="t">hy4-preview-f 全免费</b><span>2026-08-28 → 10-10 24:00。1M 上下文，趁窗口把重活跑掉。</span></div>
-<div class="card"><b class="t">glm-5.2 夜间 5 折</b><span>每天 23:00–次日 7:50，x0.79 → x0.50。长程批处理放夜里跑。</span></div>
-</div>
-<div class="hint">排队提示：glm-5.3、glm-5.3-flash、glm-5.3-flashx、kimi-k2.8-preview、step-5-preview 标记为「订阅优先」，资源紧张时高级会员优先调度；kimi-k3-2 为订阅优先开放。</div>
+<!-- ============ 07 Claude Code ============ -->
+<section class="rv" id="s7">
+  <div class="sec-head"><span class="sec-num">07</span><h2>Claude Code（Anthropic）</h2></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>模型</th><th>价格（每百万 入 / 出）</th><th>上下文 / 输出</th><th>定位与表现</th></tr></thead>
+      <tbody>
+      <tr><td><b>Claude Fable 5.1</b><br><span class="dash">2026-09-01</span></td><td class="num">$10 / $50（≈¥72/¥360）</td><td>1M / 128k</td><td>最强档：高难推理与超长程 Agent，默认 high effort。只在 Opus 5.5 开到 xhigh / max 仍不够时才上</td></tr>
+      <tr><td><b>Claude Opus 5.5</b><br><span class="dash">2026-09-22 起为默认 Opus</span></td><td class="num">$4 / $20（≈¥29/¥144）<br>缓存读取 $0.20</td><td>1M / 128k</td><td>长程 agentic coding 与知识工作；Terminal-Bench 4.0 66.4%，FrontierCode 54.4%，CursorBench 57.8%</td></tr>
+      <tr><td><b>Claude Sonnet 5.5</b><br><span class="dash">2026-09-28 起为默认 Sonnet</span></td><td class="num">$2 / $10（≈¥14/¥72）</td><td>1M / 128k</td><td>速度与智能的最佳平衡，每日主力；Terminal-Bench 4.0 70.6%（高于 Opus），但 FrontierCode 仅 46.2%</td></tr>
+      <tr><td><b>Claude Haiku 4.5</b></td><td class="num">$1 / $5</td><td>200k / 64k</td><td>最快档，但知识截止 2025-02，官方退役承诺只到 2026-10-15，新项目不要起在上面</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="hint">选型规则（Anthropic 自己的建议也是这个）：<b>默认 Sonnet 5.5 → 诊断不清、跨架构边界、改错代价高时上 Opus 5.5 → 仍不够才上 Fable 5.1。</b>不要因为"贵就是好"直接开 Fable。</p>
 </section>
 
-<section id="s9">
-<h2><span class="num">09</span>场景 → 模型直接映射</h2>
-<table>
-<thead><tr><th>场景</th><th>WorkBuddy 内首选</th><th>备选</th><th>外部更优选</th></tr></thead>
-<tbody>
-<tr><td>日常问答 / 短改写</td><td>快速档 或 hy3-c</td><td>hy3-x</td><td>—</td></tr>
-<tr><td>写文档 / 报告 / 方案</td><td>hy4-preview-f</td><td>kimi-k2.6 / k2.7</td><td>GPT-6 Sol</td></tr>
-<tr><td>中文长文写作、去 AI 味</td><td>kimi-k2.7</td><td>glm-5.1</td><td>—</td></tr>
-<tr><td>代码编写 / 调试</td><td><b>space-bunny</b>（10/7 前）</td><td>minimax-m3-pay、glm-5.3</td><td>Claude Sonnet 5.5</td></tr>
-<tr><td>前端页面 / 组件</td><td>kimi-k2.8-preview</td><td>space-bunny</td><td>豆包 2.1-Pro（设计图还原）</td></tr>
-<tr><td>整仓重构 / 长跑 Agent</td><td>glm-5.3</td><td>glm-5.2（夜间）</td><td><b>Claude Opus 5.5</b></td></tr>
-<tr><td>图片 / 截图理解</td><td>glm-5.3-flash</td><td>space-bunny、glm-5v-turbo</td><td>豆包 2.1-Pro（VLM）</td></tr>
-<tr><td>超长文档 1M</td><td>deepseek-v4.1-flash</td><td>hy4-preview-f、space-bunny</td><td>Qwen3.8-Max</td></tr>
-<tr><td>数学 / 逻辑推理</td><td>deepseek-v4-pro</td><td>space-bunny（默认最高思考强度）</td><td>Claude Fable 5.1</td></tr>
-<tr><td>带字海报 / 分镜 / 可控改图</td><td>ImageGen（混元）</td><td>Midjourney（风格一致性）</td><td><b>Seedream 5.0 Pro</b></td></tr>
-<tr><td>自建服务 / 私有化部署</td><td>—</td><td>—</td><td><b>Qwen3.8-27B 开源</b></td></tr>
-</tbody>
-</table>
+<!-- ============ 08 等价替代表 ============ -->
+<section class="rv" id="s7b">
+  <div class="sec-head"><span class="sec-num">08</span><h2>Codex（OpenAI 编程代理）· 已有 Plus 订阅 = 边际成本 $0</h2></div>
+  <p class="sec-sub">Codex 是<b>代理工具</b>，不是又一个模型——它和 Claude Code 是同一层的东西，但<b>不需要额外付费</b>：ChatGPT Free / Go / Plus / Pro / Business / Edu / Enterprise 全部包含。Codex CLI 是Apache-2.0 开源（<code>github.com/openai/codex</code>），可以在 Web、CLI、IDE 扩展、iOS、桌面端用。</p>
+
+  <div class="dossiers">
+    <article class="dossier flag" style="--camp:var(--c-oai)">
+      <div class="d-top">
+        <div class="d-id">
+          <h3>Codex + ChatGPT Plus <code>codex CLI 0.159.x</code> <span class="tag t-live">你已付费</span></h3>
+          <p class="aka">2026-09-29 GPT-6.1 Sol 发布并成为 Codex CLI 捆绑目录默认 · GPT-5.5 于<b>10-14 从 Codex 退役</b></p>
+          <p class="verdict-inline">你手上这$20 已经覆盖了从 Luna 到 Astra 的<b>全部四档模型</b>。真正的成本不是月费，是<b>额度管理</b>——用错档位，一周额度能在一天内烧光。</p>
+        </div>
+        <div class="d-specs">
+          <div><b>5–45</b><span>Astra · 每 5 小时</span></div>
+          <div><b>15–160</b><span>GPT-6.1 Sol · 每 5 小时</span></div>
+          <div><b>15–150</b><span>GPT-6 Sol · 每 5 小时</span></div>
+          <div><b>350–3,000</b><span>Luna · 每 5 小时</span></div>
+          <div><b>共享池</b><span>Codex + Work + Excel 共用</span></div>
+          <div><b>/status</b><span>查剩余额度</span></div>
+          <div><b>Apache-2.0</b><span>CLI 开源</span></div>
+          <div><b>6 档</b><span>low→ultra 思考强度</span></div>
+        </div>
+      </div>
+      <div class="d-body">
+        <div>
+          <h4>模型阵容与推荐用法</h4>
+          <div class="tbl-wrap" style="border:none;background:transparent">
+            <table style="min-width:0">
+              <thead><tr><th>模型</th><th>OpenAI 官方定位</th><th>用法</th></tr></thead>
+              <tbody>
+              <tr><td><b>Astra</b></td><td>最难端到端工作，跨代码 / 应用 / 研究的完整流程</td><td>只在 6.1 Sol 顶不住时用；<b>5–45 条就是 spot-check</b></td></tr>
+              <tr><td><b>GPT-6.1 Sol</b></td><td>接近 Astra 表现，成本更低；CLI 默认</td><td><b>你的默认档</b>：复杂改动、深度研究</td></tr>
+              <tr><td><b>GPT-6 Sol</b></td><td>复杂开放式工作，模糊 / 高价值任务</td><td>需要更细判断力时；实测比6.1 更慢且分数更低</td></tr>
+              <tr><td><b>Terra</b></td><td>务实全能手，日常推理 + 工具使用</td><td>不需要 Sol 深度时的中间档</td></tr>
+              <tr><td><b>Luna</b></td><td>清晰可重复的高吞吐任务：抽取、分类、转换、结构化摘要</td><td><b>跑量首选</b>，350–3,000 条几乎撞不到顶</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div>
+          <h4>第三方实测：真实结果</h4>
+          <blockquote class="quote"><p>FuncPass 72.1%、SecPass 25.1%，比上一代 GPT-5.6 Sol 的 20.1% 高 5 分，但比 Astra 的 34.6% 低 9.5 分。Azure 实测账单 $104，比 Astra 的 $468 低<b>78%</b>——尽管 token 用量比Astra 还多 15%。</p><cite>Endor Labs · 200 个真实编码任务 · GPT-6 Sol</cite></blockquote>
+          <blockquote class="quote"><p>Bug Hunt Bench：两个生产级代码库预埋105 个 bug，五款模型开到最高推理档。Astra 修好 45 个、GPT-5.6 Sol 43.5、Opus 5.5 41.7、GPT-6 Sol 仅 29.3——<b>垫底</b>，比上一代少修 14 个。</p><cite>Bug Hunt Bench · 判分依据公开于GitHub</cite></blockquote>
+          <blockquote class="quote"><p>六档思考强度实测：max 两次都写出盲评最佳代码；<b>ultra 从未触发过委派</b>，思考量比 max 少三分之一到一半，反而更快收工。low 和 medium 在浏览器里看着不错，但代码最难读。</p><cite>Spectrum AI Labs · 12 次构建 · 2026-10-04</cite></blockquote>
+        </div>
+      </div>
+      <div class="d-verdict"><span class="lb">腾子判断</span><p><b>你这$20 等于白送一个顶级编程代理，但要按额度分配模型。</b>三档策略：① <b>日常脚本、批量改文件、抽取整理 → Luna</b>，350–3,000 条随便用；② <b>复杂多文件重构、需要判断力 → GPT-6.1 Sol</b>，15–160 条省着用；③ <b>Astra 只做「其他档都搞不定」的最后一道</b>，5–45 条经不起挥霍。<br><br>三个必须知道的坑：<b>① Codex 和 ChatGPT Work、Excel、Workspace Agents 共用同一个额度池</b>，你在别处聊天也会吃这里的量；<b>② Fast 模式按 2.5 倍扣、Astra Ultrafast 按 8 倍扣</b>；<b>③ 撞限后不丢东西</b>——已改的文件还在工作树，会话记录保留，窗口重置后用 <code>codex resume</code> 接上。<br><br>和 Claude Code 怎么选：<b>Codex 赢在终端原生、沙箱microVM、MCP 支持和额度透明可查</b>；<b>Claude Code 赢在前端 UI 生成和架构推理</b>。你的达芬奇脚本 / ComfyUI 工具链改造这类活两个都能干，Codex 的优势是你已经在付费。</p></div>
+    </article>
+  </div>
+
+  <details>
+    <summary>Codex vs Claude Code vs WorkBuddy 内部模型：编程活怎么分流<span class="meta">三层对照</span></summary>
+    <div class="body">
+      <div class="tbl-wrap" style="border:none;background:transparent">
+        <table>
+          <thead><tr><th>活</th><th>Codex（你的 Plus）</th><th>WorkBuddy 内部</th><th>说明</th></tr></thead>
+          <tbody>
+          <tr><td>改脚本、调 API、批量重命名</td><td><b>Luna</b></td><td>space-bunny（×0.03）</td><td>两边都行；Codex 有沙箱和 git 集成，WorkBuddy 有本地文件直读</td></tr>
+          <tr><td>多文件重构、跨服务排错</td><td><b>GPT-6.1 Sol</b></td><td>glm-5.3（×0.79）</td><td>整仓级长程工程仍是 Claude Code 最强，Codex 次之</td></tr>
+          <tr><td>疑难 bug / 算法</td><td>GPT-6.1 Sol → Astra</td><td>deepseek-v4-pro（×0.51）</td><td>数学逻辑优先 deepseek-v4-pro，Codex 作第二意见</td></tr>
+          <tr><td>从零做前端页面 / 组件</td><td class="dash">较弱，见上</td><td>kimi-k2.8-preview（×0.77）</td><td><b>这项 Codex 明确落后 Claude Code</b>，仍建议走 WorkBuddy 或豆包 2.1-Pro</td></tr>
+          <tr><td>写文档 / 出方案</td><td>Terra / Luna</td><td>hy4-preview-f（免费）、kimi-k2.7</td><td>WorkBuddy 侧免费且中文更好，Codex 用于要引用大量代码上下文的</td></tr>
+          <tr><td>AI 视频 / 生图 API 集成</td><td><b>Terra</b></td><td>space-bunny、minimax-m3-pay</td><td>Codex 更适合「把平台层手册的折算逻辑写成脚本」</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="hint">分层原则：<b>要在终端里真改文件的活 → Codex；要在本地文件 / 技能 / 连接器里干的活 → WorkBuddy。</b>两边重叠的部分（写脚本、改文件）优先 Codex，因为它已经付过钱了，而且沙箱 + git 回滚更安全。</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>额度管理：怎么用满这 $20 而不浪费<span class="meta">实操</span></summary>
+    <div class="body">
+      <ul class="list">
+        <li><b>开任务前先 /status。</b>这是唯一权威数字。CLI、IDE 扩展、桌面端、云任务全共用这一个池子。</li>
+        <li><b>默认用 Luna，别默认开max。</b>Spectrum AI Labs 实测：ultra 从未真正委派，思考量比 max 少三分之一到一半。日常任务在 low / medium 上跑完全够。</li>
+        <li><b>Astra 留给「两个档都试过都不行」。</b>5–45 条经不起日常消耗，Fast 模式还要按 2.5 倍扣。</li>
+        <li><b>撞限了别慌也别退订。</b>编辑已落盘、会话已保存，<code>codex resume</code> 接着干；也可以在用量面板买 credits 续命，不必换计划。</li>
+        <li><b>周窗口是 7 天后重置，不是固定星期几。</b>别指望「周一满血」。</li>
+        <li><b>10-14 之前检查配置。</b>GPT-5.5 从 ChatGPT 和 Codex 退役，saved model settings、custom agents、定时任务里的 <code>gpt-5.5</code> 都要换成 <code>gpt-6-sol</code>。</li>
+      </ul>
+    </div>
+  </details>
 </section>
 
-<section id="s10">
-<h2><span class="num">10</span>按你的实际方向配置</h2>
-<table>
-<thead><tr><th>方向</th><th>任务细分</th><th>用什么</th><th>为什么</th></tr></thead>
-<tbody>
-<tr><td rowspan="3"><b>IP 角色视觉 + MJ 提示词</b><br>（主线）</td><td>角色原案 / 定妆 prompt 创作</td><td><b>hy4-preview-f</b>（免费）</td><td>1M 上下文可整包塞入角色圣经 + 历史 prompt + 资产表，跨镜头一致性是 200k 模型做不到的</td></tr>
-<tr><td>单条 prompt 打磨 / 双语对照 / 负向词</td><td><b>kimi-k2.7</b> → 高要求 <b>kimi-k2.8-preview</b></td><td>中英措辞自然，审美类描述细腻</td></tr>
-<tr><td>批量换参 / 系列扩写 / 套模板</td><td><b>hy3-c</b>（免费）</td><td>模板化重复劳动，零成本跑量</td></tr>
-<tr><td><b>带字物料 / 海报改图</b></td><td>改图中某个区域、生成带文字的版面</td><td><b>Seedream 5.0</b>（外部）</td><td>MJ 做不到的可控编辑与多语种排版；与 MJ 分工而非替代</td></tr>
-<tr><td rowspan="2"><b>AI 资讯日报</b></td><td>抓取 → 摘要 → HTML 排版</td><td><b>deepseek-v4.1-flash</b>（x0.11）</td><td>1M 一次吞下全天原文，成本极低</td></tr>
-<tr><td>要文笔的成稿</td><td><b>kimi-k2.6</b> + libai 润色 skill</td><td>中文语感好，配合润色 skill</td></tr>
-<tr><td rowspan="3"><b>脚本 / 工具开发</b></td><td>常规写代码、改脚本</td><td><b>space-bunny</b>（x0.03，10/7 前）</td><td>编码强 + 多模态，价格是 glm-5.3-flash 一半</td></tr>
-<tr><td>多文件工程 / 长跑重构</td><td><b>glm-5.3</b>（x0.79）</td><td>官方标注复杂软件工程与长程 Agent</td></tr>
-<tr><td>疑难 bug / 算法</td><td><b>deepseek-v4-pro</b>（x0.51）</td><td>推理严谨</td></tr>
-<tr><td><b>参考图 / 截图分析</b></td><td>解读风格、配色、构图</td><td><b>glm-5.3-flash</b>（x0.06）</td><td>原生多模态 + 1M，最便宜的视觉档之一</td></tr>
-<tr><td><b>Obsidian 知识库</b></td><td>笔记整理、双链补全</td><td><b>space-bunny</b> / <b>glm-5.3-flash</b></td><td>批量处理选最便宜档</td></tr>
-<tr><td><b>数据 / 金融计算</b></td><td>指标、回测、表格</td><td><b>deepseek-v4-pro</b></td><td>数学逻辑最稳</td></tr>
-</tbody>
-</table>
+<section class="rv" id="salloc">
+  <div class="sec-head"><span class="sec-num">09</span><h2>三订阅任务分配：把模型选择接回你的钱包</h2></div>
+  <p class="sec-sub">前面八节讲「哪个模型强」。这一节讲更实际的问题：<b>你已经付了三份订阅，哪些活该走哪一份。</b>按<b>产出物形态</b>分，不按模型强弱分——因为三份订阅有明确的能力独占，分错就是重复付费或能力浪费。</p>
+
+  <div class="grid g3" style="margin-bottom:var(--s-3)">
+    <div class="tile" style="--camp:#D85A30">
+      <h5>豆包工作 标准版 · ¥68/月</h5>
+      <span class="ct">独占：视觉与成片</span>
+      <p><b>Seedream 5.0 Pro</b> 交互式精准编辑（画箭头圈区域改图）、多图层分离、原生多语种排版；<b>Seedance 2.5</b> 单条最长 30 秒。WorkBuddy 内置生图走混元，<b>做不到可控编辑</b>；ChatGPT 完全不能生图。</p>
+      <div class="kv">标准 = 免费版 5 倍额度</div>
+    </div>
+    <div class="tile" style="--camp:#378ADD">
+      <h5>ChatGPT Plus · $20/月</h5>
+      <span class="ct">独占：终端工程</span>
+      <p><b>Codex</b> 已含在订阅内，沙箱 microVM + MCP + git 回滚。所有「真改文件」的活：达芬奇脚本、ComfyUI 工具链、NAS 批量运维。<b>边际成本 $0</b>，但 Astra 每 5 小时只有 5–45 条。</p>
+      <div class="kv">Luna 350–3,000 条 / 5h</div>
+    </div>
+    <div class="tile" style="--camp:#7F77DD">
+      <h5>WorkBuddy 标准版</h5>
+      <span class="ct">独占：本地资产层</span>
+      <p>唯一能直读 <b>NAS / 达芬奇工程 / 技能连接器</b>的地方。所有「读资产、定规范、出文档」的活。抓免费窗口：hy4-preview-f 到 <b>10-10</b>、space-bunny ×0.03 到 <b>10-07</b>、hy3 到 <b>10-31</b>。</p>
+      <div class="kv">主控台 · 文本免费窗口</div>
+    </div>
+  </div>
+  <p class="hint"><b>结论：WorkBuddy 是主控台，豆包和 Codex 是执行端。</b> 拿不准就 WorkBuddy——它是唯一能同时看到你全部资产的地方，判断错了不会丢东西。</p>
+
+  <h4 style="font:700 var(--fs-xs)/1 var(--font-mono);text-transform:uppercase;letter-spacing:.18em;color:var(--text-3);margin:var(--s-5) 0 var(--s-3)">Seedream 四档：方向定了吗？</h4>
+  <p class="sub" style="margin-bottom:var(--s-3)">标准套餐下四个版本都能选，<b>但消耗差 4 倍</b>。这是省额度最有效的一条判断。</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>版本</th><th>定位</th><th>消耗</th><th>什么时候用</th></tr></thead>
+      <tbody>
+      <tr><td><b>Seedream 5.0 Pro</b></td><td>专业出图</td><td><span class="tag t-max">×4</span></td><td>定妆照、关键场景主视觉、人名条 / 海报级交付——一张定生死、要抠皮肤质感的</td></tr>
+      <tr class="hl"><td><b>Seedream 5.0 Flash</b></td><td>专业快速</td><td><span class="tag t-cheap">×1 基准</span></td><td>brainstorm、服装发型多方案筛选、构图草图、<b>要进 Seedance 当首帧的图</b></td></tr>
+      <tr><td>Seedream 4.5</td><td>日常生成</td><td><span class="tag t-cheap">更低</span></td><td>常规素材、内部参考</td></tr>
+      <tr><td>Seedream 4.0</td><td>基础生图</td><td><span class="tag t-free">最低</span></td><td>占位、给美术看空间关系、不要质感的地方</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="hint"><b>两段式工作法：</b>Flash 跑量 → Pro 精修。探索期方向未定就用 Pro，是最烧额度的做法。</p>
+
+  <details>
+    <summary>豆包额度纪律：真正的硬墙是 5h / 7d 滚动窗口<span class="meta">4 条</span></summary>
+    <div class="body">
+      <ul class="list">
+        <li><b>硬墙是滚动窗口，不是总额度。</b>标准套餐是「免费版的 5 倍」这个倍数，<b>集中用一次就能撞掉 5 小时窗口然后干等</b>。工作方式必须是错峰 + 精选，不能攒额度慢慢用。加强 ¥200 = 20 倍，高级 ¥500 = 50 倍。</li>
+        <li><b>优先扣每日免费赠送，用完才扣月度额度池。</b>所以每天开一次先把当天的活做掉，别攒到月底。</li>
+        <li><b>不要买创作额度包。</b>99 元/个是一次性的，<b>不解决 5h / 7d 滚动限制</b>。撞墙了只有两条路：等窗口重置，或直接升加强套餐。</li>
+        <li><b>4K 超分、数字人、专业动效模板在会员额度之外单独扣费。</b>生成前先看增值服务价格表，别以为会员包全包。</li>
+      </ul>
+      <p class="hint"><b>升加强套餐的判据（看频率不看总量）：</b>一周撞 5h/7d 墙 <b>0–1 次</b> → 保持 ¥68，靠 Flash/Pro 分级扛；<b>≥2 次</b> → 升 ¥200，升级立即生效、补首月差价。先用 Flash 跑量省下来，可能根本不用升。</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>一条短剧的完整流向：谁做哪一步<span class="meta">生产流</span></summary>
+    <div class="body">
+      <div class="tbl-wrap" style="border:none;background:transparent">
+        <table>
+          <thead><tr><th>环节</th><th>交给谁</th><th>用什么</th><th>说明</th></tr></thead>
+          <tbody>
+          <tr><td>读工程文件、盘点 NAS 资产</td><td><b>WorkBuddy</b></td><td>hy4-preview-f（免费 1M）</td><td>只有它能直读 NAS / 达芬奇工程</td></tr>
+          <tr><td>竞品拆解、剧本拉片、情绪曲线</td><td><b>WorkBuddy</b></td><td>hy4-preview-f / kimi-k2.7</td><td>中文语感，kimi 去 AI 味最好</td></tr>
+          <tr><td>角色视觉方案 + 提示词创作</td><td><b>WorkBuddy</b></td><td>hy4-preview-f</td><td>1M 上下文塞整个角色圣经，保证跨镜头一致</td></tr>
+          <tr><td>单条提示词打磨（中英双语 + 负向词）</td><td><b>WorkBuddy</b></td><td>kimi-k2.7 → k2.8-preview</td><td>审美描述细腻</td></tr>
+          <tr><td>探索期出图：多方案 / 首帧 / 草图</td><td><b>豆包工作</b></td><td>Seedream 5.0 Flash（×1）</td><td>方向未定就跑量</td></tr>
+          <tr><td>定稿出图：定妆照 / 主视觉 / 海报</td><td><b>豆包工作</b></td><td>Seedream 5.0 Pro（×4）</td><td>一张定生死，值得花 4 倍</td></tr>
+          <tr><td>视频分镜 / 动态素材</td><td><b>豆包工作</b></td><td>Seedance 2.5</td><td>标准套餐即可用，单条最长 30 秒，当前 720p</td></tr>
+          <tr><td>剪辑、精修、调色、终审</td><td><b>人</b></td><td>达芬奇</td><td>不外包给任何工具</td></tr>
+          <tr><td>达芬奇脚本 / 批量工具开发</td><td><b>Codex</b></td><td>Luna → Sol → Astra</td><td>见 08 额度三档</td></tr>
+          <tr><td>NAS 运维、批量改名、目录整理</td><td><b>Codex</b></td><td>Luna</td><td>沙箱 + git 回滚，安全</td></tr>
+          <tr><td>团队 SOP、标准化流程文档</td><td><b>WorkBuddy</b></td><td>hy4-preview-f（免费）</td><td>趁 10-10 免费窗口做完</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="hint"><b>终审不通过时：</b>带具体问题回 WorkBuddy 改提示词，不要重新生成全套。</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>四条明确「不要做」的分工<span class="meta">避坑</span></summary>
+    <div class="body">
+      <div class="tbl-wrap" style="border:none;background:transparent">
+        <table>
+          <thead><tr><th>别做</th><th>原因</th><th>改做</th></tr></thead>
+          <tbody>
+          <tr><td>用豆包额度写方案、写文档</td><td>文本活占用付费额度池，还有 5h/7d 墙</td><td>WorkBuddy + hy4-preview-f（免费）</td></tr>
+          <tr><td>探索期就用 Seedream 5.0 Pro</td><td>Pro 单张 = Flash 4 张，方向未定时最烧额度</td><td>Flash 跑量 → 定稿再 Pro</td></tr>
+          <tr><td>用 ChatGPT Plus 做生图</td><td>完全不能生图</td><td>豆包工作 Seedream</td></tr>
+          <tr><td>让 WorkBuddy 硬凑可控改图</td><td>混元生图做不到区域编辑</td><td>Seedream 5.0 Pro</td></tr>
+          <tr><td>在 ChatGPT 网页版手工贴代码改文件</td><td>没有沙箱，改错无法回滚</td><td>Codex CLI</td></tr>
+          <tr><td>三边各存一份提示词</td><td>版本漂移，团队不知道哪版是对的</td><td>主库放 WorkBuddy 的 NAS 目录</td></tr>
+          <tr><td>撞墙了去买创作额度包</td><td>99 元/个一次性，不解决滚动限制</td><td>等窗口重置，或升加强套餐</td></tr>
+          <tr><td>拿 Astra 跑日常改文件</td><td>5–45 条 / 5 小时，一周额度一天烧光</td><td>Luna（350–3,000 条）</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="hint"><b>带 7 人团队，资产主库必须立死规矩：</b>提示词只在 NAS 单目录改，豆包和 Codex 里看到的都是只读副本，生成完回写主库并标注日期与模型版本。否则三个月后没人知道哪版是对的。</p>
+    </div>
+  </details>
 </section>
 
-<section id="s11">
-<h2><span class="num">11</span>特殊场景：人生 / 职业规划这类深度对话</h2>
-<p class="sub">本质是超长上下文 + 高价值低频次 + 需要模型敢质疑你，跟写代码选型逻辑相反——<b>这里不该省钱</b>。</p>
-<table>
-<thead><tr><th>阶段</th><th>模型</th><th>理由</th></tr></thead>
-<tbody>
-<tr><td>① 信息采集（主谈）</td><td><b>hy4-preview-f</b></td><td>1M 上下文吃下完整履历、价值观、约束、历史决策</td></tr>
-<tr><td>② 深度思辨</td><td><b>kimi-k3-2</b>（x1.62）</td><td>知识工作与科研推理出色，一年用几次别省</td></tr>
-<tr><td>③ 取舍推演</td><td><b>deepseek-v4-pro</b></td><td>算概率、期望值、不可逆性</td></tr>
-<tr><td>④ 落成文档</td><td><b>kimi-k2.7</b></td><td>中文长文语感最好</td></tr>
-<tr><td>⑤ 交叉验证（关键）</td><td>kimi-k3-2 <b>+</b> deepseek-v4-pro 各问一遍</td><td>分歧点才是真正要想清楚的，共识点可执行</td></tr>
-</tbody>
-</table>
-<div class="card"><b class="t">不要用</b><span>快速档（x0.21）与 flash 档：倾向快速给出"看起来合理"的答案，缺少追问和反驳。space-bunny 虽便宜，但默认最高思考强度，比 flash 档更愿意较真，可作候选。</span></div>
+<section class="rv" id="svend">
+  <div class="sec-head"><span class="sec-num">10</span><h2>厂商档案：谁在造模型，谁在打仗</h2></div>
+  <p class="sec-sub">前面讲模型和订阅，这一节讲<b>公司</b>。2026 年大模型的竞争已经不只是技术对比，而是<b>资本、开源策略、芯片约束、分发生态</b>四线同时开打。看懂这些打法差异，比记住参数表更有用——因为<b>参数会过期，打法不会</b>。<br><br>本节分两批：<b>第一批六家中国厂商</b>（下表与档案卡），<b>第二批四家海外与硬件厂</b>（<b>OpenAI、Anthropic、Claude Code、小米 MiMo</b>）在本节末尾的折叠块里——那批的资本数据量更大，展开看更清楚。</p>
+
+  <div class="tbl-wrap" style="margin-bottom:var(--s-4)">
+    <table>
+      <thead><tr><th>厂商</th><th>旗舰模型</th><th>参数（总 / 激活）</th><th>上下文</th><th>许可证</th><th>资本状态</th></tr></thead>
+      <tbody>
+      <tr class="hl"><td><b>月之暗面</b><br><span class="dash">Moonshot AI · Kimi</span></td><td>Kimi K3<br><span class="dash">2026-07-17 发布</span></td><td class="num">2.8T / 104B</td><td>1M</td><td><span class="tag t-warn">自定义 · 抽成≤30%</span></td><td>Pre-IPO 估值 <b>$500亿</b>；半年翻 5 倍</td></tr>
+      <tr><td><b>阿里 · 千问</b><br><span class="dash">Qwen</span></td><td>Qwen3.8-Max</td><td class="num">2.4T / 95B</td><td>1M</td><td><span class="tag t-free">Apache-2.0 部分</span></td><td>已开源 460+ 模型</td></tr>
+      <tr><td><b>DeepSeek</b><br><span class="dash">深度求索</span></td><td>V4-Pro（<b>已退役</b>）<br><span class="dash">→ 现役 V4.1 Flash</span></td><td class="num">1.7T / 49B</td><td>1M</td><td><span class="tag t-free">MIT（最彻底）</span></td><td>未上市 · 高盛列为长期最具竞争力</td></tr>
+      <tr><td><b>腾讯 · 混元</b><br><span class="dash">Hunyuan</span></td><td>Hy4 preview<br><span class="dash">2026-08-28</span></td><td class="num">770B / 49B</td><td>1M+</td><td><span class="tag t-free">Apache-2.0</span></td><td>第三梯队 · Token 业务偏慢</td></tr>
+      <tr><td><b>智谱</b><br><span class="dash">Z.ai · GLM</span></td><td>GLM-5.3<br><span class="dash">2026-08-14</span></td><td class="num">743B / ~40B</td><td>1M</td><td><span class="tag t-free">MIT</span></td><td>港股 02513 · <b>上市首个大模型股</b></td></tr>
+      <tr><td><b>阶跃星辰</b><br><span class="dash">StepFun</span></td><td>Step 5 Preview<br><span class="dash">2026-09-20</span></td><td class="num">600B / 27B</td><td>1M</td><td><span class="tag t-warn">10-15 开源</span></td><td>近 25亿美元融资待完成</td></tr>
+      <tr><td><b>小米</b><br><span class="dash">MiMo</span></td><td>MiMo-V2.6-Pro<br><span class="dash">2026-09-22 开源</span></td><td class="num">未完整公布</td><td>—</td><td><span class="tag t-free">开源</span></td><td><b>AA 46 分 · 开源第一</b>（详见第二批）</td></tr>
+      <tr><td><b>MiniMax</b></td><td>M3 / M3.1-Flash</td><td class="num">未完整公布</td><td>1M</td><td><span class="tag t-warn">自定义</span></td><td>已过港交所聆讯</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="hint"><b>月之暗面 Kimi K3 是全球首个 3万亿级开源模型</b>，也是唯一带「年收入 2000 万美元以上需分成最多 30%」条款的——这个条款后来成了行业风向标，标志开源从纯慈善转向有条件让渡。</p>
+  <p class="hint"><b>这张表里没列的海外巨头才是真正决定价格的那一批</b>：OpenAI（估值 $8,520亿）、<b>Anthropic（$9,650亿、ARR 破 $1,000亿、10 月冲 $2 万亿 IPO）</b>。<b>Anthropic 在估值、营收、美企渗透率三项上都已超过 OpenAI</b> —— 这个叙事反转是本季度最值得记住的资本事件。小米 MiMo 也已加入下表（AA 46 分开源第一）。第二批四家的完整档案在本节末尾的折叠块里。</p>
+
+  <div class="dossiers">
+
+    <article class="dossier flag" style="--camp:#D68FAE">
+      <div class="d-top">
+        <div class="d-id">
+          <h3>月之暗面 Moonshot AI <span class="tag t-new">估值神话</span></h3>
+          <p class="aka">2023-03 成立 · Kimi 2023-10 上线 · <b>2026-09 已秘密递交港交所 A1 文件</b></p>
+          <p class="verdict-inline"><b>六家里估值曲线最陡的一家。</b>2023-06 天使轮约 3亿美元 → 2025-12 C轮 43亿 → 2026-01~02 三轮约 19亿冲破 100 亿 → 5 月美团龙珠领投 D 轮约 20 亿、投后 200 亿 → <b>Pre-IPO 轮 500 亿</b>。半年从 100 亿翻到 500 亿。</p>
+        </div>
+        <div class="d-specs">
+          <div><b>$500亿</b><span>Pre-IPO 估值</span></div>
+          <div><b>2.8T</b><span>K3 总参数</span></div>
+          <div><b>$3亿+</b><span>6 月中旬 ARR</span></div>
+          <div><b>12万+</b><span>企业客户</span></div>
+          <div><b>90%+</b><span>编码场景缓存命中</span></div>
+          <div><b>36M</b><span>月活（Kimi Explore）</span></div>
+        </div>
+      </div>
+      <div class="d-body">
+        <div>
+          <h4>2026 时间线</h4>
+          <ol class="timeline">
+            <li><time>2026-07-17</time><b>Kimi K3 发布</b>，2.8T 参数、104B 激活、1M 上下文、原生视觉，<b>全球首个 3T 级开源模型</b>。</li>
+            <li><time>2026-07-27</time>权重上线 Hugging Face（<code>moonshotai/Kimi-K3</code>），架构含Kimi Delta Attention、Attention Residuals、Stable LatentMoE（16/896 专家激活）。</li>
+            <li><time>同日</time><b>市场震动</b>：智谱港股单日跌约 <b>27%</b>，MiniMax 跌约 16%。投资人认为这两家被第三家在一个时区内完成跨越。</li>
+            <li><time>2026-09-11</time>独立基准确认 K3 已落地、不是待发布。</li>
+            <li><time>2026-09</time><b>秘密递交港交所 A1 文件</b>，正式启动 IPO。</li>
+          </ol>
+        </div>
+        <div>
+          <h4>档位与口碑</h4>
+          <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0 0 var(--s-3)">API 定价：缓存未命中 $3.00 / 缓存命中 $0.30 / 输出 $15.00 每百万 token。<b>缓存命中 90%+ 是它的商业模式</b>——长编码任务反复读同一批文件。</p>
+          <blockquote class="quote"><p>盲测人类偏好中超过 Anthropic 的 Fable 系统，并在独立榜单的<b>网页界面工程</b>项排名第一。</p><cite>Artificial Analysis / Arena.ai</cite></blockquote>
+          <blockquote class="quote"><p>Moonshot 自己公开承认三条短板：对 agent harness 缺失思考历史敏感、模糊任务上过于主动、用户体验与顶级闭源仍有差距。</p><cite>官方模型卡 · 少见的坦率</cite></blockquote>
+          <blockquote class="quote"><p>2026-09，Anthropic 指控 Moonshot 暗中把 Kimi 请求路由到 Claude 模型并通过这些响应蒸馏 Claude。</p><cite>Wikiwand / 公开争议</cite></blockquote>
+        </div>
+      </div>
+      <div class="d-verdict"><span class="lb">腾子判断</span><p><b>技术能力不是它最值得关注的部分，资本节奏才是。</b>ARR 三个月三级跳（1亿→2亿→3亿）、API 收入占七成以上、估值半年翻 5 倍——这个速度在 AI 六小龙里是唯一的。<b>对你：</b>K3 的 Coding Index 76.2 是 WorkBuddy 里 kimi-k3-2（×1.62）对应的高配版本，但你在 WorkBuddy 里用的是 Moonshot 的中小档。<b>真正该留意的是它上市后的定价动作</b>——一旦上市，2.8T 模型的 API 价格战可能再次改写整个 Flash 档的报价。</p></div>
+    </article>
+
+    <article class="dossier" style="--camp:#B08AD4">
+      <div class="d-top">
+        <div class="d-id">
+          <h3>阿里 · 千问 Qwen <span class="tag t-free">生态第一</span></h3>
+          <p class="aka">核心团队源自通义实验室 · 2026-09-22 云栖大会公布 Qwen4 进展</p>
+          <p class="verdict-inline"><b>唯一把「芯片—云—模型」三层一起做的厂商。</b>开源生态绝对领先：累计 460+ 模型、下载量超 30 亿次、衍生模型 30 万个，Hugging Face 上获赞最多的模型系列。</p>
+        </div>
+        <div class="d-specs">
+          <div><b>2.4T</b><span>Qwen3.8-Max 总参数</span></div>
+          <div><b>95B</b><span>每token 激活</span></div>
+          <div><b>30亿+</b><span>Qwen 累计下载</span></div>
+          <div><b>460+</b><span>已开源模型数</span></div>
+          <div><b>33轮</b><span>Qwen3.8-Max 自主迭代</span></div>
+          <div><b>5–10T</b><span>Qwen4.5/5 目标参数</span></div>
+        </div>
+      </div>
+      <div class="d-body">
+        <div>
+          <h4>最有价值的一条：RSI 递归自我改进</h4>
+          <p style="font-size:var(--fs-sm);line-height:1.85;color:var(--text-2);margin:0 0 var(--s-3)">Qwen3.8-Max 在<b>人类完全零参与</b>的情况下自主搭建训练流程、构造数据、设计实验、定位缺陷，<b>持续迭代超过 1 个月、完成 33 轮</b>。结果：Artificial Analysis 得分 <b>从 40 分涨到 45 分</b>（+12.5%），与 Claude、GPT 最强模型同处第一阵营，领先 GLM-5.3、Kimi-K3。</p>
+          <p style="font-size:var(--fs-sm);line-height:1.85;color:var(--text-2);margin:0"><b>另两个自主实验</b>：在从未见过的平头哥新款 GPU 上自主完成推理框架适配，单实例吞吐 <b>+96%</b>；仅凭一份总线模块规范自主运行 <b>60+ 小时、调用 EDA 工具超万次</b>，完成面积减少 <b>42%</b> 的物理实现优化。</p>
+          <p class="hint" style="margin-top:12px">Qwen 项目负责人刘大一恒明确表示：RSI 目前只是「初步进入」训练与推理环节，<b>并非成熟的无人化状态</b>。这个自限表述比吹「已达AGI」可信。</p>
+        </div>
+        <div>
+          <h4>开源节奏与四档分工</h4>
+          <div class="tbl-wrap" style="border:none;background:transparent">
+            <table style="min-width:0">
+              <thead><tr><th>档位</th><th>角色</th></tr></thead>
+              <tbody>
+              <tr><td><b>Max</b></td><td>能力天花板，2.4T，仅云端</td></tr>
+              <tr><td><b>Flash</b></td><td>现金流担当。Qwen3.8-Flash-Next 提前开源下一代架构，<b>训练成本降约 90%</b>，激活 6B 达前沿性能</td></tr>
+              <tr><td><b>Plus</b></td><td>多模态 Agent 工作马</td></tr>
+              <tr><td><b>27B</b></td><td>社区引擎。27B 稠密、262K→1M YaRN外推，可本地跑，Qwen4-27B 延续此定位</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="hint" style="margin-top:12px">9-22 宣布 <b>Qwen4 已投入训练</b>，Qwen4.5 / Qwen5 参数规模计划迈向 5–10 万亿。新架构三项创新：超稀疏 MoE（125B 总参、每 token 仅激活 6B）、Block-wise 注意力选择、n-gram embedding 可卸载到主机内存。</p>
+        </div>
+      </div>
+      <div class="d-verdict"><span class="lb">腾子判断</span><p><b>自部署和生态建设这条路，只有 Qwen 走得通。</b>对你有两层意义：<b>① 要私有化部署只能选它</b>——27B 可本地跑，260亿级卡也能跑，这是 GLM / Kimi / DeepSeek 都给不了的；<b>② 它的 Flash 档定价是整个行业的「斩杀线」</b>，直接把开源旗舰的价格压到 ¥0.03 / ¥0.06。<b>值得盯的变量：</b>Qwen4 什么时候发布、5T 参数后推理成本怎么压——这会决定 WorkBuddy 里哪一档会被它替掉。</p></div>
+    </article>
+
+    <article class="dossier" style="--camp:#9585D6">
+      <div class="d-top">
+        <div class="d-id">
+          <h3>DeepSeek 深度求索 <span class="tag t-free">许可证最干净</span></h3>
+          <p class="aka">未上市 · 高盛列为「长期最具竞争力的中国基础模型厂商」之一</p>
+          <p class="verdict-inline"><b>唯一敢把权重放到 MIT 协议下的万亿级厂商。</b>MIT 没有营收门槛、没有使用领域限制——这在 1.7T 参数规模上意味着任何人都能下载、微调、商用、二次分发。</p>
+        </div>
+        <div class="d-specs">
+          <div><b>1.7T</b><span>V4-Pro 总参数</span></div>
+          <div><b>49B</b><span>每 token 激活</span></div>
+          <div><b>27%</b><span>1M 上下文 FLOPs<br>（对比 V3.2）</span></div>
+          <div><b>10%</b><span>1M 上下文 KV cache<br>（对比 V3.2）</span></div>
+          <div><b>893 GB</b><span>权重体积</span></div>
+          <div><b>500</b><span>并发请求上限</span></div>
+        </div>
+      </div>
+      <div class="d-body">
+        <div>
+          <h4>2026 时间线（含一次自己打自己）</h4>
+          <ol class="timeline">
+            <li><time>2026-04-24</time><b>V4 系列发布</b>（V4-Pro 1.6T + V4-Flash 284B），MIT 协议，首个 1M 上下文开源模型。技术报告称落后最强闭源约 3–6 个月。</li>
+            <li><time>2026-07-31</time><b>一次罕见的自我反转</b>：重训后的 V4-Flash-0731 在<b>九个 agent 维度上击败了 49B 激活的 V4-Pro 预览版</b>。这个反转只持续了两周多，但已被明确记录。</li>
+            <li><time>2026-08-13</time><b>V4-Pro-0813 GA</b>：保持预览版模型结构，挂上 DSpark 投机解码模块。Terminal Bench 2.1 从 72.1 跳到 87.9，DeepSWE 从 12.8 跳到 62.7。MIT 权重上架 Hugging Face。</li>
+            <li><time>2026-08-16</time>峰谷定价生效（16:00 UTC 起）：闲时 $0.66 入 / $1.98 出，峰值翻倍。</li>
+            <li><time>2026-08-31</time><b>V4-Flash-Vision-Exp 开源</b>，MIT，这是 V4 家族第一个多模态模型。</li>
+            <li><time>2026-09-10</time><b>宣布 V4-Pro 退役</b>：V4.1 Flash 已在性能、成本、速度、总时长上全面超过它，9-14 12:00（北京时间）后 <code>deepseek-v4-pro</code> 全部路由到 V4.1 Flash 并按其计价。</li>
+          </ol>
+        </div>
+        <div>
+          <h4>架构与效率（这才是它真正的护城河）</h4>
+          <p style="font-size:var(--fs-sm);line-height:1.85;color:var(--text-2);margin:0 0 var(--s-3)">混合注意力设计：Compressed Sparse Attention + Heavily Compressed Attention。官方称 1M 上下文下推理 FLOPs 约为 V3.2 的 <b>27%</b>、KV cache 约 <b>10%</b>。精度 FP4+FP8 混合，66 个 safetensors 分片约 893 GB。</p>
+          <blockquote class="quote"><p>DSpark 投机解码可通过 vLLM 单个开关启用（<code>--speculative-config</code>），target 与 draft 权重来自同一 checkpoint；SGLang 用 <code>--speculative-algorithm DSPARK</code>。</p><cite>官方模型卡</cite></blockquote>
+          <blockquote class="quote"><p>注意：<b>任何提到「V4-Pro」的结论都需要带构建日期或仓库标识</b>，因为大量基准表、第三方实测和部署说明仍在使用未版本化的预览版仓库。</p><cite>AI Wiki 提示</cite></blockquote>
+        </div>
+      </div>
+      <div class="d-verdict"><span class="lb">腾子判断</span><p><b>7-31 那次自我反转是这半年最值得记住的事。</b>旗舰被自己的小模型在九个 agent 维度上击败，而且 DeepSeek 照实写进了更新日志——这种诚实在国内厂商里罕见。<b>对你的直接影响：</b>V4-Pro 已在 9-10 宣布退役，<code>deepseek-v4-pro</code> 现在只是路由到 V4.1 Flash 的别名。<b>WorkBuddy 里的 deepseek-v4-pro（×0.51）实际调用的很可能已是 Flash</b>——以后做成本核算时按 Flash 算，别按 Pro 的价格估。<b>要真自部署，MIT 权重仍是六家里最干净的。</b></p></div>
+    </article>
+
+    <article class="dossier" style="--camp:#6FB58F">
+      <div class="d-top">
+        <div class="d-id">
+          <h3>智谱 Z.ai <span class="tag t-new">全球大模型第一股</span></h3>
+          <p class="aka">源自清华 KEG · 2026-01-08 港股上市（02513）· 2026-07 英文名改为 Z.ai</p>
+          <p class="verdict-inline"><b>六家里唯一把「匿名测试」做成标准流程的。</b>GLM-5 曾以 Pony Alpha 匿名、GLM-5.3-Flash 以 Ox Alpha 匿名（中文社区叫「牛来」，源自一部低成本动画电影的 meme），两次都先登顶OpenRouter 再公布身份。</p>
+        </div>
+        <div class="d-specs">
+          <div><b>743B</b><span>GLM-5.3 总参数</span></div>
+          <div><b>~40B</b><span>每 token 激活</span></div>
+          <div><b>1,200</b><span>客户数（服务企业）</span></div>
+          <div><b>¥7.24亿</b><span>2025 营收</span></div>
+          <div><b>¥47亿</b><span>2025 净亏损</span></div>
+          <div><b>9 / 10</b><span>中国前十大互联网公司中使用者</span></div>
+        </div>
+      </div>
+      <div class="d-body">
+        <div>
+          <h4>2026 时间线</h4>
+          <ol class="timeline">
+            <li><time>2026-01-08</time><b>港股 IPO</b>，发行价 116.20 港元，号称「全球大模型第一股」。7 月英文名从 Knowledge Atlas 改为 Z.ai。</li>
+            <li><time>2026-02 下旬</time><b>算力危机</b>：股价单日跌 23%，用户投诉并公开求助，限制新用户注册。</li>
+            <li><time>2026-04-07</time>GLM-5.1 开源，<b>同时 API 涨价 10%</b>，但仍低于 Opus 4.6。</li>
+            <li><time>2026-08-20</time><b>Ox Alpha 匿名上线 OpenRouter</b>，免费开放，主打编程与 Agent。迅速登顶，OpenCode 六天内处理数十万亿 token，<b>请求流量全部由国产芯片提供算力</b>。</li>
+            <li><time>2026-08-26</time><b>公布身份：GLM-5.3-Flash（320B-A18B）</b>，全球开源。AA 智能指数 57，与Claude Opus 4.8 持平，定价为 GLM-5.3 的 1/10。中文社区称「牛来模型」。</li>
+            <li><time>2026-07-17</time>Kimi K3 发布后，<b>智谱港股单日跌约 27%</b>。</li>
+          </ol>
+        </div>
+        <div>
+          <h4>财务与 B 端基本盘</h4>
+          <p style="font-size:var(--fs-sm);line-height:1.85;color:var(--text-2);margin:0 0 var(--s-3)">2025 年营收 ¥7.24 亿（约 1.08 亿美元），比 2024 年翻倍以上；研发投入约 ¥32 亿，<b>净亏损约 ¥47 亿</b>。截至 2025-09 服务约 1.2 万家企业客户、连接超 8000 万台终端、4500 万开发者。海外收入占比 2025 上半年约 11.6%。</p>
+          <p style="font-size:var(--fs-sm);line-height:1.85;color:var(--text-2);margin:0">GLM Coding Plan 定位国际市场，价格约为同类七分之一，<b>上线三个月吸引 15 万付费开发者，ARR 突破 1 亿元</b>。GLM-5.3-Flash 首个开源月下载超 44 万次、79 个社区量化版、11 个微调。</p>
+          <blockquote class="quote"><p>GLM-5.3-Flash 测试期间请求流量全部由国产芯片支持。官方承认国产芯片在显存容量和带宽上有局限，工程师靠优化软件和负载分布来补偿。</p><cite>B17 News 报道</cite></blockquote>
+        </div>
+      </div>
+      <div class="d-verdict"><span class="lb">腾子判断</span><p><b>六家里唯一同时有「上市公司披露」和「B端渗透率」两项硬指标的。</b>这意味着它的经营状况是公开可查的——上面那组数字（营收翻倍但净亏 47 亿）就写在年报里，比任何发布会都实在。<b>对你的直接影响：</b>glm-5.3-flash 是本册性价比之王（×0.06，1M 上下文 + 原生多模态），它降价你就直接受益；<b>但要注意它的算力紧张史</b>——2026-02 出现过股价跌 23%并限制新注册的严重事件，说明它的产能是真实瓶颈，<b>高峰期 availability 波动是已知风险</b>，关键交付期别把活全压在它上面。</p></div>
+    </article>
+
+    <article class="dossier" style="--camp:#4F9AD8">
+      <div class="d-top">
+        <div class="d-id">
+          <h3>腾讯 · 混元 Hy <span class="tag t-warn">递归自改进</span></h3>
+          <p class="aka">姚顺雨（首席 AI 科学家）带队 · 2026-08-28 开源 Apache-2.0 · 距 hy3 GA 仅约八周</p>
+          <p class="verdict-inline"><b>首个官方声称参与了自身训练与推理基础设施优化的混元模型。</b>也是当前 WorkBuddy 里的默认模型 hy4-preview-f。</p>
+        </div>
+        <div class="d-specs">
+          <div><b>770B</b><span>总参数</span></div>
+          <div><b>49B</b><span>每 token 激活（约 6.4%）</span></div>
+          <div><b>78 层</b><span>256 路由专家 + 1 共享</span></div>
+          <div><b>1,048,576</b><span>上下文 token</span></div>
+          <div><b>+31.8%</b><span>端到端吞吐提升</span></div>
+          <div><b>纯文本</b><span>无官方视觉变体</span></div>
+        </div>
+      </div>
+      <div class="d-body">
+        <div>
+          <h4>技术要点</h4>
+          <ul class="list" style="margin-top:0">
+            <li><b>Gated DSA + IndexCache。</b>用门控稀疏注意力配合跨层稀疏索引复用，让 1M 上下文在显存与计算上可控，而不是简单堆全注意力。</li>
+            <li><b>原生 MTP 草稿层</b>（10B 总参 / 0.7B 激活）做投机解码，vLLM / SGLang 可直接启用。</li>
+            <li><b>递归自改进闭环。</b>模型自主分析推理系统瓶颈、做算子融合与通信优化，端到端吞吐较基线提升 31.8%（内部结果）。</li>
+            <li><b>盲测 2.99/4</b>（163 名专家 × 203 个工程任务），略高于 Kimi K3（2.94）和 GLM-5.3（2.92）——但差距不到 0.1 分，胜率接近抛硬币。</li>
+          </ul>
+          <p class="hint">独立评测的短板：<b>在通用基准上落后于 Qwen3.8 Max</b>。厂商自测只覆盖自家擅长的工程任务。</p>
+        </div>
+        <div>
+          <h4>资本与业务位置</h4>
+          <p style="font-size:var(--fs-sm);line-height:1.85;color:var(--text-2);margin:0 0 var(--s-3)">腾讯 AI 资本开支同比 <b>+176% 至 528 亿元</b>（约 79 亿美元）。但 Token 业务在六家里属<b>第三梯队</b>，与百度文心同档（30 亿元量级），明显慢于智谱 / DeepSeek / 月之暗面。</p>
+          <p style="font-size:var(--fs-sm);line-height:1.85;color:var(--text-2);margin:0">战略优势是<b>产品矩阵</b>：WorkBuddy 与 CodeBuddy 直接内嵌 Hy4，WorkBuddy 已是国内最受欢迎的桌面 AI Agent 之一，这给Hy4 提供了别的厂商没有的分发渠道。<b>「马拉松才开始」是腾讯自己的说法。</b></p>
+          <blockquote class="quote"><p>开源权重的意义是降低开发者门槛，腾讯的护城河是 WorkBuddy / CodeBuddy 这两条已经跑通的产品线。</p><cite>行业分析观点</cite></blockquote>
+        </div>
+      </div>
+      <div class="d-verdict"><span class="lb">腾子判断</span><p><b>技术不是它的问题，渠道才是它的优势。</b>作为当前WorkBuddy 的默认模型，hy4-preview-f 免费到 10-10、1M 上下文、四项能力（身份明确 / 权重开源 / 价格不贵 / 长上下文）全占，是本册最没有短板的一个。<b>但两条限制要记牢：① 纯文本，看图得换glm-5.3-flash 或 space-bunny；② 自部署要 8×B300</b>，个人和小团队别想。<b>对你：</b>它的免费窗口是本周最该抢的——团队 SOP、竞品库、角色圣经都趁10-10 前做完。</p></div>
+    </article>
+
+    <article class="dossier" style="--camp:#D99A5C">
+      <div class="d-top">
+        <div class="d-id">
+          <h3>MiniMax · 阶跃星辰 <span class="tag t-warn">四小龙</span></h3>
+          <p class="aka">两家常被并列，合称中国大模型「四小龙」（与智谱、月之暗面并列）</p>
+          <p class="verdict-inline"><b>同一件匿名营销的两种结果。</b>MiniMax 疑似太空兔背后的厂商仍未认领；阶跃星辰则靠 Step 5 Preview 的成本优势（单任务 $0.72）正面竞争。</p>
+        </div>
+        <div class="d-specs">
+          <div><b>600B</b><span>Step 5 总参数</span></div>
+          <div><b>27B</b><span>每 token 激活（4.5%）</span></div>
+          <div><b>92 层</b><span>窄而深架构</span></div>
+          <div><b>$0.72</b><span>Step 5 单任务成本</span></div>
+          <div><b>~$25亿</b><span>阶跃星辰待完成融资</span></div>
+          <div><b>$1.17亿</b><span>MiniMax 2026H1 收入</span></div>
+        </div>
+      </div>
+      <div class="d-body">
+        <div>
+          <h4>MiniMax</h4>
+          <ol class="timeline">
+            <li><time>2026-07-17</time>Kimi K3 发布后股价跌约 16%。</li>
+            <li><time>2026 上半年</time>收入 1.17 亿美元，<b>已通过港交所聆讯</b>。与可灵并列视频模型第一梯队，Token 收入 50 亿元量级。</li>
+            <li><time>2026-09-28</time>M3.1-Flash-Preview 公测，六档推理强度、1M 上下文、文本 / 图片 / 视频输入 —— 与太空兔能力逐条重合，<b>但官方从未认领</b>。</li>
+          </ol>
+        </div>
+        <div>
+          <h4>阶跃星辰</h4>
+          <ol class="timeline">
+            <li><time>2026-09-20</time>Step 5 Preview 发布，600B / 27B 激活 / 92 层窄而深 / 1M 上下文，AA 智能指数 44 全球开源前三。</li>
+            <li><time>官方自测</time>24 小时把 H100 的 MLA kernel 调优到 <b>508 TFLOPS</b>（Claude Opus 5 为 493）；用 API 标注器把 Qwen3-30B-A3B 的 AIME24 从 53.3% 拉到 <b>60%</b>。</li>
+            <li><time>待定</time><b>10-15 开源权重</b> —— 这是它最大的未兑现变量。</li>
+            <li><time>2026</time>披露即将完成近 25 亿美元融资。</li>
+          </ol>
+        </div>
+      </div>
+      <div class="d-verdict"><span class="lb">腾子判断</span><p><b>两家都是「用差异化打法挤进第一梯队」，但路径不同。</b>MiniMax 的杀手锏是视频模型（可灵）和多模态，2026H1 收入 1.17 亿美元、已过聆讯，上市在即；阶跃星辰走的是「窄而深 + 极致成本效率」，Step 5 的单任务成本只有 Fable 5.1 的十分之一。<b>对你的直接动作：</b>① 10-07 前把 space-bunny（疑似 MiniMax）该用的活干完；② <b>10-15 盯 Step 5 开源</b> —— 600B/27B 的架构如果能本地跑，可能改变你整个工具链的成本结构。</p></div>
+    </article>
+
+  </div>
+
+  <details>
+    <summary>六家厂商的竞争策略速读：看懂它们在打什么仗<span class="meta">格局</span></summary>
+    <div class="body">
+      <div class="tbl-wrap" style="border:none;background:transparent">
+        <table>
+          <thead><tr><th>厂商</th><th>核心打法</th><th>最锋利的武器</th><th>最脆弱的地方</th></tr></thead>
+          <tbody>
+          <tr><td><b>月之暗面</b></td><td>参数规模 + 上市故事</td><td>2.8T 全球最大开源模型；ARR 三个月三级跳</td><td>开源带30% 抽成条款；2026-09被 Anthropic 指控蒸馏争议</td></tr>
+          <tr><td><b>阿里千问</b></td><td>生态 + 全栈（芯片到云到模型）</td><td>30 亿下载、460+ 开源模型、RSI 33轮自主迭代</td><td>旗舰闭源；版本命名混乱；1M 上下文检索效率未验证</td></tr>
+          <tr><td><b>DeepSeek</b></td><td>MIT 许可 + 效率工程</td><td>1M 上下文只用 V3.2 的 27% FLOPs / 10% KV cache</td><td>旗舰 V4-Pro 已退役；纯文本；2025-02 曾出现服务中断争议</td></tr>
+          <tr><td><b>智谱</b></td><td>匿名营销 + 港股披露</td><td>GLM-5.3-Flash AA 57 与 Opus 4.8 持平，价格 1/10</td><td>净亏 47 亿；2026-02 算力危机；K3 发布后股价跌 27%</td></tr>
+          <tr><td><b>腾讯混元</b></td><td>产品分发 + 递归自改进</td><td>WorkBuddy / CodeBuddy 已跑通；盲测第一梯队</td><td>Token 业务第三梯队；纯文本；通用基准落后 Qwen Max</td></tr>
+          <tr><td><b>小米 MiMo</b></td><td>RL 算力规模化 + 极致性价比</td><td>AA 46 分开源第一；<b>公开 RL 训练成本</b>（6 天 $262万 / 75 万轨迹）</td><td>Terminal-Bench 4.0 仅 34.9；AI 业务不单独披露</td></tr>
+      <tr><td><b>MiniMax / 阶跃</b></td><td>差异化（视频 / 极致成本）</td><td>可灵视频；Step 5 单任务成本 $0.72</td><td>视频模型竞争激烈；Step 5 权重 10-15 才开</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="hint"><b>2026 下半年三条值得盯的线：</b>① 月之暗面港股IPO 定价 —— 决定 2.8T 模型会不会掀起新一轮价格战；② Qwen4 发布时点 —— 5–10T 参数的推理成本能否压住；③ Kimi K3 的 30% 抽成条款会不会被其他厂商抄成行业惯例。</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>厂商动态会怎么影响你的选型<span class="meta">联动</span></summary>
+    <div class="body">
+      <ul class="list">
+        <li><b>DeepSeek V4-Pro 已退役（9-10）</b>：WorkBuddy 里的 <code>deepseek-v4-pro</code>（×0.51）现在很可能实际调用 V4.1 Flash。<b>做成本核算时按 Flash 算，不要按 Pro 的历史价格估。</b></li>
+        <li><b>Step 5 Preview 10-15 开源</b>：600B/27B 若能本地跑，可能改变工具链成本结构。但首 token 延迟约 23 秒、输出约 100 tok/s，<b>不适合交互式重活</b>。</li>
+        <li><b>GLM-5.3-Flash 首个开源月下载 44 万次</b>：生态起量快意味着量化版和微调会越来越多，<b>本地部署的可行性在提高</b>。</li>
+        <li><b>智谱的产能是真实瓶颈</b>：2026-02 曾因算力紧张限制新用户。关键交付期别把活全压在 glm-5.3-flash 上，<b>留space-bunny 或 hy3-x 作备选</b>。</li>
+        <li><b>Qwen3.8-Flash-Next 把训练成本降了约 90%</b>：这意味着后续 Qwen Flash 档的定价还会继续下探，<b>WorkBuddy 里对应档位的模型可能面临替换</b>。</li>
+        <li><b>月之暗面上市后</b>：2.8T 模型的 API 价格如果打下来，kimi-k3-2（×1.62，本册最贵档）的性价比会重新评估——<b>它是本手册里唯一有「等它变便宜」价值的模型</b>。</li>
+        <li><b>10 月 Anthropic IPO</b>：目标 $2 万亿，成败看承销商能否说服市场。<b>成了，整个 American AI 叙事的价格锚就定了</b>，国产模型的定价窗口会进一步收窄。</li>
+        <li><b>Claude Code 缓存读降到 $0.25</b>：长上下文 + 工具调用类agent 场景的实际成本大幅下降。读整个 NAS 目录做批量分析这类活，现在用 Claude Code 的性价比比半年前好。</li>
+        <li><b>mimo-v2.6-flash 值得实测一轮</b>：OpenRouter 周榜第 4（9.63T、环比 +75%），AA 46 分开源第一。但 <b>Terminal-Bench 4.0 只有 34.9，终端自主操作别交给它</b>。</li>
+      </ul>
+    </div>
+  </details>
 </section>
 
-<section id="s12">
-<h2><span class="num">12</span>使用纪律</h2>
-<ul>
-<li><b>默认路径</b>：hy3-c（免费）→ hy4-preview-f（免费）→ space-bunny（x0.03，编码优先）→ glm-5.3 → kimi-k3-2。逐级升级，别一步跳到最贵。</li>
-<li><b>窗口优先</b>：space-bunny（到 10/7）与 hy4-preview-f（到 10/10）是本季最划算的两个窗口，重活别拖到期后。</li>
-<li><b>倍率意识</b>：kimi-k3-2（x1.62）是 space-bunny（x0.03）的 <b>54 倍</b>成本，不要拿旗舰跑批量小活。</li>
-<li><b>长上下文别浪费</b>：实际上下文 &lt; 300k 时用 300k 档即可，1M 档只在真需要时开。</li>
-<li><b>批处理错峰</b>：非交互长任务放 23:00 后跑 glm-5.2，省一半。</li>
-<li><b>Alpha 模型别绑死</b>：space-bunny 是匿名预览版，能力、价格、可用性随时可变，生产流程要留回退方案。</li>
-<li><b>该出去就出去</b>：整仓重构用 Claude Code、可控改图用 Seedream、自建服务用 Qwen 开源——不要在 WorkBuddy 里硬凑等价物。</li>
-</ul>
+<details class="vendor-part2">
+  <summary>第二批厂商档案：OpenAI · Anthropic / Claude Code · 小米 MiMo<span class="meta">海外巨头 + 硬件厂</span></summary>
+  <div class="body">
+
+    <div class="tbl-wrap" style="margin-bottom:var(--s-4)">
+      <table>
+        <thead><tr><th>厂商</th><th>旗舰</th><th>上下文</th><th>API 定价（输入/输出）</th><th>资本状态</th><th>核心战场</th></tr></thead>
+        <tbody>
+        <tr class="hl"><td><b>Anthropic</b><br><span class="dash">Claude · 美国</span></td><td>Claude Fable 5.1 / Opus 5.5<br><span class="dash">09-01 / 09-22</span></td><td class="num">1M</td><td class="num">$10 / $50<br><span class="dash">缓存读 $0.25</span></td><td><b>估值 $9,650亿</b>· ARR破 $1,000亿 · <b>10 月冲 2 万亿 IPO</b></td><td>企业渗透率 34.4%（超 OpenAI）</td></tr>
+        <tr class="hl"><td><b>OpenAI</b><br><span class="dash">美国</span></td><td>GPT-6 Astra<br><span class="dash">09-03 发布</span></td><td class="num">1.05M</td><td class="num">$10 / $50<br><span class="dash">长文$20/$75</span></td><td>估值 <b>$8,520亿</b> · ARR $400亿 · 2026 亏损估 $620亿</td><td>9 亿周活 ·消费订阅基本盘</td></tr>
+        <tr><td><b>小米</b><br><span class="dash">MiMo · 中国</span></td><td>MiMo-V2.6-Pro / Flash<br><span class="dash">09-22 开源</span></td><td class="num">—</td><td class="num"><b>沿用 V2.5 定价</b><br>智能涨、价不涨</td><td>上市子公司 · 未单独披露 AI 业务</td><td>开源 AA 46 分 · 性价比纪录</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="dossiers">
+
+      <article class="dossier flag" style="--camp:#C4704A">
+        <div class="d-top">
+          <div class="d-id">
+            <h3>Anthropic <span class="tag t-new">已反超 OpenAI</span></h3>
+            <p class="aka">2021 成立 · Dario / Daniela Amodei 兄妹 · 公益公司（PBC）结构 · <b>2026-10 月 IPO</b></p>
+            <p class="verdict-inline"><b>手册里最重要的一次修正：Anthropic 现在在估值、营收、美企渗透率三项上全部超过 OpenAI。</b>而一年前叙事还是 OpenAI 领先。</p>
+          </div>
+          <div class="d-specs">
+            <div><b>$9,650亿</b><span>估值（05-28 H 轮）</span></div>
+            <div><b>$1,000亿+</b><span>ARR（9 月中）</span></div>
+            <div><b>34.4%</b><span>美国企业付费渗透率</span></div>
+            <div><b>70–85%</b><span>推理毛利率</span></div>
+            <div><b>$2万亿</b><span>IPO 目标估值</span></div>
+            <div><b>~$710亿</b><span>芯片租赁债务（SPV）</span></div>
+          </div>
+        </div>
+        <div class="d-body">
+          <div>
+            <h4>2026 时间线（这半年发生了三件大事）</h4>
+            <ol class="timeline">
+              <li><time>2026-05-28</time><b>H 轮融资 $650亿，估值 $9,650亿</b>，正式超过 OpenAI 的 $8,520亿，成为全球最值钱的 AI 初创。同月 ARR 破 $470亿。</li>
+              <li><time>2026-06-01</time>向 SEC <b>秘密递交 S-1</b>。6-12 至 6-30 因美国出口管制指令，Fable 5 与 Mythos 5 全球下架，7-01 恢复。</li>
+              <li><time>2026-07-31</time>ARR 突破 <b>$650亿</b>（较 5 月 +38%），Q2 单季营收超 $115亿。</li>
+              <li><time>2026-09-01</time><b>三连发</b>：Fable 5.1 + Mythos 5.1 + Enterprise Frontier Safeguards（EFS）。<b>缓存读取价下调 75%</b>（$1.00 → $0.25），典型工作负载成本降约 25%、智能体任务最高降 45%。</li>
+              <li><time>2026-09-11前后</time>ARR 破 <b>$1,000亿</b>（纽约时报报道），相比 2025 年底约 $90亿 增长逾七倍。</li>
+              <li><time>2026-09-22</time>发布 <b>Opus 5.5</b>，称多数工作达到 Fable 5.1 水平但运行成本便宜 40%。</li>
+              <li><time>2026-10</time>路演，目标估值 <b>$2万亿</b>，承销商摩根士丹利 / 高盛 / 摩根大通。</li>
+            </ol>
+          </div>
+          <div>
+            <h4>两个「 Mythos 级」模型与一个被忽略的护城河</h4>
+            <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0 0 var(--s-3)"><b>Mythos 5.1 是受限模型</b>，只对美国 Cyber Verification Program 与 Life Sciences Verification Program 开放。这是刻意造出来的「能力闸门层」—— 开放权重模型（Qwen 3.8、Kimi K3）正在把前沿价格压下来，Anthropic 用一个不开放的顶层把高价值研究锁住。</p>
+            <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0 0 var(--s-3)"><b>EFS 则是切换成本武器。</b>与高盛、摩根士丹利、花旗、Visa 等 100+ 机构合作，零数据保留、客户自控存储（AWS S3 / Azure Blob / GCS）、自动监控绕过人工审查，<b>且不额外收费</b>。这是打给受监管行业的合规壁垒。</p>
+            <blockquote class="quote"><p>截至 2026-06，<b>34.4% 的美国企业为 Anthropic 付费，首次超越 OpenAI 的 32.3%</b>。Q2 调整后营业利润转正，Q3 预计 GAAP EBIT 超 $10亿。</p><cite>腾讯新闻 / Bloomberg · 2026-09</cite></blockquote>
+            <blockquote class="quote"><p>股东结构：亚马逊累计投资约 $80亿、持股 15–20%；Alphabet 持股约 14%。<b>代价是 $710亿芯片租赁债务</b>（SPV 结构），30年期债券收益率已从 6.7% 升到 7.4%。</p><cite>Forkast / 公开报道</cite></blockquote>
+            <blockquote class="quote"><p>OpenAI 因 Astra 触及 Critical 网络安全阈值而暂停该能力，给了 Anthropic 巩固领先的窗口。Anthropic 同时强化反蒸馏：新API 账户禁止手动编辑历史上下文但保留思维链转录。</p><cite>Forkast · 2026-09</cite></blockquote>
+          </div>
+        </div>
+        <div class="d-verdict"><span class="lb">腾子判断</span><p><b>如果你只把这家当「Claude Code 的供应商」，你会完全看错它的战略。</b>三件事正在同时发生：① <b>定价从「按token」转向「按 agent 流量」</b> —— 缓存读砍75% 是在抢高上下文、高频的 agentic 工作负载，这类负载的 token 消耗是聊天的几十倍；② <b>用 Mythos 建能力闸门，用 EFS 建合规护城河</b>，两条都在把「模型能力」变成「不可替代的关系」；③ <b>10 月 $2 万亿 IPO 是史上最大规模</b>，成了整个 American AI 叙事的价格锚。<br><br><b>对你的直接影响：Claude Code 的订阅定价策略变了 —— 缓存读降到 $0.25 意味着长上下文 agent 场景的实际成本大幅下降</b>。如果你有大量长文档 + 工具调用的活（读整个 NAS 目录做批量分析），现在用 Claude Code 的性价比比半年前好。<b>但注意</b>：Claude Code 的 Free 档不含它，Max 起步 $100/月；团队标准席 $20、Premium 席 $100。</p></div>
+      </article>
+
+      <article class="dossier" style="--camp:#3E8E7E">
+        <div class="d-top">
+          <div class="d-id">
+            <h3>OpenAI <span class="tag t-warn">被 Anthropic 反超</span></h3>
+            <p class="aka">2015 成立 · Sam Altman / Greg Brockman · OpenAI Foundation 控制 PBC · <b>2027 年 IPO（目标 $1 万亿）</b></p>
+            <p class="verdict-inline"><b>消费基本盘最厚，但增长引擎已经换人了。</b>企业收入本季度环比 +50%（公司整体 +35%），企业已超过消费成为最大收入分部 —— 而这条线 OpenAI 此前并不领先。</p>
+          </div>
+          <div class="d-specs">
+            <div><b>9亿+</b><span>ChatGPT 周活用户</span></div>
+            <div><b>5,000万+</b><span>消费订阅用户</span></div>
+            <div><b>900万+</b><span>付费企业用户</span></div>
+            <div><b>$400亿</b><span>ARR（8 月 annualized）</span></div>
+            <div><b>$8,520亿</b><span>估值（$1,220亿轮）</span></div>
+            <div><b>~$620亿</b><span>2026 预计 GAAP 亏损</span></div>
+          </div>
+        </div>
+        <div class="d-body">
+          <div>
+            <h4>GPT-6 Astra（09-03 发布）</h4>
+            <ul class="list" style="margin-top:0">
+              <li><b>训练规模：</b>德州 Stargate 站点、<b>超过 10 万张 GPU</b>，OpenAI 史上最大训练run。</li>
+              <li><b>API 名 <code>gpt-6-astra</code></b>，上下文 <b>1.05M token</b>，最大输出 128K，知识截止 2026-04-30。</li>
+              <li><b>定价：</b>$10/$50 每百万（短上下文），<b>超 272K 输入后跳 $20/$75</b>；缓存输入 $1、缓存写入 $12.50。Fast 模式价格翻倍。</li>
+              <li><b>核心能力是「computer use」</b> —— 像人一样操作笔记本，穿过电子表格、表单、多步工作流。</li>
+              <li><b>网络安全被官方评为 Critical 最高档</b>：带工具与权限时能自主发现未知漏洞并开发利用（ExploitBench 100%，私有 20 漏洞 V8 集 39% vs Sol 的 5.5%），但发布版拒绝生成 PoC。</li>
+              <li><b>独立评测有保留：</b>Artificial Analysis 发现它编码 agent 效率强、幻觉率低，但<b>综合智能仅与 GPT-5.6 Sol 相当，而每 token 成本是 2.5 倍</b>。</li>
+            </ul>
+            <p class="hint" style="margin-top:12px">ARC-AGI-3 <b>有两个数字，差别大到必须理解</b>：中立 Standard harness 下 62.7%（Max 档，每次 $26,098）；保留推理状态的 Provider Adapter harness 下 99.9%（High 档，$18,817）。<b>Standard 那个才是可比的数</b>，ARC Prize 自己声明刷满 ARC-AGI-3 也不证明 AGI。Greg Brockman 说「我个人认为我们到了，可能就是现在」，并预测史家会把 AGI 记在「这个模型」。<b>那是高管解读，不是测量结果。</b></p>
+          </div>
+          <div>
+            <h4>分发生态的关键变化（这条影响你的选型）</h4>
+            <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0 0 var(--s-3)"><b>4 月起微软独家托管终止</b>，模型开始出现在 Amazon Bedrock，随后传出 <b>$380亿七年合作</b>，AWS 拿下 OpenAI 企业 agent 运行时的独家第三方分发权。微软仍持约 27% 股份并深度集成 M365 / Copilot，但不再是唯一入口，<b>对最新最 agentic 的模型甚至不是首选入口</b>。</p>
+            <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0 0 var(--s-3)">Stargate（OpenAI–Oracle–软银合资实体）承载了 Astra 的训练，报道称承诺额高达 <b>$5,000亿</b>。超大规模云厂今年资本开支预计 <b>$6,000–7,250亿</b>，而真正的约束已经转移到<b>电力与电网接入</b>，不是芯片。</p>
+            <blockquote class="quote"><p>营收轨迹：$2B ARR（2023）→ $6B（2024）→ $20B+（2025）→ <b>$400亿+ 年化（2026-08）</b>。算力从 0.2GW → 0.6GW → 1.9GW。<b>但 Q2 2026 确认营收 $67亿、运营亏损 $123亿</b>（Q1 为 $93亿）。</p><cite>Epoch AI / WSJ / OpenAI</cite></blockquote>
+            <blockquote class="quote"><p><b>$8,520亿估值 ÷ $240亿（另一口径年化营收）≈ 35.5倍市销率</b>，而 BVP 纳斯达克新兴云指数均值约 7.8 倍。$1万亿估值对应约 25倍市销率。ARC-AGI 上有独立评测，但 Astra 在发布时<b>未登上 Artificial Analysis / Arena 任何独立榜单</b>，且 OpenAI 资助了它得分最高的某个基准。</p><cite>AInvest / bestaitoolfinder 风险提示</cite></blockquote>
+          </div>
+        </div>
+        <div class="d-verdict"><span class="lb">腾子判断</span><p><b>OpenAI 的核心风险不是技术，是单位经济学。</b>$8,520亿估值对 $240亿营收是 35.5倍市销率，2026 预计亏 $620亿，而摊销/推理成本随 agent 用量线性上涨——<b>agent 越成功，越烧钱</b>。这跟 Anthropic 的路径正好相反：后者推理毛利率已做到 70–85%，Q2 调整后营业利润转正。<br><br><b>但对你：OpenAI 的分发仍然最广，而且你手上 $20 的 Plus 已经包含 Codex（边际成本 $0）—— 这一条短期内不会变。</b>真正需要盯的是 <b>GPT-5.5 已于 10-14 退役</b>，配置里要换成 <code>gpt-6-sol</code>。另外注意 AInvest 那个提醒：<b>agentic 模型的单位价值正在从「回答」转向「完成的工作」</b>，Terminal-Bench 官方数据里 Astra 获胜的 run 花 $3,300、Fable 5.1 花 $6,200 —— 贵的 token 要按「完成的任务」算账，不能按token 算。</p></div>
+      </article>
+
+      <article class="dossier" style="--camp:#5A7FC0">
+        <div class="d-top">
+          <div class="d-id">
+            <h3>小米 MiMo <span class="tag t-free">性价比纪录</span></h3>
+            <p class="aka">2026-04 起V2.5 系列 · <b>2026-09-22 V2.6 系列开源</b> · 原生全模态（文本/图像/视频/音频）</p>
+            <p class="verdict-inline"><b>AA 综合智能指数 46 分，超过 Kimi K3 与 Qwen3.8 Max，成为当前最强开源模型</b> —— 而 API 定价沿用 V2.5，智能涨、价不涨。</p>
+          </div>
+          <div class="d-specs">
+            <div><b>46</b><span>AA 智能指数（开源第一）</span></div>
+            <div><b>$262万</b><span>Pro RL 训练成本（6 天）</span></div>
+            <div><b>$85万</b><span>Flash RL 训练成本</span></div>
+            <div><b>75万</b><span>累计训练轨迹条数</span></div>
+            <div><b>1/20–1/60</b><span>同等智能下的价格比</span></div>
+            <div><b>20×</b><span>Pro-UltraSpeed 输出提速</span></div>
+          </div>
+        </div>
+        <div class="d-body">
+          <div>
+            <h4>最有价值的一条：RL 训练成本被公开了</h4>
+            <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0 0 var(--s-3)">MiMo-V2.6 走的是<b>RSI（递归自我改进）路径</b>：以可验证的复杂任务为基础规模化扩展 RL 算力。官方全程Live 分享训练实验。</p>
+            <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0 0 var(--s-3)"><b>不到 6 天</b>，Flash 与 Pro 各完成 <b>30 步</b>，累计约 <b>75 万条轨迹</b>；Flash 训练成本约 <b>$85万</b>，Pro 约 <b>$262万</b>。官方称可能是国产开源模型里 RL 投入算力最多的之一，并说「这6 天的背后是长达半年的基础研究积累和工程试错」。</p>
+            <p class="hint" style="margin-top:12px">对照价值：<b>MiMo-V2.5-Pro 的 AA 分是 19.0，V2.6-Pro 是 46</b>。半年内从 19 干到 46，这是本册所有模型里进步幅度最大的一条。</p>
+          </div>
+          <div>
+            <h4>关键benchmark（官方自测，厂商数据要打折看）</h4>
+            <div class="tbl-wrap" style="border:none;background:transparent">
+              <table style="min-width:0">
+                <thead><tr><th>基准</th><th>MiMo-V2.6-Pro</th><th>对标</th></tr></thead>
+                <tbody>
+                <tr><td>DeepSWE v1.1</td><td class="num">71.9</td><td>DS V4.1 Flash 74.2 / Opus 5 74.0 / GPT-6 Astra 74.0</td></tr>
+                <tr class="hl"><td>Visual MiMo Coding</td><td class="num"><b>82.2</b></td><td><b>全场第一</b>，超 GPT-6 Astra 80.2、Fable 5.1 74.4</td></tr>
+                <tr><td>CyberGym</td><td class="num">94.0</td><td>Flash 更高（95.1），DS V4.1 Flash 88.x</td></tr>
+                <tr><td>GDPVal 2.1（AA）</td><td class="num">1673</td><td>Fable 5.1 1735 / Opus 5 1708 / DS V4.1 Flash 1600</td></tr>
+                <tr><td>Terminal-Bench 4.0</td><td class="num">34.9</td><td><b>GPT-6 Astra 59.6 / Fable 5.1 55.1</b> —— 差 20 分以上</td></tr>
+                <tr><td>ProgramBench</td><td class="num">26.5</td><td><b>MiMo-V2.5-Pro 仅 19.0</b>，Claude Opus 5 37.0</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="hint" style="margin-top:12px"><b>分歧点很清楚：</b>多模态/ Agent 任务上 Pro 很能打（Visual MiMo Coding 第一），但<b>纯终端自主操作上差 Astra 20 分以上</b>，Agent 编码综合仍略落后 Fable 5.1。<b>「智能-成本帕累托前沿」的宣传在同智能水平（1/20–1/60 价格）下成立，但没承诺在最高能力上追平闭源。</b></p>
+          </div>
+        </div>
+        <div class="d-verdict"><span class="lb">腾子判断</span><p><b>小米这家值得单独盯，因为它把「训练成本」这个黑箱打开了。</b>6 天 $262万换AA 46 分—— 这个数字让「国产模型差在哪」这个问题的答案变了：<b>差的不是架构，是 RL 阶段的算力投入规模</b>。当阿里（33 轮 RSI）、小米（75 万轨迹）都把递归自我改进当成主路线，OpenAI/Anthropic 的前沿优势本质上是 RL 算力优势，不是架构优势。<br><br><b>对你的直接动作：</b>① WorkBuddy 里有 <code>mimo-v2.6-flash</code>（OpenRouter 周榜第 4，9.63T token，环比 +75%），它是 Flash 档性价比最优解之一，<b>值得拿你的批量活实测一轮</b>；② <b>不要指望它做终端自主操作</b> —— Terminal-Bench 4.0 只有 34.9，这类活还是走 Codex 或 Claude Code；③ V2.5 系列还有 ASR（支持吴语/粤语/闽南语/四川话）和 TTS（音色克隆）—— <b>如果你做方言短剧或角色声音，这两条是意外能力</b>。</p></div>
+      </article>
+
+      <article class="dossier" style="--camp:#8A7CC8">
+        <div class="d-top">
+          <div class="d-id">
+            <h3>Claude Code <span class="tag t-new">39% 职场采用率</span></h3>
+            <p class="aka">2025-02-24 研究预览 → 2025-05-22 GA · Boris Cherny 团队 · Apache 兼容的终端优先 agentic 工具</p>
+            <p class="verdict-inline"><b>它是本册唯一一个「工具采用率」能查到的产品 —— 也是你正在纠结的 Codex vs Claude Code 的胜负手。</b></p>
+          </div>
+          <div class="d-specs">
+            <div><b>39%</b><span>职场采用率（1 月为 18%）</span></div>
+            <div><b>47%</b><span>美国职场采用率</span></div>
+            <div><b>~$25亿</b><span>年化营收（2026-02）</span></div>
+            <div><b>4%</b><span>公开 GitHub 提交占比</span></div>
+            <div><b>46%</b><span>Pragmatic 满意度（Cursor 19%）</span></div>
+            <div><b>$13/天</b><span>企业单人活跃日成本</span></div>
+          </div>
+        </div>
+        <div class="d-body">
+          <div>
+            <h4>Claude Code vs Codex vs Cursor vs Copilot（JetBrains 2026 调研，15,000+ 开发者）</h4>
+            <div class="tbl-wrap" style="border:none;background:transparent">
+              <table style="min-width:0">
+                <thead><tr><th>工具</th><th>5–7 月采用</th><th>1 月</th><th>认知度</th><th>入门价</th><th>重度档</th></tr></thead>
+                <tbody>
+                <tr class="hl"><td><b>Claude Code</b></td><td class="num"><b>39%</b></td><td>18%</td><td>—</td><td>$20/月（Pro）</td><td>$100 / $200（Max 5x / 20x）</td></tr>
+                <tr><td>GitHub Copilot</td><td class="num">21%</td><td>29%</td><td>79%</td><td>$10/席</td><td>$100/席（Max）</td></tr>
+                <tr class="hl"><td>OpenAI Codex</td><td class="num">16%</td><td>3%</td><td>65%</td><td><b>$0（含在 ChatGPT）</b></td><td>ChatGPT Pro $100</td></tr>
+                <tr><td>Cursor</td><td class="num">12%</td><td>18%</td><td>75%</td><td>$20/月</td><td>$200/月</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="hint" style="margin-top:12px"><b>三个值得注意的信号：</b>① Claude Code 从第二名一骑绝尘，美国采用率达 47%；② <b>Codex 是增速最快的（3% → 16%，相对增长 433%），但基数仍只有 Claude Code 的一半</b>；③ <b>GitHub Copilot 和 Cursor 的认知度远高于采用率，说明「知道」和「真用」是两回事</b>。</p>
+          </div>
+          <div>
+            <h4>成本结构与省钱清单</h4>
+            <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0 0 var(--s-3)">Anthropic 自己公布的口径：企业部署平均<b>每个开发者每个活跃日约 $13</b>，<b>每月 $150–250</b>，<b>90% 的用户单日不超过 $30</b>。所以 Max 5x（$100）比 API 便宜，Max 20x（$200）大致打平但余量大得多。<b>绝大多数全职用户最终落在 Max 档。</b></p>
+            <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0 0 var(--s-3)">按模型的 API 计价（Claude Code 激进缓存上下文，长会话里大部分输入按缓存读计费）：<b>Sonnet 5 $2/$10/缓存 $0.20</b>（多数编码工作默认）、<b>Opus 5 $5/$25/缓存 $0.50</b>（架构与多步推理）、Haiku 4.5 $1/$5/缓存 $0.10（简单子代理）、<b>Fable 5.1 $10/$50/缓存 $0.25</b>（仅最难问题）。<b>两个隐藏乘数：</b>Opus 5 与 4.8 的 Fast 模式按 $10/$50 计；4.6+ 模型美国境内推理<b>所有 token 类别 ×1.1</b>。</p>
+            <blockquote class="quote"><p>六个省钱动作：① 切换不相关任务前敲 <code>/clear</code>（开着一天的问句仍在重读整个对话）；② 按活选模型，Sonnet 干大部分、Opus 留给架构、子代理设haiku；③ 注意缓存生命周期——<b>订阅档缓存 TTL 1 小时、API key 5 分钟</b>，中断超过就全部重算；④ <code>/context</code> 查谁在吃空间，<code>/mcp</code> 关掉不用的 MCP 服务器；⑤ <code>gh</code>、<code>aws</code> 这类 CLI 比 MCP 等价物便宜；⑥ 简单活降<code>/effort</code>，思考 token 按输出计费。</p><cite>Anthropic 官方成本指南</cite></blockquote>
+            <blockquote class="quote"><p><b>两个硬伤：</b>① <b>Free 档不含 Claude Code</b>，想评估必须先付费，没有试用路径；② <b>聊天和编程共用同一额度</b>，重度聊天会吃掉编码预算。团队标准席 $20、Premium 席 $100（年付）可混用。</p><cite>scored.tools / creditforstartups 评测</cite></blockquote>
+          </div>
+        </div>
+        <div class="d-verdict"><span class="lb">腾子判断</span><p><b>这条数据直接回答你之前那个分流问题该往哪偏。</b>Claude Code 39% vs Codex 16% —— <b>领先是真的，但差距是 2.4倍，不是量级碾压</b>，而且 Codex 增速快得多（3%→16%）。更实用的判断依据是三条结构性差异：<b>① Codex 边际成本 $0</b>（你已付 $20），Claude Code 要另付 $20–100；<b>② Claude Code 在前端 UI 生成与架构推理上口碑更好</b>，Codex 弱项明确；<b>③ Claude Code 没有免费档</b>，评估前必须先付钱。<br><br><b>给你的实际建议：主力日常仍用 Codex</b>（已付费、额度透明、有沙箱和 git 回滚）；<b>遇到「整仓重构 / 前端从零搭 / 架构推理」这类活再用 Claude Code</b>，此时 $20–100 的额外成本换来的是 39% 采用率社区里打磨过的工作流。<b>但注意 Claude Code 的聊天额度与编码额度共用</b> —— 如果你拿它聊天，编码额度会提前见底。</p></div>
+      </article>
+
+    </div>
+
+    <div class="tbl-wrap" style="margin-top:var(--s-5)">
+      <table>
+        <thead><tr><th>厂商</th><th>核心打法</th><th>最锋利的武器</th><th>最脆弱的地方</th></tr></thead>
+        <tbody>
+        <tr><td><b>Anthropic</b></td><td>企业渗透 + 能力闸门 + 合规护城河</td><td>34.4% 美企渗透率超OpenAI；缓存读砍 75% 抢 agentic 负载；推理毛利率 70–85%</td><td><b>$710亿芯片租赁债务</b>；10 月 IPO 押 $2 万亿，成败看承销商能否说服市场</td></tr>
+        <tr><td><b>OpenAI</b></td><td>消费基本盘 + 分发去微软化</td><td>9 亿周活；GPT-6 Astra 的 computer use；AWS Bedrock 新入口</td><td><b>35.5倍市销率、2026 预计亏 $620亿</b>；Astra 独立榜单缺席且资助了某基准</td></tr>
+        <tr><td><b>小米 MiMo</b></td><td>RL 算力规模化 + 极致性价比</td><td>AA 46 分开源第一；<b>公开 RL 成本</b>（6 天 $262万/75 万轨迹）；同智能下价格 1/20–1/60</td><td>Terminal-Bench 4.0 仅 34.9（差 Astra 20 分+）；公司 AI 业务不单独披露</td></tr>
+        <tr><td><b>Claude Code</b></td><td>终端 agentic 工具 + 极致上下文缓存</td><td>39% 职场采用率（美国 47%）；46% 满意度；75 万条公共 GitHub 提交</td><td><b>无免费档</b>；Max 起步 $100；聊天与编码共用额度</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="hint"><b>2026 下半年最值得盯的三条线：</b>① <b>10 月 Anthropic IPO 是否守住 $2 万亿</b> —— 成了，整个 American AI 叙事的价格锚就定了；② <b>OpenAI 2027 IPO 前能否把亏损收窄</b>，35.5 倍市销率没有太多容错；③ <b>Codex 采用率能否追上 Claude Code</b> —— 如果基数效应加上 $0 边际成本，2027 年格局可能重排。</p>
+
+  </div>
+</details>
+
+<section class="rv" id="s11">
+  <div class="sec-head"><span class="sec-num">11</span><h2>等价替代表：外部模型 → WorkBuddy 内部</h2></div>
+  <p class="sec-sub">如果活必须留在 WorkBuddy 里（本地文件、技能、连接器），按这张表映射。</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>想用外部哪个</th><th>WorkBuddy 内用什么</th><th>说明</th></tr></thead>
+      <tbody>
+      <tr><td>豆包 2.1-Pro（看图写代码）</td><td><b>space-bunny</b> + <b>glm-5.3</b></td><td>space-bunny 原生多模态 + 编码强（×0.03）；glm-5.3 负责长程工程推进</td></tr>
+      <tr><td>Seedream 5.0（可控改图 / 带字设计）</td><td><b>ImageGen</b>（hunyuan-image-alpha）+ MJ</td><td>WorkBuddy 内置生图走混元；真要可控编辑建议直接用 Seedream 或 MJ，别硬凑</td></tr>
+      <tr><td>Qwen3.8-Max（旗舰推理）</td><td><b>glm-5.3</b> / <b>kimi-k3-2</b></td><td>同为长程 + 强推理定位；kimi-k3-2 更贵但科研推理更强</td></tr>
+      <tr><td>Qwen3.8-27B / Flash（便宜量大）</td><td><b>glm-5.3-flash</b> / <b>deepseek-v4.1-flash</b></td><td>×0.06 / ×0.11，跑量首选</td></tr>
+      <tr><td>GPT-6 Sol（综合主力）</td><td><b>hy4-preview-f</b>（免费期）/ <b>glm-5.3</b></td><td>1M 上下文 + 强推理的最接近组合</td></tr>
+      <tr><td>GPT-6 Luna（最省档）</td><td><b>space-bunny</b>（×0.03）</td><td>折扣期内比 Luna 还便宜；10/07 到期后改用 hy3（免费）或 deepseek-v4.1-flash</td></tr>
+      <tr><td>Claude Opus 5.5（长程 agentic coding）</td><td><b>glm-5.3</b>（×0.79）</td><td>官方定位同样是"复杂软件工程与长程 Agent"；成本约为 Opus 5.5 的几十分之一</td></tr>
+      <tr><td>Claude Sonnet 5.5（日常编码）</td><td><b>space-bunny</b> / <b>minimax-m3-pay</b></td><td>10/07 前用 space-bunny，之后回落 minimax-m3-pay</td></tr>
+      <tr><td>Claude Fable 5.1（最难推理）</td><td><b>kimi-k3-2</b> / <b>deepseek-v4-pro</b></td><td>WorkBuddy 内的天花板；数学逻辑优先 deepseek-v4-pro</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="hint">反向建议：<b>不是所有活都该留在 WorkBuddy 里</b>。整仓重构用 Claude Code、可控改图用 Seedream、自建服务用 Qwen 开源权重——这些是各自阵营的真优势，WorkBuddy 内没有等价物。</p>
+</section>
+
+<!-- ============ 09 促销窗口 ============ -->
+<section class="rv" id="s12">
+  <div class="sec-head"><span class="sec-num">12</span><h2>促销窗口（会过期，先抢这些）</h2></div>
+  <div class="grid g2">
+    <div class="tile" style="--camp:var(--c-stealth)"><h5>space-bunny 限时折扣</h5><span class="ct">2026-10-02 → 10-07 结束</span><p>×0.03 全表最低，配置生效至 10/08 00:00。到期后价格大概率上浮。</p><div class="kv tag t-max" style="display:inline-block">剩 1 天</div></div>
+    <div class="tile" style="--camp:var(--c-hy)"><h5>hy3 / hy3-b / hy3-c 全免费</h5><span class="ct">2026-07-06 → 10-31</span><p>每日赠送免费额度。日常任务默认挂这三个。</p><div class="kv tag t-live" style="display:inline-block">进行中</div></div>
+    <div class="tile" style="--camp:var(--c-hy)"><h5>hy4-preview-f 全免费</h5><span class="ct">2026-08-28 → 10-10 24:00</span><p>1M 上下文，趁窗口把重活跑掉。</p><div class="kv tag t-live" style="display:inline-block">剩 4 天</div></div>
+    <div class="tile" style="--camp:var(--c-glm)"><h5>glm-5.2 夜间 5 折</h5><span class="ct">每天 23:00–次日 7:50</span><p>×0.79 → ×0.50。长程批处理放夜里跑。</p><div class="kv tag t-live" style="display:inline-block">长期有效</div></div>
+  </div>
+  <p class="hint">排队提示：glm-5.3、glm-5.3-flash、glm-5.3-flashx、kimi-k2.8-preview、step-5-preview 标记为「订阅优先」，资源紧张时高级会员优先调度；kimi-k3-2 为订阅优先开放。<b>step-5-preview 下周多一个变量：10/15 开源权重，届时机翻部署可能比云 API 更划算。</b></p>
+</section>
+
+<!-- ============ 10 场景映射 ============ -->
+<section class="rv" id="s13">
+  <div class="sec-head"><span class="sec-num">13</span><h2>场景 → 模型直接映射</h2></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>场景</th><th>WorkBuddy 内首选</th><th>备选</th><th>外部更优选</th></tr></thead>
+      <tbody>
+      <tr><td>日常问答 / 短改写</td><td>快速档 或 hy3-c</td><td>hy3-x</td><td class="dash">—</td></tr>
+      <tr><td>写文档 / 报告 / 方案</td><td>hy4-preview-f</td><td>kimi-k2.6 / k2.7</td><td>GPT-6 Sol</td></tr>
+      <tr><td>中文长文写作、去 AI 味</td><td>kimi-k2.7</td><td>glm-5.1</td><td class="dash">—</td></tr>
+      <tr><td>代码编写 / 调试</td><td><b>space-bunny</b>（10/07 前）</td><td>minimax-m3-pay、glm-5.3</td><td>Claude Sonnet 5.5</td></tr>
+      <tr><td>前端页面 / 组件</td><td>kimi-k2.8-preview</td><td>space-bunny</td><td>豆包 2.1-Pro（设计图还原）</td></tr>
+      <tr><td>整仓重构 / 长跑 Agent</td><td>glm-5.3</td><td>glm-5.2（夜间）</td><td><b>Claude Opus 5.5</b></td></tr>
+      <tr><td>图片 / 截图理解</td><td>glm-5.3-flash</td><td>space-bunny、glm-5v-turbo</td><td>豆包 2.1-Pro（VLM）</td></tr>
+      <tr><td>超长文档 1M</td><td>deepseek-v4.1-flash</td><td>hy4-preview-f、space-bunny</td><td>Qwen3.8-Max</td></tr>
+      <tr><td>数学 / 逻辑推理</td><td>deepseek-v4-pro</td><td>space-bunny（默认最高思考强度）</td><td>Claude Fable 5.1</td></tr>
+      <tr><td>探索期出图：多方案 / 首帧 / 草图</td><td class="dash">—</td><td class="dash">—</td><td><b>豆包 Seedream 5.0 Flash</b>（×1）</td></tr>
+      <tr><td>定稿出图：定妆照 / 主视觉 / 海报</td><td>ImageGen（混元）</td><td>Midjourney（风格一致性）</td><td><b>豆包 Seedream 5.0 Pro</b>（×4）</td></tr>
+      <tr><td>视频分镜 / 动态素材</td><td class="dash">—</td><td class="dash">—</td><td><b>豆包 Seedance 2.5</b>（单条 30 秒）</td></tr>
+      <tr><td>终端里真改文件的工程活</td><td class="dash">—</td><td class="dash">—</td><td><b>Codex（你的 Plus 已含）</b></td></tr>
+      <tr><td>自建服务 / 私有化部署</td><td class="dash">—</td><td class="dash">—</td><td><b>Qwen3.8-27B 开源</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ 11 按方向配置 ============ -->
+<section class="rv" id="s14">
+  <div class="sec-head"><span class="sec-num">14</span><h2>按你的实际方向配置</h2></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>方向</th><th>任务细分</th><th>用什么</th><th>为什么</th></tr></thead>
+      <tbody>
+      <tr><td rowspan="3"><b>IP 角色视觉 + MJ 提示词</b><br><span class="dash">（主线）</span></td><td>角色原案 / 定妆 prompt 创作</td><td><b>hy4-preview-f</b>（免费）</td><td>1M 上下文可整包塞入角色圣经 + 历史 prompt + 资产表，跨镜头一致性是 200k 模型做不到的</td></tr>
+      <tr><td>单条 prompt 打磨 / 双语对照 / 负向词</td><td><b>kimi-k2.7</b> → 高要求 <b>kimi-k2.8-preview</b></td><td>中英措辞自然，审美类描述细腻</td></tr>
+      <tr><td>批量换参 / 系列扩写 / 套模板</td><td><b>hy3-c</b>（免费）</td><td>模板化重复劳动，零成本跑量</td></tr>
+      <tr><td><b>带字物料 / 海报改图</b></td><td>改图中某个区域、生成带文字的版面</td><td><b>Seedream 5.0</b>（外部）</td><td>MJ 做不到的可控编辑与多语种排版；与 MJ 分工而非替代</td></tr>
+      <tr><td rowspan="2"><b>AI 资讯日报</b></td><td>抓取 → 摘要 → HTML 排版</td><td><b>deepseek-v4.1-flash</b>（×0.11）</td><td>1M 一次吞下全天原文，成本极低</td></tr>
+      <tr><td>要文笔的成稿</td><td><b>kimi-k2.6</b> + libai 润色 skill</td><td>中文语感好，配合润色 skill</td></tr>
+      <tr><td rowspan="3"><b>脚本 / 工具开发</b></td><td>常规写代码、改脚本</td><td><b>space-bunny</b>（×0.03，10/07 前）</td><td>编码强 + 多模态，价格是 glm-5.3-flash 一半；到期回落 minimax-m3-pay</td></tr>
+      <tr><td>多文件工程 / 长跑重构</td><td><b>glm-5.3</b>（×0.79）</td><td>官方标注复杂软件工程与长程 Agent</td></tr>
+      <tr><td>疑难 bug / 算法</td><td><b>deepseek-v4-pro</b>（×0.51）</td><td>推理严谨</td></tr>
+      <tr><td><b>参考图 / 截图分析</b></td><td>解读风格、配色、构图</td><td><b>glm-5.3-flash</b>（×0.06）</td><td>原生多模态 + 1M，最便宜的视觉档之一</td></tr>
+      <tr><td><b>Obsidian 知识库</b></td><td>笔记整理、双链补全</td><td><b>space-bunny</b> / <b>glm-5.3-flash</b></td><td>批量处理选最便宜档</td></tr>
+      <tr><td><b>数据 / 金融计算</b></td><td>指标、回测、表格</td><td><b>deepseek-v4-pro</b></td><td>数学逻辑最稳</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ 12 深度对话 ============ -->
+<section class="rv" id="s15">
+  <div class="sec-head"><span class="sec-num">15</span><h2>特殊场景：人生 / 职业规划这类深度对话</h2></div>
+  <p class="sec-sub">本质是超长上下文 + 高价值低频次 + 需要模型敢质疑你，跟写代码选型逻辑相反——<b>这里不该省钱</b>。</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>阶段</th><th>模型</th><th>理由</th></tr></thead>
+      <tbody>
+      <tr><td>① 信息采集（主谈）</td><td><b>hy4-preview-f</b></td><td>1M 上下文吃下完整履历、价值观、约束、历史决策</td></tr>
+      <tr><td>② 深度思辨</td><td><b>kimi-k3-2</b>（×1.62）</td><td>知识工作与科研推理出色，一年用几次别省</td></tr>
+      <tr><td>③ 取舍推演</td><td><b>deepseek-v4-pro</b></td><td>算概率、期望值、不可逆性</td></tr>
+      <tr><td>④ 落成文档</td><td><b>kimi-k2.7</b></td><td>中文长文语感最好</td></tr>
+      <tr><td>⑤ 交叉验证（关键）</td><td>kimi-k3-2 <b>+</b> deepseek-v4-pro 各问一遍</td><td>分歧点才是真正要想清楚的，共识点可执行</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="panel" style="margin-top:16px">
+    <h4>不要用</h4>
+    <p style="margin:0;font-size:var(--fs-sm);line-height:1.8;color:var(--text-2)">快速档（×0.21）与 flash 档：倾向快速给出"看起来合理"的答案，缺少追问和反驳。space-bunny 虽便宜，但默认最高思考强度，比 flash 档更愿意较真，可作候选。</p>
+  </div>
+</section>
+
+<!-- ============ 13 使用纪律 ============ -->
+<section class="rv" id="s16">
+  <div class="sec-head"><span class="sec-num">16</span><h2>使用纪律</h2></div>
+  <div class="panel">
+    <ul class="list">
+      <li><b>默认路径</b>：hy3-c（免费）→ hy4-preview-f（免费）→ space-bunny（×0.03，编码优先）→ glm-5.3 → kimi-k3-2。逐级升级，别一步跳到最贵。</li>
+      <li><b>窗口优先</b>：space-bunny（到 10/07）与 hy4-preview-f（到 10/10）是本季最划算的两个窗口，重活别拖到期后。</li>
+      <li><b>倍率意识</b>：kimi-k3-2（×1.62）是 space-bunny（×0.03）的 <b>54 倍</b>成本，不要拿旗舰跑批量小活。</li>
+      <li><b>推理档位别默认开最高</b>：space-bunny 强制最高档且关不掉，简单任务也在烧 token——实测「极致」档积分消耗约为 DeepSeek V4.1 Flash 的 2 倍。</li>
+      <li><b>长上下文别浪费</b>：实际上下文 &lt; 300k 时用 300k 档即可，1M 档只在真需要时开。</li>
+      <li><b>批处理错峰</b>：非交互长任务放 23:00 后跑 glm-5.2，省一半。</li>
+      <li><b>Alpha 模型别绑死</b>：space-bunny 是匿名预览版，能力、价格、可用性随时可变，生产流程要留 minimax-m3-pay 作回退方案。</li>
+      <li><b>敏感数据不出门</b>：stealth 条款写明对话可能被提供方记录保留。合同、源码、客户名单、未公开剧本走本地或身份明确的模型。</li>
+      <li><b>Codex 额度要主动管</b>：ChatGPT Plus 已含 Codex，边际成本 $0，但 Astra 每 5 小时只有 5–45 条。开任务前先 <code>/status</code>，日常默认 Luna，复杂活才升 GPT-6.1 Sol，Astra 当最后一道。</li>
+      <li><b>10-14 前换掉 gpt-5.5</b>：GPT-5.5 从 ChatGPT 和 Codex 退役，保存的模型设置、custom agents、定时任务里的 <code>gpt-5.5</code> 要改成 <code>gpt-6-sol</code>。</li>
+      <li><b>三订阅各干各的，别互相越界。</b>出画面 → 豆包工作；真改文件 → Codex；读本地资产 + 出规范文档 → WorkBuddy。详见 09。</li>
+      <li><b>别把文本活烧在豆包额度上。</b>豆包硬墙是 5h / 7d 滚动窗口，而 WorkBuddy 侧 hy4-preview-f 免费到 10-10、hy3 免费到 10-31。</li>
+      <li><b>模型退役要跟。</b>DeepSeek V4-Pro 已于 9-10 退役、<code>deepseek-v4-pro</code> 现在只是 V4.1 Flash 的别名——<b>成本核算按 Flash 算</b>。任何提到某个模型的结论都要带构建日期。</li>
+      <li><b>关键交付期留备选。</b>智谱 2026-02 有过算力危机（限制新注册），glm-5.3-flash 是本册性价比之王但产能是真瓶颈，配hy3-x 或 space-bunny 兜底。</li>
+      <li><b>该出去就出去</b>：整仓重构用 Claude Code、可控改图用 Seedream、自建服务用 Qwen 开源——不要在 WorkBuddy 里硬凑等价物。</li>
+    </ul>
+  </div>
 </section>
 
 <footer>
-本项目为「Agent · 平台 · 模型 对比选择手册」的两册之一（<b>模型层</b>）；平台层见 <a href="https://futuredesignw.github.io/agent-platform-model-playbook/ai-creative-platforms.html" style="color:var(--acc)">ai-creative-platforms.html</a>。<br>
-延伸手册：<a href="https://futuredesignw.github.io/agent-platform-model-playbook/ai-creative-platforms.html" style="color:var(--acc);font-weight:600">AI 生图 / 视频平台年会员单价对比</a> —— 即梦、LibTV、小云雀、Shotlab、NeoWOW、OiiOii、Seko、Updream 8 家，统一按「Seedance 2.0 VIP · 9:16 · 1080P · 1 · 10s 图生视频」折算 ¥/秒与年产能，另附 16 家聚合平台支持的生图 / 视频模型清单。<br>
-数据来源：WorkBuddy 本地配置缓存 <code>~/.workbuddy/local_storage/entry_d43e...info</code>（服务端下发，57 条模型定义）；外部模型信息来自厂商官方页面与公开报道（火山引擎、阿里云百炼、OpenAI、Anthropic 及第三方评测，2026-09 至 10）。<br>
-美元价格按 1 USD ≈ 7.2 CNY 估算，仅供量级参考；促销与倍率以官方最新下发为准。
+  <div class="fgrid">
+    <div>
+      <h4>本项目</h4>
+      <p style="margin:0">「Agent · 平台 · 模型 对比选择手册」的两册之一（<b style="color:var(--text-2)">模型层</b>，v11 · 2026-10-06）。平台层见 <a href="https://futuredesignw.github.io/agent-platform-model-playbook/ai-creative-platforms.html">ai-creative-platforms.html</a>——即梦、LibTV、小云雀、Shotlab、NeoWOW、OiiOii、Seko、Updream 8 家，统一按「Seedance 2.0 VIP · 9:16 · 1080P · 1 · 10s 图生视频」折算 ¥/秒与年产能，另附 16 家聚合平台支持的生图 / 视频模型清单。</p>
+    </div>
+    <div>
+      <h4>数据来源</h4>
+      <p style="margin:0">Codex 额度与模型阵容：OpenAI Codex 定价页与帮助中心（2026-10-01 核对）；第三方实测来自 Endor Labs、Bug Hunt Bench、Spectrum AI Labs（2026-10-04）。｜<b>豆包工作额度与模型可用性：官方说明 + 产品面板实测（2026-10-06 核对）</b>——标准套餐为免费版 5 倍额度，加强 20 倍、高级 50 倍；<b>5 小时 / 7 天滚动用量上限为实际硬墙</b>；Seedream 5.0 Pro 与 Seedance 2.5 标准套餐均可用，Pro 单张消耗为 Flash 的 4 倍。第三方整理站的额度数值不可靠，本册已弃用。｜<b>厂商档案（§10）</b>：DeepSeek 官方 change-log 与模型卡、阿里云栖大会 2026-09-22 披露、智谱港交所公告与 B17News 报道、月之暗面 Kimi K3 官方博客与 Hugging Face 模型卡、腾讯混元官方发布、B17 News / RiverCore / AI Seek Guide / AI Wiki（均为 2026-07 至 09 公开报道）。｜<b>第二批厂商档案</b>：Anthropic 官方博客与 pricing 页、OpenAI 官方发布与 API 定价页、小米 MiMo 官方发布页（mimo.xiaomi.com，RL 成本与 benchmark 原始数据）、JetBrains 2026 开发者生态调研（15,000+ 样本）、Epoch AI / WSJ / Bloomberg / Forkast / AInvest / Uvik Software / creditforstartups（2026-09 至 10 公开报道与评测）。<b>特别注意：厂商财务、估值、ARR、采用率数据均为第三方整理或厂商自报，带有明确时效性；Astra 上市时未登上任何独立榜单，MiMo 与 Anthropic 的 benchmark 属厂商自测。</b><b>厂商财务与估值数据为第三方整理，已标注来源与日期；涉及股价跌幅等市场数据具时效性。</b>｜WorkBuddy 内部倍率与模型定义：本地配置缓存 <code>~/.workbuddy/local_storage/entry_d43e...info</code>（服务端下发，57 条模型定义）；OpenRouter 周调用量榜单（截至 2026-10-04 周）；模型层外部信息来自厂商官方页面与公开报道（腾讯混元、智谱、DeepSeek、阶跃星辰、MiniMax、火山引擎、阿里云百炼、OpenAI、Anthropic 及 Artificial Analysis / AI BENCHY / CellCog / 智东西 / 爱范儿等第三方评测，2026-08 至 10）。</p>
+    </div>
+  </div>
+  <p class="stamp">免责声明：美元价格按 1 USD ≈ 7.2 CNY 估算，仅供量级参考 · WorkBuddy 侧倍率、促销与可用模型由服务端持续下发，会随官方调整变动，请以客户端内实际显示为准 · 免费 / 折扣期调用量会被显著放大，跨期对比需剔除价格因素 · 标注「厂商自测」的数据不具备与第三方数据直接可比性。</p>
 </footer>
+
 </div>
+
+<script>
+/* ---------- 入场编排：IntersectionObserver 只动 opacity / transform ---------- */
+(function(){
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold:.08, rootMargin:'0px 0px -40px 0px' });
+  document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+})();
+
+/* ---------- 数据条：按 data-w 展开，形成一次编排好的序列 ---------- */
+(function(){
+  var bars = document.querySelectorAll('.t-fill');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function draw(el, i){
+    el.style.width = reduce ? el.dataset.w : '0%';
+    requestAnimationFrame(function(){
+      setTimeout(function(){ el.style.width = el.dataset.w; }, reduce ? 0 : 90 + i * 55);
+    });
+  }
+  if(!('IntersectionObserver' in window)){ bars.forEach(draw); return; }
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){
+        bars.forEach(function(b, i){
+          if(b.closest('.track') === e.target) draw(b, i);
+        });
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold:.15 });
+  var track = document.querySelector('.track');
+  if(track) io.observe(track); else bars.forEach(draw);
+})();
+
+/* ---------- 目录：高亮 / 高度测量 / 窄屏折叠 ---------- */
+(function(){
+  var nav = document.getElementById('toc');
+  var bar = document.getElementById('tocBar');
+  var now = document.getElementById('tocNow');
+  if(!nav) return;
+  var links = Array.prototype.slice.call(nav.querySelectorAll('a'));
+  var secs = links.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+
+  /* 导航高度写入 --toc-h，供 section 的 scroll-margin 使用 */
+  function measure(){
+    var h = Math.round(nav.getBoundingClientRect().height);
+    document.documentElement.style.setProperty('--toc-h', h + 'px');
+  }
+  measure();
+  if(window.ResizeObserver){ new ResizeObserver(measure).observe(nav); }
+  else { window.addEventListener('resize', measure); }
+
+  /* 窄屏折叠切换 */
+  if(bar){
+    bar.addEventListener('click', function(){
+      var open = nav.getAttribute('data-open') === '1';
+      nav.setAttribute('data-open', open ? '0' : '1');
+      bar.setAttribute('aria-expanded', String(!open));
+      if(!open) requestAnimationFrame(measure); else measure();
+    });
+  }
+
+  /* 点条目后自动收起（仅窄屏生效，桌面不打扰） */
+  links.forEach(function(a){
+    a.addEventListener('click', function(){
+      if(window.matchMedia('(max-width:860px)').matches && nav.getAttribute('data-open') === '1'){
+        nav.setAttribute('data-open','0');
+        bar.setAttribute('aria-expanded','false');
+        measure();
+      }
+    });
+  });
+
+  function mark(id){
+    links.forEach(function(l){ l.classList.toggle('on', l.getAttribute('href') === '#' + id); });
+    if(now){
+      var act = links.filter(function(l){ return l.classList.contains('on'); })[0];
+      if(act) now.textContent = act.textContent;
+    }
+  }
+
+  if(!('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting) mark(e.target.id); });
+  }, { rootMargin:'-96px 0px -70% 0px' });
+  secs.forEach(function(s){ io.observe(s); });
+})();
+</script>
 </body>
 </html>
