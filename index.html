@@ -215,21 +215,6 @@ nav.toc[data-open="1"] .toc-bar .caret{transform:rotate(180deg)}
 .d-meta{display:block;font:400 11px/1.4 var(--font-mono);color:var(--text-3);letter-spacing:.02em}
 .d-sum{display:block;font-size:var(--fs-xs);line-height:1.6;color:var(--text-2);margin-top:3px}
 
-/* ---------- 外部厂商折叠块 ---------- */
-.ext-vendors{margin:var(--s-4) 0 var(--s-5);border:1px solid var(--line);border-radius:var(--r);background:var(--surface-2)}
-.ext-vendors > summary{cursor:pointer;padding:var(--s-3);font:600 var(--fs-sm)/1.4 var(--font-sans);
-  color:var(--text);list-style:none;display:flex;align-items:center;gap:var(--s-2);flex-wrap:wrap}
-.ext-vendors > summary::-webkit-details-marker{display:none}
-.ext-vendors > summary::before{content:"\25B8";color:var(--accent);font-size:11px;transition:transform var(--d-fast) ease-out;flex:none}
-.ext-vendors[open] > summary::before{transform:rotate(90deg)}
-.ext-vendors > summary:hover{color:var(--accent)}
-.ext-vendors .body{padding:0 var(--s-3) var(--s-3)}
-.ext-vendors .sub-head{display:flex;align-items:baseline;gap:var(--s-2);margin:var(--s-4) 0 var(--s-2);
-  padding-top:var(--s-3);border-top:1px solid var(--line-2)}
-.ext-vendors .sub-head .sec-num{font-size:12px}
-.ext-vendors .tbl-wrap:last-child{margin-bottom:0}
-@media (prefers-reduced-motion:reduce){.ext-vendors > summary::before{transition:none}}
-
 /* ---------- 区块 ---------- */
 /* scroll-margin 跟随导航实际高度：窄屏收起时是一行，展开时是两行 */
 section{margin-bottom:var(--s-6);scroll-margin-top:calc(var(--toc-h,64px) + 14px)}
@@ -379,6 +364,11 @@ code,b.mdl{
 .d-specs span{display:block;margin-top:5px;font-size:10px;color:var(--text-3);letter-spacing:.04em}
 .d-body{display:grid;grid-template-columns:1.15fr 1fr;gap:var(--s-4);margin-top:var(--s-4)}
 .d-body>*+*{padding-left:var(--s-4);border-left:1px solid var(--line)}
+.d-body>.span2{grid-column:1/-1;padding-left:0;border-left:none;
+  margin-top:var(--s-2);padding-top:var(--s-4);border-top:1px solid var(--line-2)}
+.ov-label{display:block;font:700 var(--fs-xs)/1.4 var(--font-mono);text-transform:uppercase;
+  letter-spacing:.18em;color:var(--text-3);margin:var(--s-5) 0 var(--s-3);
+  padding-top:var(--s-3);border-top:1px solid var(--line)}
 
 /* 新闻时间线 */
 .timeline{list-style:none;margin:0;padding:0}
@@ -531,6 +521,7 @@ footer .stamp{margin-top:var(--s-5);padding-top:var(--s-3);border-top:1px solid 
 /* ---------- 响应式 ---------- */
 @media(max-width:1080px){
   .d-body,.d-body>*+*{grid-template-columns:1fr;padding-left:0;border-left:none}
+  .d-body>.span2{border-top:1px solid var(--line-2);padding-top:var(--s-4)}
   .readout{grid-template-columns:1fr 1fr}
 }
 @media(max-width:900px){
@@ -577,9 +568,9 @@ footer .stamp{margin-top:var(--s-5);padding-top:var(--s-3);border-top:1px solid 
 <div class="wrap">
 
 <header class="deck">
-  <p class="deck-kicker">Model Layer · 模型层选型手册 v17</p>
+  <p class="deck-kicker">Model Layer · 模型层选型手册 v18</p>
   <h1>模型层<br><span class="zh thin">该调谁，跑多少</span></h1>
-  <p class="deck-lede">本册只解决<b>模型层</b>：WorkBuddy 内置 19 个可手动指定模型的倍率与规格、外部四大阵营横评、以及每个模型的<b>详细档案 / 近期新闻 / 第三方口碑</b>，以及你已付费的 <b>ChatGPT Plus 内含 Codex</b>、<b>三份订阅该各干什么</b>（见 09），以及<b>六家厂商各自的打法与资本状态</b>（见 10）。跨层选型按 <b>Agent → 平台 → 模型</b> 的顺序走；平台层（8 家 AI 生图 / 视频平台年会员单价折算）见 <a href="https://futuredesignw.github.io/agent-platform-model-playbook/ai-creative-platforms.html">ai-creative-platforms.html</a>。</p>
+  <p class="deck-lede">本册只解决<b>模型层</b>：WorkBuddy 内置 19 个可手动指定模型的倍率与规格、外部四大阵营横评与<b>十家厂商档案</b>（同属 §06）、以及每个模型的<b>详细档案 / 近期新闻 / 第三方口碑</b>，以及你已付费的 <b>ChatGPT Plus 内含 Codex</b>、<b>四份订阅该各干什么</b>（见 §05）、<b>十家厂商各自的打法与资本状态</b>（见 §06）。跨层选型按 <b>Agent → 平台 → 模型</b> 的顺序走；平台层（8 家 AI 生图 / 视频平台年会员单价折算）见 <a href="https://futuredesignw.github.io/agent-platform-model-playbook/ai-creative-platforms.html">ai-creative-platforms.html</a>。</p>
   <div class="snapshot">
     <div><b>38.7<em> T</em></b><span>Space Bunny Alpha 本周调用量 · 全球第 1（环比 +179%）</span></div>
     <div><b>57.46<em> T</em></b><span>中国模型本周调用量 · 连续 23 周超过美国</span></div>
@@ -592,6 +583,7 @@ footer .stamp{margin-top:var(--s-5);padding-top:var(--s-3);border-top:1px solid 
     <span class="chip hot">v11 新增：Codex 纳入对比（你的 Plus 已含）</span>
     <span class="chip hot">v12 新增：三订阅任务分配（豆包工作 ¥68 / Plus $20 / WorkBuddy）</span>
     <span class="chip hot">v17 更新：新增千问 Token Plan（第四份）· 剩余 99.7% 未用</span>
+    <span class="chip new">v18 重构：厂商档案不再分两批 · 四阵营总览并入 · Claude Code 收为 Anthropic 旗下工具</span>
     <span class="chip hot">v13 新增：六家厂商档案（DeepSeek / 智谱 / 千问 / 腾讯混元 / 月之暗面 / MiniMax·阶跃）</span>
     <span class="chip new">v14 修复：目录溢出被裁（改为换行 + 窄屏可折叠）</span>
     <span class="chip hot">v15 新增：OpenAI / Anthropic / Claude Code / 小米 MiMo 四家厂商档案</span>
@@ -603,7 +595,7 @@ footer .stamp{margin-top:var(--s-5);padding-top:var(--s-3);border-top:1px solid 
 
 <nav class="toc" id="toc" data-open="0" aria-label="目录">
   <button class="toc-bar" id="tocBar" aria-expanded="false" aria-controls="tocList">
-    <span>目录 · 13 节</span>
+    <span>目录 · 12 节</span>
     <span style="display:flex;align-items:center;gap:10px">
       <span class="cnt" id="tocNow">调用量实榜</span>
       <span class="caret" aria-hidden="true">
@@ -616,9 +608,8 @@ footer .stamp{margin-top:var(--s-5);padding-top:var(--s-3);border-top:1px solid 
     <li><a href="#sdaily">每日 AI 精选</a></li>
     <li><a href="#s1">WorkBuddy 资产</a></li>
     <li><a href="#s2">模型档案</a></li>
-    <li><a href="#s3">四阵营总览</a></li>
     <li><a href="#s7b">Codex</a></li>
-    <li><a href="#salloc">三订阅分配</a></li>
+    <li><a href="#salloc">四份订阅分配</a></li>
     <li><a href="#svend">厂商档案</a></li>
     <li><a href="#s11">选型双向表</a></li>
     <li><a href="#s12">促销窗口</a></li>
@@ -1112,7 +1103,7 @@ footer .stamp{margin-top:var(--s-5);padding-top:var(--s-3);border-top:1px solid 
             <li>另两个自主实验：<b>在从未见过的平头哥新款 GPU 上自主完成推理框架适配，单实例吞吐 +96%</b>；仅凭一份总线模块规范自主运行 <b>60+ 小时、调用 EDA 工具超万次</b>，把芯片面积优化掉 <b>42%</b>。</li>
             <li>负责人刘大一恒自限：RSI 只是「初步进入」训练与推理环节，<b>并非成熟无人化状态</b>。</li>
           </ul>
-          <blockquote class="quote"><p>PaperBench 93.0、OSWorld 86.1（§04 阵营表已列）。<b>但独立评测显示 Hy4盲测 2.99 领先时，千问在通用基准上被拉开差距</b> —— 厂商自测只覆盖自家擅长的工程任务。</p><cite>多源交叉 · 2026-08至 09</cite></blockquote>
+          <blockquote class="quote"><p>PaperBench 93.0、OSWorld 86.1（§06 厂商档案的选型表已列）。<b>但独立评测显示 Hy4盲测 2.99 领先时，千问在通用基准上被拉开差距</b> —— 厂商自测只覆盖自家擅长的工程任务。</p><cite>多源交叉 · 2026-08至 09</cite></blockquote>
         </div>
       </div>
       <div class="d-verdict"><span class="lb">腾子判断</span><p><b>你的 Token Plan 应该优先用Max 跑夜间批量，Flash 跑白天交互。</b>理由是阶梯折扣：<b>Max 日间 1 折、夜间 0.2 折；夜间比日间再省 5 倍</b>。所以正确姿势是——<b>白天用 Flash 调通逻辑，夜里把要跑的批量任务交给 Max 挂机</b>。这一条能把你手上这份<b>几乎原封未动（剩 99.7%）</b>的额度用出最大价值。<br><br><b>更重要的提醒在下一张卡</b>：额度不结转，10-22 一到期，剩下的全部清零作废。</p></div>
@@ -1177,22 +1168,6 @@ footer .stamp{margin-top:var(--s-5);padding-top:var(--s-3);border-top:1px solid 
 </section>
 
 <!-- ============ 03 四阵营总览 ============ -->
-<section class="rv" id="s3">
-  <div class="sec-head"><span class="sec-num">04</span><h2>四大阵营总览</h2></div>
-  <p class="sec-sub">外部价格按官方公开价折算人民币（美元按 1 USD ≈ 7.2 CNY 估算，仅供量级参考）。</p>
-  <div class="tbl-wrap">
-    <table>
-      <thead><tr><th>阵营</th><th>当前主力</th><th>上下文</th><th>价格（每百万 token 入 / 出）</th><th>最强项</th><th>主要短板</th></tr></thead>
-      <tbody>
-      <tr><td><b>字节 · 豆包</b><br><span class="dash">火山方舟</span></td><td>Doubao-Seed-Evolving<br>Doubao-Seed-2.1-Pro</td><td>未公开统一值<br><span class="dash">（2.1 系列长上下文）</span></td><td class="num">¥6 / ¥30（Evolving·Pro）<br>¥3 / ¥15（Turbo）</td><td><b>多模态编程</b>：草图 / 录屏 / 设计图直接变代码；3D 场景、前端还原、游戏开发；Agent 长程执行</td><td>生态偏国内；第三方独立评测少；价格不算便宜</td></tr>
-      <tr><td><b>阿里 · 千问</b><br><span class="dash">百炼 / Qwen Cloud</span></td><td>Qwen3.8-Max<br>Qwen3.8-27B（开源）</td><td>1M（Max）<br>262k 原生 → 1M 外推</td><td class="num">¥2.5 / ¥7.5（Max）<br>¥0.4 / ¥1.6（Plus）<br>¥0.03 / ¥0.06（Flash）</td><td><b>性价比 + 开源</b>：2.4T MoE 旗舰，PaperBench 93.0、OSWorld 86.1；可私有化部署</td><td>旗舰闭源；开源版与 Max 有差距；版本命名混乱</td></tr>
-      <tr><td><b>OpenAI · GPT-6</b><br><span class="dash">ChatGPT / API</span></td><td>GPT-6 Astra<br>GPT-6 Sol<br>GPT-6 Luna</td><td>未公开统一值</td><td class="num">Sol ≈¥14 / ¥72<br>Luna ≈¥0.7 / ¥3.6</td><td><b>综合智能 + 办公自动化</b>：AutomationBench 上 Sol 以约 Opus 5 九分之一的单任务成本胜出；生态最成熟</td><td>境内访问受限；Astra 贵；数据合规需评估</td></tr>
-      <tr><td><b>Anthropic · Claude Code</b><br><span class="dash">CLI 编程事实标准</span></td><td>Claude Fable 5.1<br>Claude Opus 5.5<br>Claude Sonnet 5.5</td><td>均为 1M / 128k 输出</td><td class="num">Fable 5.1 ≈¥72 / ¥360<br>Opus 5.5 ≈¥29 / ¥144<br>Sonnet 5.5 ≈¥14 / ¥72</td><td><b>长程 agentic coding</b>：整仓理解、多文件重构、自主跑测试；Terminal-Bench 4.0 66–71%</td><td>最贵档高得离谱；纯终端界面；容易过度修改文件</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <p class="hint">一句话区分：<b>豆包赢在"看懂图就能写代码"，千问赢在"旗舰能力配白菜价 + 能开源自部署"，GPT-6 赢在"综合智能与办公自动化生态"，Claude Code 赢在"整仓级长程编程"。</b></p>
-</section>
 
 <!-- ============ 04 豆包 ============ -->
 
@@ -1208,7 +1183,7 @@ footer .stamp{margin-top:var(--s-5);padding-top:var(--s-3);border-top:1px solid 
 
 <!-- ============ 08 等价替代表 ============ -->
 <section class="rv" id="s7b">
-  <div class="sec-head"><span class="sec-num">05</span><h2>Codex（OpenAI 编程代理）· 已有 Plus 订阅 = 边际成本 $0</h2></div>
+  <div class="sec-head"><span class="sec-num">04</span><h2>Codex（OpenAI 编程代理）· 已有 Plus 订阅 = 边际成本 $0</h2></div>
   <p class="sec-sub">Codex 是<b>代理工具</b>，不是又一个模型——它和 Claude Code 是同一层的东西，但<b>不需要额外付费</b>：ChatGPT Free / Go / Plus / Pro / Business / Edu / Enterprise 全部包含。Codex CLI 是Apache-2.0 开源（<code>github.com/openai/codex</code>），可以在 Web、CLI、IDE 扩展、iOS、桌面端用。</p>
 
   <div class="dossiers">
@@ -1293,8 +1268,8 @@ footer .stamp{margin-top:var(--s-5);padding-top:var(--s-3);border-top:1px solid 
 </section>
 
 <section class="rv" id="salloc">
-  <div class="sec-head"><span class="sec-num">06</span><h2>四份订阅任务分配：把模型选择接回你的钱包</h2></div>
-  <p class="sec-sub">前面几节讲「哪个模型强」。这一节讲更实际的问题：<b>你已经付了四份订阅，哪些活该走哪一份。</b>按<b>产出物形态</b>分，不按模型强弱分——因为三份订阅有明确的能力独占，分错就是重复付费或能力浪费。</p>
+  <div class="sec-head"><span class="sec-num">05</span><h2>四份订阅任务分配：把模型选择接回你的钱包</h2></div>
+  <p class="sec-sub">前面几节讲「哪个模型强」。这一节讲更实际的问题：<b>你已经付了四份订阅，哪些活该走哪一份。</b>按<b>产出物形态</b>分，不按模型强弱分——因为四份订阅有明确的能力独占，分错就是重复付费或能力浪费。</p>
 
   <div class="grid g3" style="margin-bottom:var(--s-3)">
     <div class="tile" style="--camp:#D85A30">
@@ -1371,7 +1346,7 @@ footer .stamp{margin-top:var(--s-5);padding-top:var(--s-3);border-top:1px solid 
           <tr><td>定稿出图：定妆照 / 主视觉 / 海报</td><td><b>豆包工作</b></td><td>Seedream 5.0 Pro（×4）</td><td>一张定生死，值得花 4 倍</td></tr>
           <tr><td>视频分镜 / 动态素材</td><td><b>豆包工作</b></td><td>Seedance 2.5</td><td>标准套餐即可用，单条最长 30 秒，当前 720p</td></tr>
           <tr><td>剪辑、精修、调色、终审</td><td><b>人</b></td><td>达芬奇</td><td>不外包给任何工具</td></tr>
-          <tr><td>达芬奇脚本 / 批量工具开发</td><td><b>Codex</b></td><td>Luna → Sol → Astra</td><td>见 08 额度三档</td></tr>
+          <tr><td>达芬奇脚本 / 批量工具开发</td><td><b>Codex</b></td><td>Luna → Sol → Astra</td><td>见 §04 额度三档</td></tr>
           <tr><td>NAS 运维、批量改名、目录整理</td><td><b>Codex</b></td><td>Luna</td><td>沙箱 + git 回滚，安全</td></tr>
           <tr><td>团队 SOP、标准化流程文档</td><td><b>WorkBuddy</b></td><td>hy4-preview-f（免费）</td><td>趁 10-10 免费窗口做完</td></tr>
           </tbody>
@@ -1405,568 +1380,535 @@ footer .stamp{margin-top:var(--s-5);padding-top:var(--s-3);border-top:1px solid 
 </section>
 
 <section class="rv" id="svend">
-  <div class="sec-head"><span class="sec-num">07</span><h2>厂商档案：谁在造模型，谁在打仗</h2></div>
-  <p class="sec-sub">前面讲模型和订阅，这一节讲<b>公司</b>。2026 年大模型的竞争已经不只是技术对比，而是<b>资本、开源策略、芯片约束、分发生态</b>四线同时开打。看懂这些打法差异，比记住参数表更有用——因为<b>参数会过期，打法不会</b>。<br><br>本节分两批：<b>第一批六家中国厂商</b>（下表与档案卡），<b>第二批四家海外与硬件厂</b>（<b>OpenAI、Anthropic、Claude Code、小米 MiMo</b>）在本节末尾的折叠块里——那批的资本数据量更大，展开看更清楚。</p>
+  <div class="sec-head"><span class="sec-num">06</span><h2>厂商档案：谁在造模型，谁在打仗</h2></div>
+  <p class="sec-sub">前面讲模型和订阅，这一节讲<b>公司</b>。<b>原「四大阵营总览」已并入本节</b> —— 阵营就是厂商，拆成两节会让人在两处看同一件事。2026 年大模型的竞争已经不只是技术对比，而是<b>资本、开源策略、芯片约束、分发生态</b>四线同时开打。看懂这些打法差异，比记住参数表更有用 —— 因为<b>参数会过期，打法不会</b>。</p>
 
+  <h4 class="ov-label">总览 A · 选型视角：四家主力阵营（该不该出去买）</h4>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>阵营</th><th>当前主力</th><th>上下文</th><th>价格（每百万 token 入 / 出）</th><th>最强项</th><th>主要短板</th></tr></thead>
+      <tbody>
+      <tr><td><b>字节 · 豆包</b><br><span class="dash">火山方舟</span></td><td>Doubao-Seed-Evolving<br>Doubao-Seed-2.1-Pro</td><td>未公开统一值<br><span class="dash">（2.1 系列长上下文）</span></td><td class="num">¥6 / ¥30（Evolving·Pro）<br>¥3 / ¥15（Turbo）</td><td><b>多模态编程</b>：草图 / 录屏 / 设计图直接变代码；3D 场景、前端还原、游戏开发；Agent 长程执行</td><td>生态偏国内；第三方独立评测少；价格不算便宜</td></tr>
+      <tr><td><b>阿里 · 千问</b><br><span class="dash">百炼 / Qwen Cloud</span></td><td>Qwen3.8-Max<br>Qwen3.8-27B（开源）</td><td>1M（Max）<br>262k 原生 → 1M 外推</td><td class="num">¥2.5 / ¥7.5（Max）<br>¥0.4 / ¥1.6（Plus）<br>¥0.03 / ¥0.06（Flash）</td><td><b>性价比 + 开源</b>：2.4T MoE 旗舰，PaperBench 93.0、OSWorld 86.1；可私有化部署</td><td>旗舰闭源；开源版与 Max 有差距；版本命名混乱</td></tr>
+      <tr><td><b>OpenAI · GPT-6</b><br><span class="dash">ChatGPT / API</span></td><td>GPT-6 Astra<br>GPT-6 Sol<br>GPT-6 Luna</td><td>未公开统一值</td><td class="num">Sol ≈¥14 / ¥72<br>Luna ≈¥0.7 / ¥3.6</td><td><b>综合智能 + 办公自动化</b>：AutomationBench 上 Sol 以约 Opus 5 九分之一的单任务成本胜出；生态最成熟</td><td>境内访问受限；Astra 贵；数据合规需评估</td></tr>
+      <tr><td><b>Anthropic · Claude</b><br><span class="dash">旗下工具 Claude Code</span></td><td>Claude Fable 5.1<br>Claude Opus 5.5<br>Claude Sonnet 5.5</td><td>均为 1M / 128k 输出</td><td class="num">Fable 5.1 ≈¥72 / ¥360<br>Opus 5.5 ≈¥29 / ¥144<br>Sonnet 5.5 ≈¥14 / ¥72</td><td><b>长程 agentic coding</b>：整仓理解、多文件重构、自主跑测试；Terminal-Bench 4.0 66–71%</td><td>最贵档高得离谱；Claude Code 是纯终端界面，且容易过度修改文件</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="hint">一句话区分：<b>豆包赢在「看懂图就能写代码」</b>；千问赢在「旗舰能力配白菜价 + 能开源自部署」；<b>GPT-6 赢在「综合智能与办公自动化生态」；Anthropic 赢在「整仓级长程编程」</b>。这四家是本册所有模板之外<b>真正要花钱的地方</b> —— 其余全是 WorkBuddy 内部可调的档位。</p>
+
+  <h4 class="ov-label">总览 B · 格局视角：厂商 · 参数 · 许可证 · 资本</h4>
   <div class="tbl-wrap" style="margin-bottom:var(--s-4)">
     <table>
       <thead><tr><th>厂商</th><th>旗舰模型</th><th>参数（总 / 激活）</th><th>上下文</th><th>许可证</th><th>资本状态</th></tr></thead>
       <tbody>
       <tr class="hl"><td><b>月之暗面</b><br><span class="dash">Moonshot AI · Kimi</span></td><td>Kimi K3<br><span class="dash">2026-07-17 发布</span></td><td class="num">2.8T / 104B</td><td>1M</td><td><span class="tag t-warn">自定义 · 抽成≤30%</span></td><td>Pre-IPO 估值 <b>$500亿</b>；半年翻 5 倍</td></tr>
+      <tr><td><b>字节 · 豆包</b><br><span class="dash">Doubao · Seed</span></td><td>Doubao-Seed-Evolving<br><span class="dash">Doubao-Seed-2.1-Pro</span></td><td class="num">未完整公布</td><td>—</td><td><span class="tag t-warn">闭源（API）</span></td><td>四份订阅里的「豆包工作」就是它；多模态编程 + Seedream 出图</td></tr>
       <tr><td><b>阿里 · 千问</b><br><span class="dash">Qwen</span></td><td>Qwen3.8-Max</td><td class="num">2.4T / 95B</td><td>1M</td><td><span class="tag t-free">Apache-2.0 部分</span></td><td>已开源 460+ 模型</td></tr>
       <tr><td><b>DeepSeek</b><br><span class="dash">深度求索</span></td><td>V4-Pro（<b>已退役</b>）<br><span class="dash">→ 现役 V4.1 Flash</span></td><td class="num">1.7T / 49B</td><td>1M</td><td><span class="tag t-free">MIT（最彻底）</span></td><td>未上市 · 高盛列为长期最具竞争力</td></tr>
       <tr><td><b>腾讯 · 混元</b><br><span class="dash">Hunyuan</span></td><td>Hy4 preview<br><span class="dash">2026-08-28</span></td><td class="num">770B / 49B</td><td>1M+</td><td><span class="tag t-free">Apache-2.0</span></td><td>第三梯队 · Token 业务偏慢</td></tr>
       <tr><td><b>智谱</b><br><span class="dash">Z.ai · GLM</span></td><td>GLM-5.3<br><span class="dash">2026-08-14</span></td><td class="num">743B / ~40B</td><td>1M</td><td><span class="tag t-free">MIT</span></td><td>港股 02513 · <b>上市首个大模型股</b></td></tr>
       <tr><td><b>阶跃星辰</b><br><span class="dash">StepFun</span></td><td>Step 5 Preview<br><span class="dash">2026-09-20</span></td><td class="num">600B / 27B</td><td>1M</td><td><span class="tag t-warn">10-15 开源</span></td><td>近 25亿美元融资待完成</td></tr>
-      <tr><td><b>小米</b><br><span class="dash">MiMo</span></td><td>MiMo-V2.6-Pro<br><span class="dash">2026-09-22 开源</span></td><td class="num">未完整公布</td><td>—</td><td><span class="tag t-free">开源</span></td><td><b>AA 46 分 · 开源第一</b>（详见第二批）</td></tr>
+      <tr><td><b>小米</b><br><span class="dash">MiMo</span></td><td>MiMo-V2.6-Pro<br><span class="dash">2026-09-22 开源</span></td><td class="num">未完整公布</td><td>—</td><td><span class="tag t-free">开源</span></td><td><b>AA 46 分 · 开源第一</b>；公开 RL 训练成本 6 天 $262万</td></tr>
+      <tr><td><b>OpenAI</b><br><span class="dash">GPT-6 · 美国</span></td><td>GPT-6 Astra<br><span class="dash">2026-09-03</span></td><td class="num">未完整公布</td><td>1.05M</td><td><span class="tag t-warn">闭源</span></td><td>估值 <b>$8,520亿</b> · ARR $400亿 · 2026 亏损估 $620亿</td></tr>
+      <tr><td><b>Anthropic</b><br><span class="dash">Claude · 美国</span></td><td>Claude Fable 5.1<br><span class="dash">2026-09-01</span></td><td class="num">未完整公布</td><td>1M</td><td><span class="tag t-warn">闭源</span></td><td><b>估值 $9,650亿</b> · ARR 破 $1,000亿 · 10 月冲 $2 万亿 IPO</td></tr>
       <tr><td><b>MiniMax</b></td><td>M3 / M3.1-Flash</td><td class="num">未完整公布</td><td>1M</td><td><span class="tag t-warn">自定义</span></td><td>已过港交所聆讯</td></tr>
       </tbody>
     </table>
   </div>
-  <p class="hint"><b>月之暗面 Kimi K3 是全球首个 3万亿级开源模型</b>，也是唯一带「年收入 2000 万美元以上需分成最多 30%」条款的——这个条款后来成了行业风向标，标志开源从纯慈善转向有条件让渡。</p>
-  <p class="hint"><b>这张表里没列的海外巨头才是真正决定价格的那一批</b>：OpenAI（估值 $8,520亿）、<b>Anthropic（$9,650亿、ARR 破 $1,000亿、10 月冲 $2 万亿 IPO）</b>。<b>Anthropic 在估值、营收、美企渗透率三项上都已超过 OpenAI</b> —— 这个叙事反转是本季度最值得记住的资本事件。小米 MiMo 也已加入下表（AA 46 分开源第一）。第二批四家的完整档案在本节末尾的折叠块里。</p>
+  <p class="hint"><b>月之暗面 Kimi K3 是全球首个 3 万亿级开源模型</b>，也是唯一带「年收入 2000 万美元以上需分成最多 30%」条款的 —— 这个条款后来成了行业风向标，标志开源从纯慈善转向有条件让渡。</p>
+  <p class="hint"><b>真正决定价格的是表里最后那两家。</b>OpenAI 估值 $8,520亿、ARR $400亿，但 2026 预计亏 $620亿；<b>Anthropic 估值 $9,650亿、ARR 破 $1,000亿、美企渗透率 34.4%，三项全部反超 OpenAI</b>，10 月还要冲 $2 万亿 IPO —— 这个叙事反转是本季度最值得记住的资本事件。</p>
 
   <div class="dossiers">
 
     <article class="dossier flag" style="--camp:#D68FAE">
-      <div class="d-top">
-        <div class="d-id">
-          <h3>月之暗面 Moonshot AI <span class="tag t-new">估值神话</span></h3>
-          <p class="aka">2023-03 成立 · Kimi 2023-10 上线 · <b>2026-09 已秘密递交港交所 A1 文件</b></p>
-          <p class="verdict-inline"><b>六家里估值曲线最陡的一家。</b>2023-06 天使轮约 3亿美元 → 2025-12 C轮 43亿 → 2026-01~02 三轮约 19亿冲破 100 亿 → 5 月美团龙珠领投 D 轮约 20 亿、投后 200 亿 → <b>Pre-IPO 轮 500 亿</b>。半年从 100 亿翻到 500 亿。</p>
-        </div>
-        <div class="d-specs">
-          <div><b>$500亿</b><span>Pre-IPO 估值</span></div>
-          <div><b>2.8T</b><span>K3 总参数</span></div>
-          <div><b>$3亿+</b><span>6 月中旬 ARR</span></div>
-          <div><b>12万+</b><span>企业客户</span></div>
-          <div><b>90%+</b><span>编码场景缓存命中</span></div>
-          <div><b>36M</b><span>月活（Kimi Explore）</span></div>
-        </div>
-      </div>
-      <div class="d-body">
-        <div>
-          <h4>2026 时间线</h4>
-          <ol class="timeline">
-            <li><time>2026-07-17</time><b>Kimi K3 发布</b>，2.8T 参数、104B 激活、1M 上下文、原生视觉，<b>全球首个 3T 级开源模型</b>。</li>
-            <li><time>2026-07-27</time>权重上线 Hugging Face（<code>moonshotai/Kimi-K3</code>），架构含Kimi Delta Attention、Attention Residuals、Stable LatentMoE（16/896 专家激活）。</li>
-            <li><time>同日</time><b>市场震动</b>：智谱港股单日跌约 <b>27%</b>，MiniMax 跌约 16%。投资人认为这两家被第三家在一个时区内完成跨越。</li>
-            <li><time>2026-09-11</time>独立基准确认 K3 已落地、不是待发布。</li>
-            <li><time>2026-09</time><b>秘密递交港交所 A1 文件</b>，正式启动 IPO。</li>
-          </ol>
-        </div>
-        <div>
-          <h4>档位与口碑</h4>
-          <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0 0 var(--s-3)">API 定价：缓存未命中 $3.00 / 缓存命中 $0.30 / 输出 $15.00 每百万 token。<b>缓存命中 90%+ 是它的商业模式</b>——长编码任务反复读同一批文件。</p>
-          <blockquote class="quote"><p>盲测人类偏好中超过 Anthropic 的 Fable 系统，并在独立榜单的<b>网页界面工程</b>项排名第一。</p><cite>Artificial Analysis / Arena.ai</cite></blockquote>
-          <blockquote class="quote"><p>Moonshot 自己公开承认三条短板：对 agent harness 缺失思考历史敏感、模糊任务上过于主动、用户体验与顶级闭源仍有差距。</p><cite>官方模型卡 · 少见的坦率</cite></blockquote>
-          <blockquote class="quote"><p>2026-09，Anthropic 指控 Moonshot 暗中把 Kimi 请求路由到 Claude 模型并通过这些响应蒸馏 Claude。</p><cite>Wikiwand / 公开争议</cite></blockquote>
-        </div>
-      </div>
-      <div class="d-verdict"><span class="lb">腾子判断</span><p><b>技术能力不是它最值得关注的部分，资本节奏才是。</b>ARR 三个月三级跳（1亿→2亿→3亿）、API 收入占七成以上、估值半年翻 5 倍——这个速度在 AI 六小龙里是唯一的。<b>对你：</b>K3 的 Coding Index 76.2 是 WorkBuddy 里 kimi-k3-2（×1.62）对应的高配版本，但你在 WorkBuddy 里用的是 Moonshot 的中小档。<b>真正该留意的是它上市后的定价动作</b>——一旦上市，2.8T 模型的 API 价格战可能再次改写整个 Flash 档的报价。</p></div>
-    </article>
+          <div class="d-top">
+            <div class="d-id">
+              <h3>月之暗面 Moonshot AI <span class="tag t-new">估值神话</span></h3>
+              <p class="aka">2023-03 成立 · Kimi 2023-10 上线 · <b>2026-09 已秘密递交港交所 A1 文件</b></p>
+              <p class="verdict-inline"><b>国产厂商里估值曲线最陡的一家。</b>2023-06 天使轮约 3亿美元 → 2025-12 C轮 43亿 → 2026-01~02 三轮约 19亿冲破 100 亿 → 5 月美团龙珠领投 D 轮约 20 亿、投后 200 亿 → <b>Pre-IPO 轮 500 亿</b>。半年从 100 亿翻到 500 亿。</p>
+            </div>
+            <div class="d-specs">
+              <div><b>$500亿</b><span>Pre-IPO 估值</span></div>
+              <div><b>2.8T</b><span>K3 总参数</span></div>
+              <div><b>$3亿+</b><span>6 月中旬 ARR</span></div>
+              <div><b>12万+</b><span>企业客户</span></div>
+              <div><b>90%+</b><span>编码场景缓存命中</span></div>
+              <div><b>36M</b><span>月活（Kimi Explore）</span></div>
+            </div>
+          </div>
+          <div class="d-body">
+            <div>
+              <h4>2026 时间线</h4>
+              <ol class="timeline">
+                <li><time>2026-07-17</time><b>Kimi K3 发布</b>，2.8T 参数、104B 激活、1M 上下文、原生视觉，<b>全球首个 3T 级开源模型</b>。</li>
+                <li><time>2026-07-27</time>权重上线 Hugging Face（<code>moonshotai/Kimi-K3</code>），架构含Kimi Delta Attention、Attention Residuals、Stable LatentMoE（16/896 专家激活）。</li>
+                <li><time>同日</time><b>市场震动</b>：智谱港股单日跌约 <b>27%</b>，MiniMax 跌约 16%。投资人认为这两家被第三家在一个时区内完成跨越。</li>
+                <li><time>2026-09-11</time>独立基准确认 K3 已落地、不是待发布。</li>
+                <li><time>2026-09</time><b>秘密递交港交所 A1 文件</b>，正式启动 IPO。</li>
+              </ol>
+            </div>
+            <div>
+              <h4>档位与口碑</h4>
+              <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0 0 var(--s-3)">API 定价：缓存未命中 $3.00 / 缓存命中 $0.30 / 输出 $15.00 每百万 token。<b>缓存命中 90%+ 是它的商业模式</b>——长编码任务反复读同一批文件。</p>
+              <blockquote class="quote"><p>盲测人类偏好中超过 Anthropic 的 Fable 系统，并在独立榜单的<b>网页界面工程</b>项排名第一。</p><cite>Artificial Analysis / Arena.ai</cite></blockquote>
+              <blockquote class="quote"><p>Moonshot 自己公开承认三条短板：对 agent harness 缺失思考历史敏感、模糊任务上过于主动、用户体验与顶级闭源仍有差距。</p><cite>官方模型卡 · 少见的坦率</cite></blockquote>
+              <blockquote class="quote"><p>2026-09，Anthropic 指控 Moonshot 暗中把 Kimi 请求路由到 Claude 模型并通过这些响应蒸馏 Claude。</p><cite>Wikiwand / 公开争议</cite></blockquote>
+            </div>
+          </div>
+          <div class="d-verdict"><span class="lb">腾子判断</span><p><b>技术能力不是它最值得关注的部分，资本节奏才是。</b>ARR 三个月三级跳（1亿→2亿→3亿）、API 收入占七成以上、估值半年翻 5 倍——这个速度在 AI 六小龙里是唯一的。<b>对你：</b>K3 的 Coding Index 76.2 是 WorkBuddy 里 kimi-k3-2（×1.62）对应的高配版本，但你在 WorkBuddy 里用的是 Moonshot 的中小档。<b>真正该留意的是它上市后的定价动作</b>——一旦上市，2.8T 模型的 API 价格战可能再次改写整个 Flash 档的报价。</p></div>
+        </article>
 
     <article class="dossier" style="--camp:#B08AD4">
-      <div class="d-top">
-        <div class="d-id">
-          <h3>阿里 · 千问 Qwen <span class="tag t-free">生态第一</span></h3>
-          <p class="aka">核心团队源自通义实验室 · 2026-09-22 云栖大会公布 Qwen4 进展</p>
-          <p class="verdict-inline"><b>唯一把「芯片—云—模型」三层一起做的厂商。</b>开源生态绝对领先：累计 460+ 模型、下载量超 30 亿次、衍生模型 30 万个，Hugging Face 上获赞最多的模型系列。</p>
-        </div>
-        <div class="d-specs">
-          <div><b>2.4T</b><span>Qwen3.8-Max 总参数</span></div>
-          <div><b>95B</b><span>每token 激活</span></div>
-          <div><b>30亿+</b><span>Qwen 累计下载</span></div>
-          <div><b>460+</b><span>已开源模型数</span></div>
-          <div><b>33轮</b><span>Qwen3.8-Max 自主迭代</span></div>
-          <div><b>5–10T</b><span>Qwen4.5/5 目标参数</span></div>
-        </div>
-      </div>
-      <div class="d-body">
-        <div>
-          <h4>最有价值的一条：RSI 递归自我改进</h4>
-          <p style="font-size:var(--fs-sm);line-height:1.85;color:var(--text-2);margin:0 0 var(--s-3)">Qwen3.8-Max 在<b>人类完全零参与</b>的情况下自主搭建训练流程、构造数据、设计实验、定位缺陷，<b>持续迭代超过 1 个月、完成 33 轮</b>。结果：Artificial Analysis 得分 <b>从 40 分涨到 45 分</b>（+12.5%），与 Claude、GPT 最强模型同处第一阵营，领先 GLM-5.3、Kimi-K3。</p>
-          <p style="font-size:var(--fs-sm);line-height:1.85;color:var(--text-2);margin:0"><b>另两个自主实验</b>：在从未见过的平头哥新款 GPU 上自主完成推理框架适配，单实例吞吐 <b>+96%</b>；仅凭一份总线模块规范自主运行 <b>60+ 小时、调用 EDA 工具超万次</b>，完成面积减少 <b>42%</b> 的物理实现优化。</p>
-          <p class="hint" style="margin-top:12px">Qwen 项目负责人刘大一恒明确表示：RSI 目前只是「初步进入」训练与推理环节，<b>并非成熟的无人化状态</b>。这个自限表述比吹「已达AGI」可信。</p>
-        </div>
-        <div>
-          <h4>开源节奏与四档分工</h4>
-          <div class="tbl-wrap" style="border:none;background:transparent">
-            <table style="min-width:0">
-              <thead><tr><th>档位</th><th>角色</th></tr></thead>
-              <tbody>
-              <tr><td><b>Max</b></td><td>能力天花板，2.4T，仅云端</td></tr>
-              <tr><td><b>Flash</b></td><td>现金流担当。Qwen3.8-Flash-Next 提前开源下一代架构，<b>训练成本降约 90%</b>，激活 6B 达前沿性能</td></tr>
-              <tr><td><b>Plus</b></td><td>多模态 Agent 工作马</td></tr>
-              <tr><td><b>27B</b></td><td>社区引擎。27B 稠密、262K→1M YaRN外推，可本地跑，Qwen4-27B 延续此定位</td></tr>
-              </tbody>
-            </table>
+          <div class="d-top">
+            <div class="d-id">
+              <h3>阿里 · 千问 Qwen <span class="tag t-free">生态第一</span></h3>
+              <p class="aka">核心团队源自通义实验室 · 2026-09-22 云栖大会公布 Qwen4 进展</p>
+              <p class="verdict-inline"><b>唯一把「芯片—云—模型」三层一起做的厂商。</b>开源生态绝对领先：累计 460+ 模型、下载量超 30 亿次、衍生模型 30 万个，Hugging Face 上获赞最多的模型系列。</p>
+            </div>
+            <div class="d-specs">
+              <div><b>2.4T</b><span>Qwen3.8-Max 总参数</span></div>
+              <div><b>95B</b><span>每token 激活</span></div>
+              <div><b>30亿+</b><span>Qwen 累计下载</span></div>
+              <div><b>460+</b><span>已开源模型数</span></div>
+              <div><b>33轮</b><span>Qwen3.8-Max 自主迭代</span></div>
+              <div><b>5–10T</b><span>Qwen4.5/5 目标参数</span></div>
+            </div>
           </div>
-          <p class="hint" style="margin-top:12px">9-22 宣布 <b>Qwen4 已投入训练</b>，Qwen4.5 / Qwen5 参数规模计划迈向 5–10 万亿。新架构三项创新：超稀疏 MoE（125B 总参、每 token 仅激活 6B）、Block-wise 注意力选择、n-gram embedding 可卸载到主机内存。</p>
-        </div>
-      </div>
-      <div class="d-verdict"><span class="lb">腾子判断</span><p><b>自部署和生态建设这条路，只有 Qwen 走得通。</b>对你有两层意义：<b>① 要私有化部署只能选它</b>——27B 可本地跑，260亿级卡也能跑，这是 GLM / Kimi / DeepSeek 都给不了的；<b>② 它的 Flash 档定价是整个行业的「斩杀线」</b>，直接把开源旗舰的价格压到 ¥0.03 / ¥0.06。<b>值得盯的变量：</b>Qwen4 什么时候发布、5T 参数后推理成本怎么压——这会决定 WorkBuddy 里哪一档会被它替掉。</p></div>
-    </article>
+          <div class="d-body">
+            <div>
+              <h4>最有价值的一条：RSI 递归自我改进</h4>
+              <p style="font-size:var(--fs-sm);line-height:1.85;color:var(--text-2);margin:0 0 var(--s-3)">Qwen3.8-Max 在<b>人类完全零参与</b>的情况下自主搭建训练流程、构造数据、设计实验、定位缺陷，<b>持续迭代超过 1 个月、完成 33 轮</b>。结果：Artificial Analysis 得分 <b>从 40 分涨到 45 分</b>（+12.5%），与 Claude、GPT 最强模型同处第一阵营，领先 GLM-5.3、Kimi-K3。</p>
+              <p style="font-size:var(--fs-sm);line-height:1.85;color:var(--text-2);margin:0"><b>另两个自主实验</b>：在从未见过的平头哥新款 GPU 上自主完成推理框架适配，单实例吞吐 <b>+96%</b>；仅凭一份总线模块规范自主运行 <b>60+ 小时、调用 EDA 工具超万次</b>，完成面积减少 <b>42%</b> 的物理实现优化。</p>
+              <p class="hint" style="margin-top:12px">Qwen 项目负责人刘大一恒明确表示：RSI 目前只是「初步进入」训练与推理环节，<b>并非成熟的无人化状态</b>。这个自限表述比吹「已达AGI」可信。</p>
+            </div>
+            <div>
+              <h4>家族型号与四档分工</h4>
+              <div class="tbl-wrap" style="border:none;background:transparent">
+                <table style="min-width:0">
+                  <thead><tr><th>型号</th><th>定位</th><th>关键指标</th></tr></thead>
+                  <tbody>
+                  <tr><td><b>Qwen3.8-Max</b><br><span class="dash">2026-08-02</span></td><td>家族最强旗舰，2.4T MoE、95B 激活、1M 上下文、原生多模态</td><td>GPQA Diamond 92.6 · PaperBench 93.0 · OSWorld 86.1 · CodeArena 第 4</td></tr>
+                  <tr><td><b>Qwen3.8-27B</b><br><span class="dash">开源</span></td><td>270 亿稠密多模态，262k 原生 → 1M 外推</td><td>SWE-bench Pro 61.7；<b>可本地部署</b>，Qwen4-27B 延续此定位</td></tr>
+                  <tr><td><b>Qwen3.8-Flash-Next</b><br><span class="dash">2026-08-26 开源</span></td><td>下一代 Qwen4 架构原型的多模态 MoE 预览版</td><td><b>训练成本降约 90%</b>，激活 6B 达前沿性能</td></tr>
+                  <tr><td><b>Qwen3.7-Plus / Max</b></td><td>Plus 为多模态 Agent 基座；Max 侧重纯文本推理与长文本</td><td class="num">Plus ¥0.4/¥1.6 · Max ¥2.5/¥7.5 · Flash ¥0.03/¥0.06</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="hint" style="margin-top:12px"><b>四档分工逻辑：</b>Max 是能力天花板（仅云端）· Flash 是现金流担当 · Plus 是多模态 Agent 工作马 · 27B 是社区引擎（稠密、可本地跑）。9-22 宣布 <b>Qwen4 已投入训练</b>，Qwen4.5 / Qwen5 计划迈向 5–10 万亿参数，三项新架构：超稀疏 MoE（125B 总参、每 token 仅激活 6B）、Block-wise 注意力选择、n-gram embedding 可卸载到主机内存。</p>
+              <p class="hint"><b>务实判断：</b>要自建服务或私有化部署，Qwen 是唯一现实选项（开源权重可商用）；只要 API 效果，Max 档能力配 ¥2.5 / ¥7.5 的价格，是全册性价比最高的旗舰。</p>
+            </div>
+          </div>
+          <div class="d-verdict"><span class="lb">腾子判断</span><p><b>自部署和生态建设这条路，只有 Qwen 走得通。</b>对你有两层意义：<b>① 要私有化部署只能选它</b>——27B 可本地跑，260亿级卡也能跑，这是 GLM / Kimi / DeepSeek 都给不了的；<b>② 它的 Flash 档定价是整个行业的「斩杀线」</b>，直接把开源旗舰的价格压到 ¥0.03 / ¥0.06。<b>值得盯的变量：</b>Qwen4 什么时候发布、5T 参数后推理成本怎么压——这会决定 WorkBuddy 里哪一档会被它替掉。</p></div>
+        </article>
+
+    <article class="dossier" style="--camp:#4C6FE8">
+          <div class="d-top">
+            <div class="d-id">
+              <h3>字节 · 豆包 Doubao <span class="tag t-live">你已订阅</span></h3>
+              <p class="aka">火山方舟 · Doubao-Seed-Evolving / 2.1-Pro（0915 新版）· <b>你手上那份「豆包工作标准版 ¥68/月」就是它</b></p>
+              <p class="verdict-inline"><b>四份订阅里唯一能出画面的那一家</b> —— 语言模型打多模态编程、Seedream 打可控改图、Seedance 打视频，三件套恰好覆盖短剧后期的资产生产。</p>
+            </div>
+            <div class="d-specs">
+              <div><b>¥6 / ¥30</b><span>Evolving · 每百万 token</span></div>
+              <div><b>¥3 / ¥15</b><span>Turbo</span></div>
+              <div><b>83%</b><span>1000 issue 修复率（36h）</span></div>
+              <div><b>−30%+</b><span>图像 / 视频推理 token</span></div>
+              <div><b>¥0.22–0.30</b><span>Seedream 每张</span></div>
+              <div><b>30 秒</b><span>Seedance 2.5 单条上限</span></div>
+            </div>
+          </div>
+          <div class="d-body">
+            <div>
+              <h4>语言模型：多模态编程是国内强项</h4>
+              <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0 0 var(--s-3)"><b>Doubao-Seed-Evolving</b> 是聚焦 Coding 与 Agent 的高频迭代主力旗舰，官方公开价 <b>¥6 / ¥30</b> 每百万 token。<b>Doubao-Seed-2.1-Pro（0915 新版）</b>主攻多模态编程：草图、录屏、设计图直接生成可运行代码；3D 建模、前端还原、游戏场景。</p>
+              <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0">公开案例：<b>38.7 万行仓库的 1000 个真实 issue，约 36 小时内 83% 修复至可合并标准</b>；图像 / 视频推理 token 消耗比上代降 30%+。</p>
+              <p class="hint" style="margin-top:12px">注意：它的基准和案例都是<b>厂商自测与公开案例</b>，第三方独立评测少 —— 这与 GLM / DeepSeek 那几家有独立榜单可查的情况不同。</p>
+            </div>
+            <div>
+              <h4>对做视觉的人更有价值的是 Seedream 5.0</h4>
+              <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0 0 var(--s-3)">图像创作模型（<b>不是语言模型</b>），四项升级直接命中商业设计场景：<b>交互式精准编辑</b>（画箭头 / 圈区域即可改图）、<b>多图层分离</b>（任意区域任意粒度拆层）、<b>高密度信息表达</b>（精细图表、多层结构、整页 PPT）、<b>原生多语种文字生成</b>（10 余种语言，理解排版与字体习惯）。约 <b>¥0.22–0.30 / 张</b>。</p>
+              <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0">与 Midjourney 的关系：MJ 强在美学与风格一致性，Seedream 强在<b>可控编辑与文字排版</b> —— 海报、分镜、带字设计这类活，它是补位而不是替代。</p>
+            </div>
+          </div>
+          <div class="d-verdict"><span class="lb">腾子判断</span><p><b>这家在你的四份订阅里角色最清楚：唯一能出画面的一家。</b>Seedream 5.0 Pro 的区域编辑和 Seedance 2.5 的 30 秒单条，WorkBuddy 的混元生图和 ChatGPT 都给不了 —— 所以这笔钱不该省。<br><br><b>但要分清两件事：</b>① <b>豆包的语言模型（Evolving / 2.1-Pro）不必是你写文档的首选</b> —— 那类活走 WorkBuddy 侧的 hy4-preview-f（免费到 10-10）更划算，别把付费额度烧在免费的活上；② <b>Seedream 的 Pro / Flash 倍率差 4 倍</b>，探索期用 Flash 跑量、定稿才上 Pro（详见 §05 四份订阅分配）。<br><br><b>一句话：豆包只负责「出图」和「出片」，文本活尽量不碰。</b></p></div>
+        </article>
 
     <article class="dossier" style="--camp:#9585D6">
-      <div class="d-top">
-        <div class="d-id">
-          <h3>DeepSeek 深度求索 <span class="tag t-free">许可证最干净</span></h3>
-          <p class="aka">未上市 · 高盛列为「长期最具竞争力的中国基础模型厂商」之一</p>
-          <p class="verdict-inline"><b>唯一敢把权重放到 MIT 协议下的万亿级厂商。</b>MIT 没有营收门槛、没有使用领域限制——这在 1.7T 参数规模上意味着任何人都能下载、微调、商用、二次分发。</p>
-        </div>
-        <div class="d-specs">
-          <div><b>1.7T</b><span>V4-Pro 总参数</span></div>
-          <div><b>49B</b><span>每 token 激活</span></div>
-          <div><b>27%</b><span>1M 上下文 FLOPs<br>（对比 V3.2）</span></div>
-          <div><b>10%</b><span>1M 上下文 KV cache<br>（对比 V3.2）</span></div>
-          <div><b>893 GB</b><span>权重体积</span></div>
-          <div><b>500</b><span>并发请求上限</span></div>
-        </div>
-      </div>
-      <div class="d-body">
-        <div>
-          <h4>2026 时间线（含一次自己打自己）</h4>
-          <ol class="timeline">
-            <li><time>2026-04-24</time><b>V4 系列发布</b>（V4-Pro 1.6T + V4-Flash 284B），MIT 协议，首个 1M 上下文开源模型。技术报告称落后最强闭源约 3–6 个月。</li>
-            <li><time>2026-07-31</time><b>一次罕见的自我反转</b>：重训后的 V4-Flash-0731 在<b>九个 agent 维度上击败了 49B 激活的 V4-Pro 预览版</b>。这个反转只持续了两周多，但已被明确记录。</li>
-            <li><time>2026-08-13</time><b>V4-Pro-0813 GA</b>：保持预览版模型结构，挂上 DSpark 投机解码模块。Terminal Bench 2.1 从 72.1 跳到 87.9，DeepSWE 从 12.8 跳到 62.7。MIT 权重上架 Hugging Face。</li>
-            <li><time>2026-08-16</time>峰谷定价生效（16:00 UTC 起）：闲时 $0.66 入 / $1.98 出，峰值翻倍。</li>
-            <li><time>2026-08-31</time><b>V4-Flash-Vision-Exp 开源</b>，MIT，这是 V4 家族第一个多模态模型。</li>
-            <li><time>2026-09-10</time><b>宣布 V4-Pro 退役</b>：V4.1 Flash 已在性能、成本、速度、总时长上全面超过它，9-14 12:00（北京时间）后 <code>deepseek-v4-pro</code> 全部路由到 V4.1 Flash 并按其计价。</li>
-          </ol>
-        </div>
-        <div>
-          <h4>架构与效率（这才是它真正的护城河）</h4>
-          <p style="font-size:var(--fs-sm);line-height:1.85;color:var(--text-2);margin:0 0 var(--s-3)">混合注意力设计：Compressed Sparse Attention + Heavily Compressed Attention。官方称 1M 上下文下推理 FLOPs 约为 V3.2 的 <b>27%</b>、KV cache 约 <b>10%</b>。精度 FP4+FP8 混合，66 个 safetensors 分片约 893 GB。</p>
-          <blockquote class="quote"><p>DSpark 投机解码可通过 vLLM 单个开关启用（<code>--speculative-config</code>），target 与 draft 权重来自同一 checkpoint；SGLang 用 <code>--speculative-algorithm DSPARK</code>。</p><cite>官方模型卡</cite></blockquote>
-          <blockquote class="quote"><p>注意：<b>任何提到「V4-Pro」的结论都需要带构建日期或仓库标识</b>，因为大量基准表、第三方实测和部署说明仍在使用未版本化的预览版仓库。</p><cite>AI Wiki 提示</cite></blockquote>
-        </div>
-      </div>
-      <div class="d-verdict"><span class="lb">腾子判断</span><p><b>7-31 那次自我反转是这半年最值得记住的事。</b>旗舰被自己的小模型在九个 agent 维度上击败，而且 DeepSeek 照实写进了更新日志——这种诚实在国内厂商里罕见。<b>对你的直接影响：</b>V4-Pro 已在 9-10 宣布退役，<code>deepseek-v4-pro</code> 现在只是路由到 V4.1 Flash 的别名。<b>WorkBuddy 里的 deepseek-v4-pro（×0.51）实际调用的很可能已是 Flash</b>——以后做成本核算时按 Flash 算，别按 Pro 的价格估。<b>要真自部署，MIT 权重仍是六家里最干净的。</b></p></div>
-    </article>
+          <div class="d-top">
+            <div class="d-id">
+              <h3>DeepSeek 深度求索 <span class="tag t-free">许可证最干净</span></h3>
+              <p class="aka">未上市 · 高盛列为「长期最具竞争力的中国基础模型厂商」之一</p>
+              <p class="verdict-inline"><b>唯一敢把权重放到 MIT 协议下的万亿级厂商。</b>MIT 没有营收门槛、没有使用领域限制——这在 1.7T 参数规模上意味着任何人都能下载、微调、商用、二次分发。</p>
+            </div>
+            <div class="d-specs">
+              <div><b>1.7T</b><span>V4-Pro 总参数</span></div>
+              <div><b>49B</b><span>每 token 激活</span></div>
+              <div><b>27%</b><span>1M 上下文 FLOPs<br>（对比 V3.2）</span></div>
+              <div><b>10%</b><span>1M 上下文 KV cache<br>（对比 V3.2）</span></div>
+              <div><b>893 GB</b><span>权重体积</span></div>
+              <div><b>500</b><span>并发请求上限</span></div>
+            </div>
+          </div>
+          <div class="d-body">
+            <div>
+              <h4>2026 时间线（含一次自己打自己）</h4>
+              <ol class="timeline">
+                <li><time>2026-04-24</time><b>V4 系列发布</b>（V4-Pro 1.6T + V4-Flash 284B），MIT 协议，首个 1M 上下文开源模型。技术报告称落后最强闭源约 3–6 个月。</li>
+                <li><time>2026-07-31</time><b>一次罕见的自我反转</b>：重训后的 V4-Flash-0731 在<b>九个 agent 维度上击败了 49B 激活的 V4-Pro 预览版</b>。这个反转只持续了两周多，但已被明确记录。</li>
+                <li><time>2026-08-13</time><b>V4-Pro-0813 GA</b>：保持预览版模型结构，挂上 DSpark 投机解码模块。Terminal Bench 2.1 从 72.1 跳到 87.9，DeepSWE 从 12.8 跳到 62.7。MIT 权重上架 Hugging Face。</li>
+                <li><time>2026-08-16</time>峰谷定价生效（16:00 UTC 起）：闲时 $0.66 入 / $1.98 出，峰值翻倍。</li>
+                <li><time>2026-08-31</time><b>V4-Flash-Vision-Exp 开源</b>，MIT，这是 V4 家族第一个多模态模型。</li>
+                <li><time>2026-09-10</time><b>宣布 V4-Pro 退役</b>：V4.1 Flash 已在性能、成本、速度、总时长上全面超过它，9-14 12:00（北京时间）后 <code>deepseek-v4-pro</code> 全部路由到 V4.1 Flash 并按其计价。</li>
+              </ol>
+            </div>
+            <div>
+              <h4>架构与效率（这才是它真正的护城河）</h4>
+              <p style="font-size:var(--fs-sm);line-height:1.85;color:var(--text-2);margin:0 0 var(--s-3)">混合注意力设计：Compressed Sparse Attention + Heavily Compressed Attention。官方称 1M 上下文下推理 FLOPs 约为 V3.2 的 <b>27%</b>、KV cache 约 <b>10%</b>。精度 FP4+FP8 混合，66 个 safetensors 分片约 893 GB。</p>
+              <blockquote class="quote"><p>DSpark 投机解码可通过 vLLM 单个开关启用（<code>--speculative-config</code>），target 与 draft 权重来自同一 checkpoint；SGLang 用 <code>--speculative-algorithm DSPARK</code>。</p><cite>官方模型卡</cite></blockquote>
+              <blockquote class="quote"><p>注意：<b>任何提到「V4-Pro」的结论都需要带构建日期或仓库标识</b>，因为大量基准表、第三方实测和部署说明仍在使用未版本化的预览版仓库。</p><cite>AI Wiki 提示</cite></blockquote>
+            </div>
+          </div>
+          <div class="d-verdict"><span class="lb">腾子判断</span><p><b>7-31 那次自我反转是这半年最值得记住的事。</b>旗舰被自己的小模型在九个 agent 维度上击败，而且 DeepSeek 照实写进了更新日志——这种诚实在国内厂商里罕见。<b>对你的直接影响：</b>V4-Pro 已在 9-10 宣布退役，<code>deepseek-v4-pro</code> 现在只是路由到 V4.1 Flash 的别名。<b>WorkBuddy 里的 deepseek-v4-pro（×0.51）实际调用的很可能已是 Flash</b>——以后做成本核算时按 Flash 算，别按 Pro 的价格估。<b>要真自部署，MIT 权重仍是国产厂商里最干净的。</b></p></div>
+        </article>
 
     <article class="dossier" style="--camp:#6FB58F">
-      <div class="d-top">
-        <div class="d-id">
-          <h3>智谱 Z.ai <span class="tag t-new">全球大模型第一股</span></h3>
-          <p class="aka">源自清华 KEG · 2026-01-08 港股上市（02513）· 2026-07 英文名改为 Z.ai</p>
-          <p class="verdict-inline"><b>六家里唯一把「匿名测试」做成标准流程的。</b>GLM-5 曾以 Pony Alpha 匿名、GLM-5.3-Flash 以 Ox Alpha 匿名（中文社区叫「牛来」，源自一部低成本动画电影的 meme），两次都先登顶OpenRouter 再公布身份。</p>
-        </div>
-        <div class="d-specs">
-          <div><b>743B</b><span>GLM-5.3 总参数</span></div>
-          <div><b>~40B</b><span>每 token 激活</span></div>
-          <div><b>1,200</b><span>客户数（服务企业）</span></div>
-          <div><b>¥7.24亿</b><span>2025 营收</span></div>
-          <div><b>¥47亿</b><span>2025 净亏损</span></div>
-          <div><b>9 / 10</b><span>中国前十大互联网公司中使用者</span></div>
-        </div>
-      </div>
-      <div class="d-body">
-        <div>
-          <h4>2026 时间线</h4>
-          <ol class="timeline">
-            <li><time>2026-01-08</time><b>港股 IPO</b>，发行价 116.20 港元，号称「全球大模型第一股」。7 月英文名从 Knowledge Atlas 改为 Z.ai。</li>
-            <li><time>2026-02 下旬</time><b>算力危机</b>：股价单日跌 23%，用户投诉并公开求助，限制新用户注册。</li>
-            <li><time>2026-04-07</time>GLM-5.1 开源，<b>同时 API 涨价 10%</b>，但仍低于 Opus 4.6。</li>
-            <li><time>2026-08-20</time><b>Ox Alpha 匿名上线 OpenRouter</b>，免费开放，主打编程与 Agent。迅速登顶，OpenCode 六天内处理数十万亿 token，<b>请求流量全部由国产芯片提供算力</b>。</li>
-            <li><time>2026-08-26</time><b>公布身份：GLM-5.3-Flash（320B-A18B）</b>，全球开源。AA 智能指数 57，与Claude Opus 4.8 持平，定价为 GLM-5.3 的 1/10。中文社区称「牛来模型」。</li>
-            <li><time>2026-07-17</time>Kimi K3 发布后，<b>智谱港股单日跌约 27%</b>。</li>
-          </ol>
-        </div>
-        <div>
-          <h4>财务与 B 端基本盘</h4>
-          <p style="font-size:var(--fs-sm);line-height:1.85;color:var(--text-2);margin:0 0 var(--s-3)">2025 年营收 ¥7.24 亿（约 1.08 亿美元），比 2024 年翻倍以上；研发投入约 ¥32 亿，<b>净亏损约 ¥47 亿</b>。截至 2025-09 服务约 1.2 万家企业客户、连接超 8000 万台终端、4500 万开发者。海外收入占比 2025 上半年约 11.6%。</p>
-          <p style="font-size:var(--fs-sm);line-height:1.85;color:var(--text-2);margin:0">GLM Coding Plan 定位国际市场，价格约为同类七分之一，<b>上线三个月吸引 15 万付费开发者，ARR 突破 1 亿元</b>。GLM-5.3-Flash 首个开源月下载超 44 万次、79 个社区量化版、11 个微调。</p>
-          <blockquote class="quote"><p>GLM-5.3-Flash 测试期间请求流量全部由国产芯片支持。官方承认国产芯片在显存容量和带宽上有局限，工程师靠优化软件和负载分布来补偿。</p><cite>B17 News 报道</cite></blockquote>
-        </div>
-      </div>
-      <div class="d-verdict"><span class="lb">腾子判断</span><p><b>六家里唯一同时有「上市公司披露」和「B端渗透率」两项硬指标的。</b>这意味着它的经营状况是公开可查的——上面那组数字（营收翻倍但净亏 47 亿）就写在年报里，比任何发布会都实在。<b>对你的直接影响：</b>glm-5.3-flash 是本册性价比之王（×0.06，1M 上下文 + 原生多模态），它降价你就直接受益；<b>但要注意它的算力紧张史</b>——2026-02 出现过股价跌 23%并限制新注册的严重事件，说明它的产能是真实瓶颈，<b>高峰期 availability 波动是已知风险</b>，关键交付期别把活全压在它上面。</p></div>
-    </article>
+          <div class="d-top">
+            <div class="d-id">
+              <h3>智谱 Z.ai <span class="tag t-new">全球大模型第一股</span></h3>
+              <p class="aka">源自清华 KEG · 2026-01-08 港股上市（02513）· 2026-07 英文名改为 Z.ai</p>
+              <p class="verdict-inline"><b>国产厂商里唯一把「匿名测试」做成标准流程的。</b>GLM-5 曾以 Pony Alpha 匿名、GLM-5.3-Flash 以 Ox Alpha 匿名（中文社区叫「牛来」，源自一部低成本动画电影的 meme），两次都先登顶OpenRouter 再公布身份。</p>
+            </div>
+            <div class="d-specs">
+              <div><b>743B</b><span>GLM-5.3 总参数</span></div>
+              <div><b>~40B</b><span>每 token 激活</span></div>
+              <div><b>1,200</b><span>客户数（服务企业）</span></div>
+              <div><b>¥7.24亿</b><span>2025 营收</span></div>
+              <div><b>¥47亿</b><span>2025 净亏损</span></div>
+              <div><b>9 / 10</b><span>中国前十大互联网公司中使用者</span></div>
+            </div>
+          </div>
+          <div class="d-body">
+            <div>
+              <h4>2026 时间线</h4>
+              <ol class="timeline">
+                <li><time>2026-01-08</time><b>港股 IPO</b>，发行价 116.20 港元，号称「全球大模型第一股」。7 月英文名从 Knowledge Atlas 改为 Z.ai。</li>
+                <li><time>2026-02 下旬</time><b>算力危机</b>：股价单日跌 23%，用户投诉并公开求助，限制新用户注册。</li>
+                <li><time>2026-04-07</time>GLM-5.1 开源，<b>同时 API 涨价 10%</b>，但仍低于 Opus 4.6。</li>
+                <li><time>2026-08-20</time><b>Ox Alpha 匿名上线 OpenRouter</b>，免费开放，主打编程与 Agent。迅速登顶，OpenCode 六天内处理数十万亿 token，<b>请求流量全部由国产芯片提供算力</b>。</li>
+                <li><time>2026-08-26</time><b>公布身份：GLM-5.3-Flash（320B-A18B）</b>，全球开源。AA 智能指数 57，与Claude Opus 4.8 持平，定价为 GLM-5.3 的 1/10。中文社区称「牛来模型」。</li>
+                <li><time>2026-07-17</time>Kimi K3 发布后，<b>智谱港股单日跌约 27%</b>。</li>
+              </ol>
+            </div>
+            <div>
+              <h4>财务与 B 端基本盘</h4>
+              <p style="font-size:var(--fs-sm);line-height:1.85;color:var(--text-2);margin:0 0 var(--s-3)">2025 年营收 ¥7.24 亿（约 1.08 亿美元），比 2024 年翻倍以上；研发投入约 ¥32 亿，<b>净亏损约 ¥47 亿</b>。截至 2025-09 服务约 1.2 万家企业客户、连接超 8000 万台终端、4500 万开发者。海外收入占比 2025 上半年约 11.6%。</p>
+              <p style="font-size:var(--fs-sm);line-height:1.85;color:var(--text-2);margin:0">GLM Coding Plan 定位国际市场，价格约为同类七分之一，<b>上线三个月吸引 15 万付费开发者，ARR 突破 1 亿元</b>。GLM-5.3-Flash 首个开源月下载超 44 万次、79 个社区量化版、11 个微调。</p>
+              <blockquote class="quote"><p>GLM-5.3-Flash 测试期间请求流量全部由国产芯片支持。官方承认国产芯片在显存容量和带宽上有局限，工程师靠优化软件和负载分布来补偿。</p><cite>B17 News 报道</cite></blockquote>
+            </div>
+          </div>
+          <div class="d-verdict"><span class="lb">腾子判断</span><p><b>国产厂商里唯一同时有「上市公司披露」和「B端渗透率」两项硬指标的。</b>这意味着它的经营状况是公开可查的——上面那组数字（营收翻倍但净亏 47 亿）就写在年报里，比任何发布会都实在。<b>对你的直接影响：</b>glm-5.3-flash 是本册性价比之王（×0.06，1M 上下文 + 原生多模态），它降价你就直接受益；<b>但要注意它的算力紧张史</b>——2026-02 出现过股价跌 23%并限制新注册的严重事件，说明它的产能是真实瓶颈，<b>高峰期 availability 波动是已知风险</b>，关键交付期别把活全压在它上面。</p></div>
+        </article>
 
     <article class="dossier" style="--camp:#4F9AD8">
-      <div class="d-top">
-        <div class="d-id">
-          <h3>腾讯 · 混元 Hy <span class="tag t-warn">递归自改进</span></h3>
-          <p class="aka">姚顺雨（首席 AI 科学家）带队 · 2026-08-28 开源 Apache-2.0 · 距 hy3 GA 仅约八周</p>
-          <p class="verdict-inline"><b>首个官方声称参与了自身训练与推理基础设施优化的混元模型。</b>也是当前 WorkBuddy 里的默认模型 hy4-preview-f。</p>
-        </div>
-        <div class="d-specs">
-          <div><b>770B</b><span>总参数</span></div>
-          <div><b>49B</b><span>每 token 激活（约 6.4%）</span></div>
-          <div><b>78 层</b><span>256 路由专家 + 1 共享</span></div>
-          <div><b>1,048,576</b><span>上下文 token</span></div>
-          <div><b>+31.8%</b><span>端到端吞吐提升</span></div>
-          <div><b>纯文本</b><span>无官方视觉变体</span></div>
-        </div>
-      </div>
-      <div class="d-body">
-        <div>
-          <h4>技术要点</h4>
-          <ul class="list" style="margin-top:0">
-            <li><b>Gated DSA + IndexCache。</b>用门控稀疏注意力配合跨层稀疏索引复用，让 1M 上下文在显存与计算上可控，而不是简单堆全注意力。</li>
-            <li><b>原生 MTP 草稿层</b>（10B 总参 / 0.7B 激活）做投机解码，vLLM / SGLang 可直接启用。</li>
-            <li><b>递归自改进闭环。</b>模型自主分析推理系统瓶颈、做算子融合与通信优化，端到端吞吐较基线提升 31.8%（内部结果）。</li>
-            <li><b>盲测 2.99/4</b>（163 名专家 × 203 个工程任务），略高于 Kimi K3（2.94）和 GLM-5.3（2.92）——但差距不到 0.1 分，胜率接近抛硬币。</li>
-          </ul>
-          <p class="hint">独立评测的短板：<b>在通用基准上落后于 Qwen3.8 Max</b>。厂商自测只覆盖自家擅长的工程任务。</p>
-        </div>
-        <div>
-          <h4>资本与业务位置</h4>
-          <p style="font-size:var(--fs-sm);line-height:1.85;color:var(--text-2);margin:0 0 var(--s-3)">腾讯 AI 资本开支同比 <b>+176% 至 528 亿元</b>（约 79 亿美元）。但 Token 业务在六家里属<b>第三梯队</b>，与百度文心同档（30 亿元量级），明显慢于智谱 / DeepSeek / 月之暗面。</p>
-          <p style="font-size:var(--fs-sm);line-height:1.85;color:var(--text-2);margin:0">战略优势是<b>产品矩阵</b>：WorkBuddy 与 CodeBuddy 直接内嵌 Hy4，WorkBuddy 已是国内最受欢迎的桌面 AI Agent 之一，这给Hy4 提供了别的厂商没有的分发渠道。<b>「马拉松才开始」是腾讯自己的说法。</b></p>
-          <blockquote class="quote"><p>开源权重的意义是降低开发者门槛，腾讯的护城河是 WorkBuddy / CodeBuddy 这两条已经跑通的产品线。</p><cite>行业分析观点</cite></blockquote>
-        </div>
-      </div>
-      <div class="d-verdict"><span class="lb">腾子判断</span><p><b>技术不是它的问题，渠道才是它的优势。</b>作为当前WorkBuddy 的默认模型，hy4-preview-f 免费到 10-10、1M 上下文、四项能力（身份明确 / 权重开源 / 价格不贵 / 长上下文）全占，是本册最没有短板的一个。<b>但两条限制要记牢：① 纯文本，看图得换glm-5.3-flash 或 space-bunny；② 自部署要 8×B300</b>，个人和小团队别想。<b>对你：</b>它的免费窗口是本周最该抢的——团队 SOP、竞品库、角色圣经都趁10-10 前做完。</p></div>
-    </article>
+          <div class="d-top">
+            <div class="d-id">
+              <h3>腾讯 · 混元 Hy <span class="tag t-warn">递归自改进</span></h3>
+              <p class="aka">姚顺雨（首席 AI 科学家）带队 · 2026-08-28 开源 Apache-2.0 · 距 hy3 GA 仅约八周</p>
+              <p class="verdict-inline"><b>首个官方声称参与了自身训练与推理基础设施优化的混元模型。</b>也是当前 WorkBuddy 里的默认模型 hy4-preview-f。</p>
+            </div>
+            <div class="d-specs">
+              <div><b>770B</b><span>总参数</span></div>
+              <div><b>49B</b><span>每 token 激活（约 6.4%）</span></div>
+              <div><b>78 层</b><span>256 路由专家 + 1 共享</span></div>
+              <div><b>1,048,576</b><span>上下文 token</span></div>
+              <div><b>+31.8%</b><span>端到端吞吐提升</span></div>
+              <div><b>纯文本</b><span>无官方视觉变体</span></div>
+            </div>
+          </div>
+          <div class="d-body">
+            <div>
+              <h4>技术要点</h4>
+              <ul class="list" style="margin-top:0">
+                <li><b>Gated DSA + IndexCache。</b>用门控稀疏注意力配合跨层稀疏索引复用，让 1M 上下文在显存与计算上可控，而不是简单堆全注意力。</li>
+                <li><b>原生 MTP 草稿层</b>（10B 总参 / 0.7B 激活）做投机解码，vLLM / SGLang 可直接启用。</li>
+                <li><b>递归自改进闭环。</b>模型自主分析推理系统瓶颈、做算子融合与通信优化，端到端吞吐较基线提升 31.8%（内部结果）。</li>
+                <li><b>盲测 2.99/4</b>（163 名专家 × 203 个工程任务），略高于 Kimi K3（2.94）和 GLM-5.3（2.92）——但差距不到 0.1 分，胜率接近抛硬币。</li>
+              </ul>
+              <p class="hint">独立评测的短板：<b>在通用基准上落后于 Qwen3.8 Max</b>。厂商自测只覆盖自家擅长的工程任务。</p>
+            </div>
+            <div>
+              <h4>资本与业务位置</h4>
+              <p style="font-size:var(--fs-sm);line-height:1.85;color:var(--text-2);margin:0 0 var(--s-3)">腾讯 AI 资本开支同比 <b>+176% 至 528 亿元</b>（约 79 亿美元）。但 Token 业务在国产厂商里属<b>第三梯队</b>，与百度文心同档（30 亿元量级），明显慢于智谱 / DeepSeek / 月之暗面。</p>
+              <p style="font-size:var(--fs-sm);line-height:1.85;color:var(--text-2);margin:0">战略优势是<b>产品矩阵</b>：WorkBuddy 与 CodeBuddy 直接内嵌 Hy4，WorkBuddy 已是国内最受欢迎的桌面 AI Agent 之一，这给Hy4 提供了别的厂商没有的分发渠道。<b>「马拉松才开始」是腾讯自己的说法。</b></p>
+              <blockquote class="quote"><p>开源权重的意义是降低开发者门槛，腾讯的护城河是 WorkBuddy / CodeBuddy 这两条已经跑通的产品线。</p><cite>行业分析观点</cite></blockquote>
+            </div>
+          </div>
+          <div class="d-verdict"><span class="lb">腾子判断</span><p><b>技术不是它的问题，渠道才是它的优势。</b>作为当前WorkBuddy 的默认模型，hy4-preview-f 免费到 10-10、1M 上下文、四项能力（身份明确 / 权重开源 / 价格不贵 / 长上下文）全占，是本册最没有短板的一个。<b>但两条限制要记牢：① 纯文本，看图得换glm-5.3-flash 或 space-bunny；② 自部署要 8×B300</b>，个人和小团队别想。<b>对你：</b>它的免费窗口是本周最该抢的——团队 SOP、竞品库、角色圣经都趁10-10 前做完。</p></div>
+        </article>
 
     <article class="dossier" style="--camp:#D99A5C">
-      <div class="d-top">
-        <div class="d-id">
-          <h3>MiniMax · 阶跃星辰 <span class="tag t-warn">四小龙</span></h3>
-          <p class="aka">两家常被并列，合称中国大模型「四小龙」（与智谱、月之暗面并列）</p>
-          <p class="verdict-inline"><b>同一件匿名营销的两种结果。</b>MiniMax 疑似太空兔背后的厂商仍未认领；阶跃星辰则靠 Step 5 Preview 的成本优势（单任务 $0.72）正面竞争。</p>
-        </div>
-        <div class="d-specs">
-          <div><b>600B</b><span>Step 5 总参数</span></div>
-          <div><b>27B</b><span>每 token 激活（4.5%）</span></div>
-          <div><b>92 层</b><span>窄而深架构</span></div>
-          <div><b>$0.72</b><span>Step 5 单任务成本</span></div>
-          <div><b>~$25亿</b><span>阶跃星辰待完成融资</span></div>
-          <div><b>$1.17亿</b><span>MiniMax 2026H1 收入</span></div>
-        </div>
-      </div>
-      <div class="d-body">
-        <div>
-          <h4>MiniMax</h4>
-          <ol class="timeline">
-            <li><time>2026-07-17</time>Kimi K3 发布后股价跌约 16%。</li>
-            <li><time>2026 上半年</time>收入 1.17 亿美元，<b>已通过港交所聆讯</b>。与可灵并列视频模型第一梯队，Token 收入 50 亿元量级。</li>
-            <li><time>2026-09-28</time>M3.1-Flash-Preview 公测，六档推理强度、1M 上下文、文本 / 图片 / 视频输入 —— 与太空兔能力逐条重合，<b>但官方从未认领</b>。</li>
-          </ol>
-        </div>
-        <div>
-          <h4>阶跃星辰</h4>
-          <ol class="timeline">
-            <li><time>2026-09-20</time>Step 5 Preview 发布，600B / 27B 激活 / 92 层窄而深 / 1M 上下文，AA 智能指数 44 全球开源前三。</li>
-            <li><time>官方自测</time>24 小时把 H100 的 MLA kernel 调优到 <b>508 TFLOPS</b>（Claude Opus 5 为 493）；用 API 标注器把 Qwen3-30B-A3B 的 AIME24 从 53.3% 拉到 <b>60%</b>。</li>
-            <li><time>待定</time><b>10-15 开源权重</b> —— 这是它最大的未兑现变量。</li>
-            <li><time>2026</time>披露即将完成近 25 亿美元融资。</li>
-          </ol>
-        </div>
-      </div>
-      <div class="d-verdict"><span class="lb">腾子判断</span><p><b>两家都是「用差异化打法挤进第一梯队」，但路径不同。</b>MiniMax 的杀手锏是视频模型（可灵）和多模态，2026H1 收入 1.17 亿美元、已过聆讯，上市在即；阶跃星辰走的是「窄而深 + 极致成本效率」，Step 5 的单任务成本只有 Fable 5.1 的十分之一。<b>对你的直接动作：</b>① 10-07 前把 space-bunny（疑似 MiniMax）该用的活干完；② <b>10-15 盯 Step 5 开源</b> —— 600B/27B 的架构如果能本地跑，可能改变你整个工具链的成本结构。</p></div>
-    </article>
+          <div class="d-top">
+            <div class="d-id">
+              <h3>MiniMax · 阶跃星辰 <span class="tag t-warn">四小龙</span></h3>
+              <p class="aka">两家常被并列，合称中国大模型「四小龙」（与智谱、月之暗面并列）</p>
+              <p class="verdict-inline"><b>同一件匿名营销的两种结果。</b>MiniMax 疑似太空兔背后的厂商仍未认领；阶跃星辰则靠 Step 5 Preview 的成本优势（单任务 $0.72）正面竞争。</p>
+            </div>
+            <div class="d-specs">
+              <div><b>600B</b><span>Step 5 总参数</span></div>
+              <div><b>27B</b><span>每 token 激活（4.5%）</span></div>
+              <div><b>92 层</b><span>窄而深架构</span></div>
+              <div><b>$0.72</b><span>Step 5 单任务成本</span></div>
+              <div><b>~$25亿</b><span>阶跃星辰待完成融资</span></div>
+              <div><b>$1.17亿</b><span>MiniMax 2026H1 收入</span></div>
+            </div>
+          </div>
+          <div class="d-body">
+            <div>
+              <h4>MiniMax</h4>
+              <ol class="timeline">
+                <li><time>2026-07-17</time>Kimi K3 发布后股价跌约 16%。</li>
+                <li><time>2026 上半年</time>收入 1.17 亿美元，<b>已通过港交所聆讯</b>。与可灵并列视频模型第一梯队，Token 收入 50 亿元量级。</li>
+                <li><time>2026-09-28</time>M3.1-Flash-Preview 公测，六档推理强度、1M 上下文、文本 / 图片 / 视频输入 —— 与太空兔能力逐条重合，<b>但官方从未认领</b>。</li>
+              </ol>
+            </div>
+            <div>
+              <h4>阶跃星辰</h4>
+              <ol class="timeline">
+                <li><time>2026-09-20</time>Step 5 Preview 发布，600B / 27B 激活 / 92 层窄而深 / 1M 上下文，AA 智能指数 44 全球开源前三。</li>
+                <li><time>官方自测</time>24 小时把 H100 的 MLA kernel 调优到 <b>508 TFLOPS</b>（Claude Opus 5 为 493）；用 API 标注器把 Qwen3-30B-A3B 的 AIME24 从 53.3% 拉到 <b>60%</b>。</li>
+                <li><time>待定</time><b>10-15 开源权重</b> —— 这是它最大的未兑现变量。</li>
+                <li><time>2026</time>披露即将完成近 25 亿美元融资。</li>
+              </ol>
+            </div>
+          </div>
+          <div class="d-verdict"><span class="lb">腾子判断</span><p><b>两家都是「用差异化打法挤进第一梯队」，但路径不同。</b>MiniMax 的杀手锏是视频模型（可灵）和多模态，2026H1 收入 1.17 亿美元、已过聆讯，上市在即；阶跃星辰走的是「窄而深 + 极致成本效率」，Step 5 的单任务成本只有 Fable 5.1 的十分之一。<b>对你的直接动作：</b>① 10-07 前把 space-bunny（疑似 MiniMax）该用的活干完；② <b>10-15 盯 Step 5 开源</b> —— 600B/27B 的架构如果能本地跑，可能改变你整个工具链的成本结构。</p></div>
+        </article>
 
-  </div>
+    <article class="dossier" style="--camp:#5A7FC0">
+            <div class="d-top">
+              <div class="d-id">
+                <h3>小米 MiMo <span class="tag t-free">性价比纪录</span></h3>
+                <p class="aka">2026-04 起V2.5 系列 · <b>2026-09-22 V2.6 系列开源</b> · 原生全模态（文本/图像/视频/音频）</p>
+                <p class="verdict-inline"><b>AA 综合智能指数 46 分，超过 Kimi K3 与 Qwen3.8 Max，成为当前最强开源模型</b> —— 而 API 定价沿用 V2.5，智能涨、价不涨。</p>
+              </div>
+              <div class="d-specs">
+                <div><b>46</b><span>AA 智能指数（开源第一）</span></div>
+                <div><b>$262万</b><span>Pro RL 训练成本（6 天）</span></div>
+                <div><b>$85万</b><span>Flash RL 训练成本</span></div>
+                <div><b>75万</b><span>累计训练轨迹条数</span></div>
+                <div><b>1/20–1/60</b><span>同等智能下的价格比</span></div>
+                <div><b>20×</b><span>Pro-UltraSpeed 输出提速</span></div>
+              </div>
+            </div>
+            <div class="d-body">
+              <div>
+                <h4>最有价值的一条：RL 训练成本被公开了</h4>
+                <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0 0 var(--s-3)">MiMo-V2.6 走的是<b>RSI（递归自我改进）路径</b>：以可验证的复杂任务为基础规模化扩展 RL 算力。官方全程Live 分享训练实验。</p>
+                <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0 0 var(--s-3)"><b>不到 6 天</b>，Flash 与 Pro 各完成 <b>30 步</b>，累计约 <b>75 万条轨迹</b>；Flash 训练成本约 <b>$85万</b>，Pro 约 <b>$262万</b>。官方称可能是国产开源模型里 RL 投入算力最多的之一，并说「这6 天的背后是长达半年的基础研究积累和工程试错」。</p>
+                <p class="hint" style="margin-top:12px">对照价值：<b>MiMo-V2.5-Pro 的 AA 分是 19.0，V2.6-Pro 是 46</b>。半年内从 19 干到 46，这是本册所有模型里进步幅度最大的一条。</p>
+              </div>
+              <div>
+                <h4>关键benchmark（官方自测，厂商数据要打折看）</h4>
+                <div class="tbl-wrap" style="border:none;background:transparent">
+                  <table style="min-width:0">
+                    <thead><tr><th>基准</th><th>MiMo-V2.6-Pro</th><th>对标</th></tr></thead>
+                    <tbody>
+                    <tr><td>DeepSWE v1.1</td><td class="num">71.9</td><td>DS V4.1 Flash 74.2 / Opus 5 74.0 / GPT-6 Astra 74.0</td></tr>
+                    <tr class="hl"><td>Visual MiMo Coding</td><td class="num"><b>82.2</b></td><td><b>全场第一</b>，超 GPT-6 Astra 80.2、Fable 5.1 74.4</td></tr>
+                    <tr><td>CyberGym</td><td class="num">94.0</td><td>Flash 更高（95.1），DS V4.1 Flash 88.x</td></tr>
+                    <tr><td>GDPVal 2.1（AA）</td><td class="num">1673</td><td>Fable 5.1 1735 / Opus 5 1708 / DS V4.1 Flash 1600</td></tr>
+                    <tr><td>Terminal-Bench 4.0</td><td class="num">34.9</td><td><b>GPT-6 Astra 59.6 / Fable 5.1 55.1</b> —— 差 20 分以上</td></tr>
+                    <tr><td>ProgramBench</td><td class="num">26.5</td><td><b>MiMo-V2.5-Pro 仅 19.0</b>，Claude Opus 5 37.0</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p class="hint" style="margin-top:12px"><b>分歧点很清楚：</b>多模态/ Agent 任务上 Pro 很能打（Visual MiMo Coding 第一），但<b>纯终端自主操作上差 Astra 20 分以上</b>，Agent 编码综合仍略落后 Fable 5.1。<b>「智能-成本帕累托前沿」的宣传在同智能水平（1/20–1/60 价格）下成立，但没承诺在最高能力上追平闭源。</b></p>
+              </div>
+            </div>
+            <div class="d-verdict"><span class="lb">腾子判断</span><p><b>小米这家值得单独盯，因为它把「训练成本」这个黑箱打开了。</b>6 天 $262万换AA 46 分—— 这个数字让「国产模型差在哪」这个问题的答案变了：<b>差的不是架构，是 RL 阶段的算力投入规模</b>。当阿里（33 轮 RSI）、小米（75 万轨迹）都把递归自我改进当成主路线，OpenAI/Anthropic 的前沿优势本质上是 RL 算力优势，不是架构优势。<br><br><b>对你的直接动作：</b>① WorkBuddy 里有 <code>mimo-v2.6-flash</code>（OpenRouter 周榜第 4，9.63T token，环比 +75%），它是 Flash 档性价比最优解之一，<b>值得拿你的批量活实测一轮</b>；② <b>不要指望它做终端自主操作</b> —— Terminal-Bench 4.0 只有 34.9，这类活还是走 Codex 或 Claude Code；③ V2.5 系列还有 ASR（支持吴语/粤语/闽南语/四川话）和 TTS（音色克隆）—— <b>如果你做方言短剧或角色声音，这两条是意外能力</b>。</p></div>
+          </article>
 
-  <details>
-    <summary>六家厂商的竞争策略速读：看懂它们在打什么仗<span class="meta">格局</span></summary>
-    <div class="body">
-      <div class="tbl-wrap" style="border:none;background:transparent">
+    <article class="dossier" style="--camp:#3E8E7E">
+            <div class="d-top">
+              <div class="d-id">
+                <h3>OpenAI <span class="tag t-warn">被 Anthropic 反超</span></h3>
+                <p class="aka">2015 成立 · Sam Altman / Greg Brockman · OpenAI Foundation 控制 PBC · <b>2027 年 IPO（目标 $1 万亿）</b></p>
+                <p class="verdict-inline"><b>消费基本盘最厚，但增长引擎已经换人了。</b>企业收入本季度环比 +50%（公司整体 +35%），企业已超过消费成为最大收入分部 —— 而这条线 OpenAI 此前并不领先。</p>
+              </div>
+              <div class="d-specs">
+                <div><b>9亿+</b><span>ChatGPT 周活用户</span></div>
+                <div><b>5,000万+</b><span>消费订阅用户</span></div>
+                <div><b>900万+</b><span>付费企业用户</span></div>
+                <div><b>$400亿</b><span>ARR（8 月 annualized）</span></div>
+                <div><b>$8,520亿</b><span>估值（$1,220亿轮）</span></div>
+                <div><b>~$620亿</b><span>2026 预计 GAAP 亏损</span></div>
+              </div>
+            </div>
+            <div class="d-body">
+              <div>
+                <h4>GPT-6 Astra（09-03 发布）</h4>
+                <ul class="list" style="margin-top:0">
+                  <li><b>训练规模：</b>德州 Stargate 站点、<b>超过 10 万张 GPU</b>，OpenAI 史上最大训练run。</li>
+                  <li><b>API 名 <code>gpt-6-astra</code></b>，上下文 <b>1.05M token</b>，最大输出 128K，知识截止 2026-04-30。</li>
+                  <li><b>定价：</b>$10/$50 每百万（短上下文），<b>超 272K 输入后跳 $20/$75</b>；缓存输入 $1、缓存写入 $12.50。Fast 模式价格翻倍。</li>
+                  <li><b>核心能力是「computer use」</b> —— 像人一样操作笔记本，穿过电子表格、表单、多步工作流。</li>
+                  <li><b>网络安全被官方评为 Critical 最高档</b>：带工具与权限时能自主发现未知漏洞并开发利用（ExploitBench 100%，私有 20 漏洞 V8 集 39% vs Sol 的 5.5%），但发布版拒绝生成 PoC。</li>
+                  <li><b>独立评测有保留：</b>Artificial Analysis 发现它编码 agent 效率强、幻觉率低，但<b>综合智能仅与 GPT-5.6 Sol 相当，而每 token 成本是 2.5 倍</b>。</li>
+                </ul>
+                <p class="hint" style="margin-top:12px">ARC-AGI-3 <b>有两个数字，差别大到必须理解</b>：中立 Standard harness 下 62.7%（Max 档，每次 $26,098）；保留推理状态的 Provider Adapter harness 下 99.9%（High 档，$18,817）。<b>Standard 那个才是可比的数</b>，ARC Prize 自己声明刷满 ARC-AGI-3 也不证明 AGI。Greg Brockman 说「我个人认为我们到了，可能就是现在」，并预测史家会把 AGI 记在「这个模型」。<b>那是高管解读，不是测量结果。</b></p>
+              </div>
+              <div>
+                <h4>分发生态的关键变化（这条影响你的选型）</h4>
+                <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0 0 var(--s-3)"><b>4 月起微软独家托管终止</b>，模型开始出现在 Amazon Bedrock，随后传出 <b>$380亿七年合作</b>，AWS 拿下 OpenAI 企业 agent 运行时的独家第三方分发权。微软仍持约 27% 股份并深度集成 M365 / Copilot，但不再是唯一入口，<b>对最新最 agentic 的模型甚至不是首选入口</b>。</p>
+                <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0 0 var(--s-3)">Stargate（OpenAI–Oracle–软银合资实体）承载了 Astra 的训练，报道称承诺额高达 <b>$5,000亿</b>。超大规模云厂今年资本开支预计 <b>$6,000–7,250亿</b>，而真正的约束已经转移到<b>电力与电网接入</b>，不是芯片。</p>
+                <blockquote class="quote"><p>营收轨迹：$2B ARR（2023）→ $6B（2024）→ $20B+（2025）→ <b>$400亿+ 年化（2026-08）</b>。算力从 0.2GW → 0.6GW → 1.9GW。<b>但 Q2 2026 确认营收 $67亿、运营亏损 $123亿</b>（Q1 为 $93亿）。</p><cite>Epoch AI / WSJ / OpenAI</cite></blockquote>
+                <blockquote class="quote"><p><b>$8,520亿估值 ÷ $240亿（另一口径年化营收）≈ 35.5倍市销率</b>，而 BVP 纳斯达克新兴云指数均值约 7.8 倍。$1万亿估值对应约 25倍市销率。ARC-AGI 上有独立评测，但 Astra 在发布时<b>未登上 Artificial Analysis / Arena 任何独立榜单</b>，且 OpenAI 资助了它得分最高的某个基准。</p><cite>AInvest / bestaitoolfinder 风险提示</cite></blockquote>
+              </div>
+            <div class="span2">
+              <h4>家族型号速览：Astra / Sol / Luna 三档</h4>
+    <div class="grid g3">
+        <div class="tile" style="--camp:var(--c-oai)"><h5>GPT-6 Astra</h5><span class="ct">全家族最强</span><p>"要最好结果、不妥协"时选它。OpenRouter 周调用 1.51 T，外部价 $5 / $25。</p><div class="kv">AA 指数 53 · 并列第一</div></div>
+        <div class="tile" style="--camp:var(--c-oai)"><h5>GPT-6 Sol</h5><span class="ct">主力档</span><p>专业工作、事实性、编码、计算机操作全面强。比 GPT-5.6 Sol 便宜 50%。</p><div class="kv">$2 / $10 ≈ ¥14 / ¥72</div></div>
+        <div class="tile" style="--camp:var(--c-oai)"><h5>GPT-6 Luna</h5><span class="ct">最省档</span><p>日常高频调用。本期 OpenRouter 涨幅最大的美国模型，周调用 6.18 T（↑116%）。</p><div class="kv">$0.10 / $0.50 ≈ ¥0.7 / ¥3.6</div></div>
+      </div>
+      <div class="panel" style="margin-top:16px">
+        <h4>值得注意的一点</h4>
+        <p style="margin:0;font-size:var(--fs-sm);line-height:1.8;color:var(--text-2)">OpenAI 官方把对比基准放在 Claude 上：AutomationBench（47 个工具的端到端业务流程）中，GPT-6 Sol 在 xhigh 强度下超过 max 强度的 Claude Opus 5，单任务成本只有后者约 9%。<br><br>但这是<b style="color:var(--text)">厂商自测数据，且测的是办公流程自动化，不等于编程更强</b>——编程场景 Claude Code 依然是事实标准。</p>
+      </div>
+            </div>
+            </div>
+            <div class="d-verdict"><span class="lb">腾子判断</span><p><b>OpenAI 的核心风险不是技术，是单位经济学。</b>$8,520亿估值对 $240亿营收是 35.5倍市销率，2026 预计亏 $620亿，而摊销/推理成本随 agent 用量线性上涨——<b>agent 越成功，越烧钱</b>。这跟 Anthropic 的路径正好相反：后者推理毛利率已做到 70–85%，Q2 调整后营业利润转正。<br><br><b>但对你：OpenAI 的分发仍然最广，而且你手上 $20 的 Plus 已经包含 Codex（边际成本 $0）—— 这一条短期内不会变。</b>真正需要盯的是 <b>GPT-5.5 已于 10-14 退役</b>，配置里要换成 <code>gpt-6-sol</code>。另外注意 AInvest 那个提醒：<b>agentic 模型的单位价值正在从「回答」转向「完成的工作」</b>，Terminal-Bench 官方数据里 Astra 获胜的 run 花 $3,300、Fable 5.1 花 $6,200 —— 贵的 token 要按「完成的任务」算账，不能按token 算。</p></div>
+          </article>
+
+    <article class="dossier flag" style="--camp:#C4704A">
+            <div class="d-top">
+              <div class="d-id">
+                <h3>Anthropic <span class="tag t-new">已反超 OpenAI</span></h3>
+                <p class="aka">2021 成立 · Dario / Daniela Amodei 兄妹 · 公益公司（PBC）结构 · <b>2026-10 月 IPO</b></p>
+                <p class="verdict-inline"><b>手册里最重要的一次修正：Anthropic 现在在估值、营收、美企渗透率三项上全部超过 OpenAI。</b>而一年前叙事还是 OpenAI 领先。</p>
+              </div>
+              <div class="d-specs">
+                <div><b>$9,650亿</b><span>估值（05-28 H 轮）</span></div>
+                <div><b>$1,000亿+</b><span>ARR（9 月中）</span></div>
+                <div><b>34.4%</b><span>美国企业付费渗透率</span></div>
+                <div><b>70–85%</b><span>推理毛利率</span></div>
+                <div><b>$2万亿</b><span>IPO 目标估值</span></div>
+                <div><b>~$710亿</b><span>芯片租赁债务（SPV）</span></div>
+              </div>
+            </div>
+            <div class="d-body">
+              <div>
+                <h4>2026 时间线（这半年发生了三件大事）</h4>
+                <ol class="timeline">
+                  <li><time>2026-05-28</time><b>H 轮融资 $650亿，估值 $9,650亿</b>，正式超过 OpenAI 的 $8,520亿，成为全球最值钱的 AI 初创。同月 ARR 破 $470亿。</li>
+                  <li><time>2026-06-01</time>向 SEC <b>秘密递交 S-1</b>。6-12 至 6-30 因美国出口管制指令，Fable 5 与 Mythos 5 全球下架，7-01 恢复。</li>
+                  <li><time>2026-07-31</time>ARR 突破 <b>$650亿</b>（较 5 月 +38%），Q2 单季营收超 $115亿。</li>
+                  <li><time>2026-09-01</time><b>三连发</b>：Fable 5.1 + Mythos 5.1 + Enterprise Frontier Safeguards（EFS）。<b>缓存读取价下调 75%</b>（$1.00 → $0.25），典型工作负载成本降约 25%、智能体任务最高降 45%。</li>
+                  <li><time>2026-09-11前后</time>ARR 破 <b>$1,000亿</b>（纽约时报报道），相比 2025 年底约 $90亿 增长逾七倍。</li>
+                  <li><time>2026-09-22</time>发布 <b>Opus 5.5</b>，称多数工作达到 Fable 5.1 水平但运行成本便宜 40%。</li>
+                  <li><time>2026-10</time>路演，目标估值 <b>$2万亿</b>，承销商摩根士丹利 / 高盛 / 摩根大通。</li>
+                </ol>
+              </div>
+              <div>
+                <h4>两个「 Mythos 级」模型与一个被忽略的护城河</h4>
+                <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0 0 var(--s-3)"><b>Mythos 5.1 是受限模型</b>，只对美国 Cyber Verification Program 与 Life Sciences Verification Program 开放。这是刻意造出来的「能力闸门层」—— 开放权重模型（Qwen 3.8、Kimi K3）正在把前沿价格压下来，Anthropic 用一个不开放的顶层把高价值研究锁住。</p>
+                <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0 0 var(--s-3)"><b>EFS 则是切换成本武器。</b>与高盛、摩根士丹利、花旗、Visa 等 100+ 机构合作，零数据保留、客户自控存储（AWS S3 / Azure Blob / GCS）、自动监控绕过人工审查，<b>且不额外收费</b>。这是打给受监管行业的合规壁垒。</p>
+                <blockquote class="quote"><p>截至 2026-06，<b>34.4% 的美国企业为 Anthropic 付费，首次超越 OpenAI 的 32.3%</b>。Q2 调整后营业利润转正，Q3 预计 GAAP EBIT 超 $10亿。</p><cite>腾讯新闻 / Bloomberg · 2026-09</cite></blockquote>
+                <blockquote class="quote"><p>股东结构：亚马逊累计投资约 $80亿、持股 15–20%；Alphabet 持股约 14%。<b>代价是 $710亿芯片租赁债务</b>（SPV 结构），30年期债券收益率已从 6.7% 升到 7.4%。</p><cite>Forkast / 公开报道</cite></blockquote>
+                <blockquote class="quote"><p>OpenAI 因 Astra 触及 Critical 网络安全阈值而暂停该能力，给了 Anthropic 巩固领先的窗口。Anthropic 同时强化反蒸馏：新API 账户禁止手动编辑历史上下文但保留思维链转录。</p><cite>Forkast · 2026-09</cite></blockquote>
+              </div>
+            <div class="span2">
+              <h4>旗下工具：Claude Code —— 终端编程的事实标准</h4>
+              <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0 0 var(--s-3)"><b>Claude Code 不是与 Anthropic 并列的「厂商」，它是 Anthropic 的终端 agentic 工具</b>（2025-02-24 研究预览 → 2025-05-22 GA）。本册所有「Codex vs Claude Code」的分流判断都指向这一个产品。</p>
+              <div class="grid g2">
+                <div>
+                  <h4 style="margin-top:0">终端编程工具采用率（JetBrains 2026 调研，15,000+ 开发者）</h4>
+                  <div class="tbl-wrap" style="border:none;background:transparent">
+                  <table style="min-width:0">
+                    <thead><tr><th>工具</th><th>5–7 月采用</th><th>1 月</th><th>认知度</th><th>入门价</th><th>重度档</th></tr></thead>
+                    <tbody>
+                    <tr class="hl"><td><b>Claude Code</b></td><td class="num"><b>39%</b></td><td>18%</td><td>—</td><td>$20/月（Pro）</td><td>$100 / $200（Max 5x / 20x）</td></tr>
+                    <tr><td>GitHub Copilot</td><td class="num">21%</td><td>29%</td><td>79%</td><td>$10/席</td><td>$100/席（Max）</td></tr>
+                    <tr class="hl"><td>OpenAI Codex</td><td class="num">16%</td><td>3%</td><td>65%</td><td><b>$0（含在 ChatGPT）</b></td><td>ChatGPT Pro $100</td></tr>
+                    <tr><td>Cursor</td><td class="num">12%</td><td>18%</td><td>75%</td><td>$20/月</td><td>$200/月</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                  <p class="hint" style="margin-top:12px"><b>三个值得注意的信号：</b>① Claude Code 从第二名一骑绝尘，美国采用率达 47%；② <b>Codex 是增速最快的（3% → 16%，相对增长 433%），但基数仍只有 Claude Code 的一半</b>；③ <b>GitHub Copilot 和 Cursor 的认知度远高于采用率，说明「知道」和「真用」是两回事</b>。</p>
+                </div>
+                <div>
+                  <h4 style="margin-top:0">成本结构与省钱清单</h4>
+                  <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0 0 var(--s-3)">Anthropic 自己公布的口径：企业部署平均<b>每个开发者每个活跃日约 $13</b>，<b>每月 $150–250</b>，<b>90% 的用户单日不超过 $30</b>。所以 Max 5x（$100）比 API 便宜，Max 20x（$200）大致打平但余量大得多。<b>绝大多数全职用户最终落在 Max 档。</b></p>
+                <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0 0 var(--s-3)">按模型的 API 计价（Claude Code 激进缓存上下文，长会话里大部分输入按缓存读计费）：<b>Sonnet 5 $2/$10/缓存 $0.20</b>（多数编码工作默认）、<b>Opus 5 $5/$25/缓存 $0.50</b>（架构与多步推理）、Haiku 4.5 $1/$5/缓存 $0.10（简单子代理）、<b>Fable 5.1 $10/$50/缓存 $0.25</b>（仅最难问题）。<b>两个隐藏乘数：</b>Opus 5 与 4.8 的 Fast 模式按 $10/$50 计；4.6+ 模型美国境内推理<b>所有 token 类别 ×1.1</b>。</p>
+                <blockquote class="quote"><p>六个省钱动作：① 切换不相关任务前敲 <code>/clear</code>（开着一天的问句仍在重读整个对话）；② 按活选模型，Sonnet 干大部分、Opus 留给架构、子代理设haiku；③ 注意缓存生命周期——<b>订阅档缓存 TTL 1 小时、API key 5 分钟</b>，中断超过就全部重算；④ <code>/context</code> 查谁在吃空间，<code>/mcp</code> 关掉不用的 MCP 服务器；⑤ <code>gh</code>、<code>aws</code> 这类 CLI 比 MCP 等价物便宜；⑥ 简单活降<code>/effort</code>，思考 token 按输出计费。</p><cite>Anthropic 官方成本指南</cite></blockquote>
+                <blockquote class="quote"><p><b>两个硬伤：</b>① <b>Free 档不含 Claude Code</b>，想评估必须先付费，没有试用路径；② <b>聊天和编程共用同一额度</b>，重度聊天会吃掉编码预算。团队标准席 $20、Premium 席 $100（年付）可混用。</p><cite>scored.tools / creditforstartups 评测</cite></blockquote>
+                </div>
+              </div>
+              <h4>模型阵容与选型规则</h4>
+              <div class="tbl-wrap">
         <table>
-          <thead><tr><th>厂商</th><th>核心打法</th><th>最锋利的武器</th><th>最脆弱的地方</th></tr></thead>
+          <thead><tr><th>模型</th><th>价格（每百万 入 / 出）</th><th>上下文 / 输出</th><th>定位与表现</th></tr></thead>
           <tbody>
-          <tr><td><b>月之暗面</b></td><td>参数规模 + 上市故事</td><td>2.8T 全球最大开源模型；ARR 三个月三级跳</td><td>开源带30% 抽成条款；2026-09被 Anthropic 指控蒸馏争议</td></tr>
-          <tr><td><b>阿里千问</b></td><td>生态 + 全栈（芯片到云到模型）</td><td>30 亿下载、460+ 开源模型、RSI 33轮自主迭代</td><td>旗舰闭源；版本命名混乱；1M 上下文检索效率未验证</td></tr>
-          <tr><td><b>DeepSeek</b></td><td>MIT 许可 + 效率工程</td><td>1M 上下文只用 V3.2 的 27% FLOPs / 10% KV cache</td><td>旗舰 V4-Pro 已退役；纯文本；2025-02 曾出现服务中断争议</td></tr>
-          <tr><td><b>智谱</b></td><td>匿名营销 + 港股披露</td><td>GLM-5.3-Flash AA 57 与 Opus 4.8 持平，价格 1/10</td><td>净亏 47 亿；2026-02 算力危机；K3 发布后股价跌 27%</td></tr>
-          <tr><td><b>腾讯混元</b></td><td>产品分发 + 递归自改进</td><td>WorkBuddy / CodeBuddy 已跑通；盲测第一梯队</td><td>Token 业务第三梯队；纯文本；通用基准落后 Qwen Max</td></tr>
-          <tr><td><b>小米 MiMo</b></td><td>RL 算力规模化 + 极致性价比</td><td>AA 46 分开源第一；<b>公开 RL 训练成本</b>（6 天 $262万 / 75 万轨迹）</td><td>Terminal-Bench 4.0 仅 34.9；AI 业务不单独披露</td></tr>
-      <tr><td><b>MiniMax / 阶跃</b></td><td>差异化（视频 / 极致成本）</td><td>可灵视频；Step 5 单任务成本 $0.72</td><td>视频模型竞争激烈；Step 5 权重 10-15 才开</td></tr>
+          <tr><td><b>Claude Fable 5.1</b><br><span class="dash">2026-09-01</span></td><td class="num">$10 / $50（≈¥72/¥360）</td><td>1M / 128k</td><td>最强档：高难推理与超长程 Agent，默认 high effort。只在 Opus 5.5 开到 xhigh / max 仍不够时才上</td></tr>
+          <tr><td><b>Claude Opus 5.5</b><br><span class="dash">2026-09-22 起为默认 Opus</span></td><td class="num">$4 / $20（≈¥29/¥144）<br>缓存读取 $0.20</td><td>1M / 128k</td><td>长程 agentic coding 与知识工作；Terminal-Bench 4.0 66.4%，FrontierCode 54.4%，CursorBench 57.8%</td></tr>
+          <tr><td><b>Claude Sonnet 5.5</b><br><span class="dash">2026-09-28 起为默认 Sonnet</span></td><td class="num">$2 / $10（≈¥14/¥72）</td><td>1M / 128k</td><td>速度与智能的最佳平衡，每日主力；Terminal-Bench 4.0 70.6%（高于 Opus），但 FrontierCode 仅 46.2%</td></tr>
+          <tr><td><b>Claude Haiku 4.5</b></td><td class="num">$1 / $5</td><td>200k / 64k</td><td>最快档，但知识截止 2025-02，官方退役承诺只到 2026-10-15，新项目不要起在上面</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="hint"><b>2026 下半年三条值得盯的线：</b>① 月之暗面港股IPO 定价 —— 决定 2.8T 模型会不会掀起新一轮价格战；② Qwen4 发布时点 —— 5–10T 参数的推理成本能否压住；③ Kimi K3 的 30% 抽成条款会不会被其他厂商抄成行业惯例。</p>
-    </div>
-  </details>
+      <p class="hint">选型规则（Anthropic 自己的建议也是这个）：<b>默认 Sonnet 5.5 → 诊断不清、跨架构边界、改错代价高时上 Opus 5.5 → 仍不够才上 Fable 5.1。</b>不要因为"贵就是好"直接开 Fable。</p>
+            </div>
+            </div>
+            <div class="d-verdict"><span class="lb">腾子判断</span><p><b>如果你只把这家当「Claude Code 的供应商」，你会完全看错它的战略。</b>三件事正在同时发生：① <b>定价从「按token」转向「按 agent 流量」</b> —— 缓存读砍75% 是在抢高上下文、高频的 agentic 工作负载，这类负载的 token 消耗是聊天的几十倍；② <b>用 Mythos 建能力闸门，用 EFS 建合规护城河</b>，两条都在把「模型能力」变成「不可替代的关系」；③ <b>10 月 $2 万亿 IPO 是史上最大规模</b>，成了整个 American AI 叙事的价格锚。<br><br><b>对你的直接影响：Claude Code 的订阅定价策略变了 —— 缓存读降到 $0.25 意味着长上下文 agent 场景的实际成本大幅下降</b>。如果你有大量长文档 + 工具调用的活（读整个 NAS 目录做批量分析），现在用 Claude Code 的性价比比半年前好。<b>但注意</b>：Claude Code 的 Free 档不含它，Max 起步 $100/月；团队标准席 $20、Premium 席 $100。</p></div>
+          </article>
 
-  <details>
-    <summary>厂商动态会怎么影响你的选型<span class="meta">联动</span></summary>
-    <div class="body">
-      <ul class="list">
-        <li><b>DeepSeek V4-Pro 已退役（9-10）</b>：WorkBuddy 里的 <code>deepseek-v4-pro</code>（×0.51）现在很可能实际调用 V4.1 Flash。<b>做成本核算时按 Flash 算，不要按 Pro 的历史价格估。</b></li>
-        <li><b>Step 5 Preview 10-15 开源</b>：600B/27B 若能本地跑，可能改变工具链成本结构。但首 token 延迟约 23 秒、输出约 100 tok/s，<b>不适合交互式重活</b>。</li>
-        <li><b>GLM-5.3-Flash 首个开源月下载 44 万次</b>：生态起量快意味着量化版和微调会越来越多，<b>本地部署的可行性在提高</b>。</li>
-        <li><b>智谱的产能是真实瓶颈</b>：2026-02 曾因算力紧张限制新用户。关键交付期别把活全压在 glm-5.3-flash 上，<b>留space-bunny 或 hy3-x 作备选</b>。</li>
-        <li><b>Qwen3.8-Flash-Next 把训练成本降了约 90%</b>：这意味着后续 Qwen Flash 档的定价还会继续下探，<b>WorkBuddy 里对应档位的模型可能面临替换</b>。</li>
-        <li><b>月之暗面上市后</b>：2.8T 模型的 API 价格如果打下来，kimi-k3-2（×1.62，本册最贵档）的性价比会重新评估——<b>它是本手册里唯一有「等它变便宜」价值的模型</b>。</li>
-        <li><b>10 月 Anthropic IPO</b>：目标 $2 万亿，成败看承销商能否说服市场。<b>成了，整个 American AI 叙事的价格锚就定了</b>，国产模型的定价窗口会进一步收窄。</li>
-        <li><b>Claude Code 缓存读降到 $0.25</b>：长上下文 + 工具调用类agent 场景的实际成本大幅下降。读整个 NAS 目录做批量分析这类活，现在用 Claude Code 的性价比比半年前好。</li>
-        <li><b>mimo-v2.6-flash 值得实测一轮</b>：OpenRouter 周榜第 4（9.63T、环比 +75%），AA 46 分开源第一。但 <b>Terminal-Bench 4.0 只有 34.9，终端自主操作别交给它</b>。</li>
-      </ul>
-    </div>
-  </details>
+  </div>
+
+    <details>
+        <summary>十家厂商的竞争策略速读：看懂它们在打什么仗<span class="meta">格局</span></summary>
+        <div class="body">
+          <div class="tbl-wrap" style="border:none;background:transparent">
+            <table>
+              <thead><tr><th>厂商</th><th>核心打法</th><th>最锋利的武器</th><th>最脆弱的地方</th></tr></thead>
+              <tbody>
+              <tr><td><b>月之暗面</b></td><td>参数规模 + 上市故事</td><td>2.8T 全球最大开源模型；ARR 三个月三级跳</td><td>开源带30% 抽成条款；2026-09被 Anthropic 指控蒸馏争议</td></tr>
+              <tr><td><b>阿里千问</b></td><td>生态 + 全栈（芯片到云到模型）</td><td>30 亿下载、460+ 开源模型、RSI 33轮自主迭代</td><td>旗舰闭源；版本命名混乱；1M 上下文检索效率未验证</td></tr>
+              <tr><td><b>DeepSeek</b></td><td>MIT 许可 + 效率工程</td><td>1M 上下文只用 V3.2 的 27% FLOPs / 10% KV cache</td><td>旗舰 V4-Pro 已退役；纯文本；2025-02 曾出现服务中断争议</td></tr>
+              <tr><td><b>智谱</b></td><td>匿名营销 + 港股披露</td><td>GLM-5.3-Flash AA 57 与 Opus 4.8 持平，价格 1/10</td><td>净亏 47 亿；2026-02 算力危机；K3 发布后股价跌 27%</td></tr>
+              <tr><td><b>腾讯混元</b></td><td>产品分发 + 递归自改进</td><td>WorkBuddy / CodeBuddy 已跑通；盲测第一梯队</td><td>Token 业务第三梯队；纯文本；通用基准落后 Qwen Max</td></tr>
+              <tr><td><b>小米 MiMo</b></td><td>RL 算力规模化 + 极致性价比</td><td>AA 46 分开源第一；<b>公开 RL 训练成本</b>（6 天 $262万 / 75 万轨迹）</td><td>Terminal-Bench 4.0 仅 34.9；AI 业务不单独披露</td></tr>
+              <tr><td><b>字节豆包</b></td><td>多模态编程 + 视觉资产三件套</td><td>草图 / 录屏直接变代码（36h 修完 1000 issue 的 83%）；Seedream 5.0 可控改图 + Seedance 2.5 视频</td><td>生态偏国内、第三方独立评测少；语言模型侧价格不算便宜</td></tr>
+              <tr><td><b>OpenAI</b></td><td>消费基本盘 + 分发去微软化</td><td>9 亿周活；GPT-6 Astra 的 computer use；AWS Bedrock 新入口</td><td><b>35.5 倍市销率、2026 预计亏 $620亿</b>；Astra 独立榜单缺席且资助了某基准</td></tr>
+              <tr><td><b>Anthropic</b></td><td>企业渗透 + 能力闸门 + 合规护城河<br><span class="dash">旗下工具 Claude Code</span></td><td>34.4% 美企渗透率超 OpenAI；缓存读砍 75% 抢 agentic 负载；推理毛利率 70–85%；<b>Claude Code 职场采用率 39%</b></td><td><b>$710亿芯片租赁债务</b>；10 月 IPO 押 $2 万亿，成败看承销商能否说服市场</td></tr>
+          <tr><td><b>MiniMax / 阶跃</b></td><td>差异化（视频 / 极致成本）</td><td>可灵视频；Step 5 单任务成本 $0.72</td><td>视频模型竞争激烈；Step 5 权重 10-15 才开</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="hint"><b>2026 下半年三条值得盯的线：</b>① 月之暗面港股IPO 定价 —— 决定 2.8T 模型会不会掀起新一轮价格战；② Qwen4 发布时点 —— 5–10T 参数的推理成本能否压住；③ Kimi K3 的 30% 抽成条款会不会被其他厂商抄成行业惯例。</p>
+        </div>
+      </details>
+
+    <details>
+        <summary>厂商动态会怎么影响你的选型<span class="meta">联动</span></summary>
+        <div class="body">
+          <ul class="list">
+            <li><b>DeepSeek V4-Pro 已退役（9-10）</b>：WorkBuddy 里的 <code>deepseek-v4-pro</code>（×0.51）现在很可能实际调用 V4.1 Flash。<b>做成本核算时按 Flash 算，不要按 Pro 的历史价格估。</b></li>
+            <li><b>Step 5 Preview 10-15 开源</b>：600B/27B 若能本地跑，可能改变工具链成本结构。但首 token 延迟约 23 秒、输出约 100 tok/s，<b>不适合交互式重活</b>。</li>
+            <li><b>GLM-5.3-Flash 首个开源月下载 44 万次</b>：生态起量快意味着量化版和微调会越来越多，<b>本地部署的可行性在提高</b>。</li>
+            <li><b>智谱的产能是真实瓶颈</b>：2026-02 曾因算力紧张限制新用户。关键交付期别把活全压在 glm-5.3-flash 上，<b>留space-bunny 或 hy3-x 作备选</b>。</li>
+            <li><b>Qwen3.8-Flash-Next 把训练成本降了约 90%</b>：这意味着后续 Qwen Flash 档的定价还会继续下探，<b>WorkBuddy 里对应档位的模型可能面临替换</b>。</li>
+            <li><b>月之暗面上市后</b>：2.8T 模型的 API 价格如果打下来，kimi-k3-2（×1.62，本册最贵档）的性价比会重新评估——<b>它是本手册里唯一有「等它变便宜」价值的模型</b>。</li>
+            <li><b>10 月 Anthropic IPO</b>：目标 $2 万亿，成败看承销商能否说服市场。<b>成了，整个 American AI 叙事的价格锚就定了</b>，国产模型的定价窗口会进一步收窄。</li>
+            <li><b>Claude Code 缓存读降到 $0.25</b>：长上下文 + 工具调用类agent 场景的实际成本大幅下降。读整个 NAS 目录做批量分析这类活，现在用 Claude Code 的性价比比半年前好。</li>
+            <li><b>mimo-v2.6-flash 值得实测一轮</b>：OpenRouter 周榜第 4（9.63T、环比 +75%），AA 46 分开源第一。但 <b>Terminal-Bench 4.0 只有 34.9，终端自主操作别交给它</b>。</li>
+          </ul>
+        </div>
+      </details>
 </section>
 
-<details class="ext-vendors">
-  <summary>四家外部厂商速查：豆包 · 千问 · GPT-6 · Claude Code<span class="meta">参数与定位，详细档案见 §10</span></summary>
-  <div class="body">
-    <p class="hint" style="margin-top:0">这四家的<b>公司背景、资本状态、竞争打法</b>统一放在 §10 厂商档案里（Anthropic / OpenAI 各有独立档案卡）。本折叠块只留<b>选型要用的参数与定位</b>，避免同一件事说两遍。</p>
-
-  <h4 class="sub-head"><span class="sec-num">4</span>豆包（字节）</h4>
-  <div class="grid g2">
-    <div class="tile" style="--camp:var(--c-bd)"><h5>Doubao-Seed-Evolving</h5><span class="ct">聚焦 Coding 与 Agent 的高频迭代主力旗舰</span><p>官方公开价 ¥6 / ¥30 每百万 token。</p><div class="kv">¥6 / ¥30 · per M token</div></div>
-    <div class="tile" style="--camp:var(--c-bd)"><h5>Doubao-Seed-2.1-Pro（0915 新版）</h5><span class="ct">多模态编程国内领先</span><p>草图、录屏、设计图直接生成可运行代码；3D 建模、前端还原、游戏场景。公开案例：38.7 万行仓库的 1000 个真实 issue，约 36 小时内 83% 修复至可合并标准；图像 / 视频推理 token 消耗比上代降 30%+。</p><div class="kv">SVG · 1000 issue · 83% 修复率</div></div>
-  </div>
-  <div class="panel" style="border-left:3px solid var(--c-bd);margin-top:16px">
-    <h4>对做视觉的人更有价值的是 Seedream 5.0</h4>
-    <p style="margin:0;font-size:var(--fs-sm);line-height:1.8;color:var(--text-2)">图像创作模型（非语言模型），四项升级直接命中商业设计场景：交互式精准编辑（画箭头 / 圈区域即可改图）、多图层分离（任意区域任意粒度拆层）、高密度信息表达（精细图表、多层结构、整页 PPT）、原生多语种文字生成（10 余种语言，理解排版与字体习惯）。约 ¥0.22–0.30 / 张。<br><br>与 Midjourney 的关系：MJ 强在美学与风格一致性，Seedream 强在<b style="color:var(--text)">可控编辑与文字排版</b>——海报、分镜、带字设计这类活，它是补位而不是替代。</p>
-  </div>
-
-
-  <h4 class="sub-head"><span class="sec-num">5</span>通义千问（阿里）</h4>
-  <div class="tbl-wrap">
-    <table>
-      <thead><tr><th>模型</th><th>定位</th><th>关键指标</th></tr></thead>
-      <tbody>
-      <tr><td><b>Qwen3.8-Max</b><br><span class="dash">2026-08-02</span></td><td>家族最强旗舰，2.4T 参数 MoE、95B 激活、1M 上下文、原生多模态</td><td>GPQA Diamond 92.6 · PaperBench 93.0 · OSWorld 86.1 · CodeArena 第 4；官方演示 10+ 天自主编码构建 self-evolving harness</td></tr>
-      <tr><td><b>Qwen3.8-27B</b><br><span class="dash">开源</span></td><td>270 亿参数原生多模态稠密模型，262k 原生上下文，YaRN 外推至 1M</td><td>SWE-bench Pro 61.7；可本地部署</td></tr>
-      <tr><td><b>Qwen3.8-Flash-Next</b><br><span class="dash">2026-08-26 开源</span></td><td>基于下一代 Qwen4 架构的多模态 MoE 预览版</td><td>为 Qwen4 家族铺路，适合提前适配</td></tr>
-      <tr><td><b>Qwen3.7-Plus / Max</b></td><td>Plus 为多模态 Agent 基座；Max 侧重纯文本推理与长文本分析</td><td class="num">Plus ¥0.4 / ¥1.6，Max ¥2.5 / ¥7.5，Flash ¥0.03 / ¥0.06</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <p class="hint">务实判断：要<b>自建服务或私有化部署</b>，Qwen 是唯一现实选项（开源权重可商用）；只要 API 效果，Max 档能力配 ¥2.5 / ¥7.5 的价格，是全表性价比最高的旗舰。</p>
-
-
-  <h4 class="sub-head"><span class="sec-num">6</span>GPT-6（OpenAI）</h4>
-  <div class="grid g3">
-    <div class="tile" style="--camp:var(--c-oai)"><h5>GPT-6 Astra</h5><span class="ct">全家族最强</span><p>"要最好结果、不妥协"时选它。OpenRouter 周调用 1.51 T，外部价 $5 / $25。</p><div class="kv">AA 指数 53 · 并列第一</div></div>
-    <div class="tile" style="--camp:var(--c-oai)"><h5>GPT-6 Sol</h5><span class="ct">主力档</span><p>专业工作、事实性、编码、计算机操作全面强。比 GPT-5.6 Sol 便宜 50%。</p><div class="kv">$2 / $10 ≈ ¥14 / ¥72</div></div>
-    <div class="tile" style="--camp:var(--c-oai)"><h5>GPT-6 Luna</h5><span class="ct">最省档</span><p>日常高频调用。本期 OpenRouter 涨幅最大的美国模型，周调用 6.18 T（↑116%）。</p><div class="kv">$0.10 / $0.50 ≈ ¥0.7 / ¥3.6</div></div>
-  </div>
-  <div class="panel" style="margin-top:16px">
-    <h4>值得注意的一点</h4>
-    <p style="margin:0;font-size:var(--fs-sm);line-height:1.8;color:var(--text-2)">OpenAI 官方把对比基准放在 Claude 上：AutomationBench（47 个工具的端到端业务流程）中，GPT-6 Sol 在 xhigh 强度下超过 max 强度的 Claude Opus 5，单任务成本只有后者约 9%。<br><br>但这是<b style="color:var(--text)">厂商自测数据，且测的是办公流程自动化，不等于编程更强</b>——编程场景 Claude Code 依然是事实标准。</p>
-  </div>
-
-
-  <h4 class="sub-head"><span class="sec-num">7</span>Claude Code（Anthropic）</h4>
-  <div class="tbl-wrap">
-    <table>
-      <thead><tr><th>模型</th><th>价格（每百万 入 / 出）</th><th>上下文 / 输出</th><th>定位与表现</th></tr></thead>
-      <tbody>
-      <tr><td><b>Claude Fable 5.1</b><br><span class="dash">2026-09-01</span></td><td class="num">$10 / $50（≈¥72/¥360）</td><td>1M / 128k</td><td>最强档：高难推理与超长程 Agent，默认 high effort。只在 Opus 5.5 开到 xhigh / max 仍不够时才上</td></tr>
-      <tr><td><b>Claude Opus 5.5</b><br><span class="dash">2026-09-22 起为默认 Opus</span></td><td class="num">$4 / $20（≈¥29/¥144）<br>缓存读取 $0.20</td><td>1M / 128k</td><td>长程 agentic coding 与知识工作；Terminal-Bench 4.0 66.4%，FrontierCode 54.4%，CursorBench 57.8%</td></tr>
-      <tr><td><b>Claude Sonnet 5.5</b><br><span class="dash">2026-09-28 起为默认 Sonnet</span></td><td class="num">$2 / $10（≈¥14/¥72）</td><td>1M / 128k</td><td>速度与智能的最佳平衡，每日主力；Terminal-Bench 4.0 70.6%（高于 Opus），但 FrontierCode 仅 46.2%</td></tr>
-      <tr><td><b>Claude Haiku 4.5</b></td><td class="num">$1 / $5</td><td>200k / 64k</td><td>最快档，但知识截止 2025-02，官方退役承诺只到 2026-10-15，新项目不要起在上面</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <p class="hint">选型规则（Anthropic 自己的建议也是这个）：<b>默认 Sonnet 5.5 → 诊断不清、跨架构边界、改错代价高时上 Opus 5.5 → 仍不够才上 Fable 5.1。</b>不要因为"贵就是好"直接开 Fable。</p>
-
-  </div>
-</details>
-
-
-<details class="vendor-part2">
-  <summary>第二批厂商档案：OpenAI · Anthropic / Claude Code · 小米 MiMo<span class="meta">海外巨头 + 硬件厂</span></summary>
-  <div class="body">
-
-    <div class="tbl-wrap" style="margin-bottom:var(--s-4)">
-      <table>
-        <thead><tr><th>厂商</th><th>旗舰</th><th>上下文</th><th>API 定价（输入/输出）</th><th>资本状态</th><th>核心战场</th></tr></thead>
-        <tbody>
-        <tr class="hl"><td><b>Anthropic</b><br><span class="dash">Claude · 美国</span></td><td>Claude Fable 5.1 / Opus 5.5<br><span class="dash">09-01 / 09-22</span></td><td class="num">1M</td><td class="num">$10 / $50<br><span class="dash">缓存读 $0.25</span></td><td><b>估值 $9,650亿</b>· ARR破 $1,000亿 · <b>10 月冲 2 万亿 IPO</b></td><td>企业渗透率 34.4%（超 OpenAI）</td></tr>
-        <tr class="hl"><td><b>OpenAI</b><br><span class="dash">美国</span></td><td>GPT-6 Astra<br><span class="dash">09-03 发布</span></td><td class="num">1.05M</td><td class="num">$10 / $50<br><span class="dash">长文$20/$75</span></td><td>估值 <b>$8,520亿</b> · ARR $400亿 · 2026 亏损估 $620亿</td><td>9 亿周活 ·消费订阅基本盘</td></tr>
-        <tr><td><b>小米</b><br><span class="dash">MiMo · 中国</span></td><td>MiMo-V2.6-Pro / Flash<br><span class="dash">09-22 开源</span></td><td class="num">—</td><td class="num"><b>沿用 V2.5 定价</b><br>智能涨、价不涨</td><td>上市子公司 · 未单独披露 AI 业务</td><td>开源 AA 46 分 · 性价比纪录</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="dossiers">
-
-      <article class="dossier flag" style="--camp:#C4704A">
-        <div class="d-top">
-          <div class="d-id">
-            <h3>Anthropic <span class="tag t-new">已反超 OpenAI</span></h3>
-            <p class="aka">2021 成立 · Dario / Daniela Amodei 兄妹 · 公益公司（PBC）结构 · <b>2026-10 月 IPO</b></p>
-            <p class="verdict-inline"><b>手册里最重要的一次修正：Anthropic 现在在估值、营收、美企渗透率三项上全部超过 OpenAI。</b>而一年前叙事还是 OpenAI 领先。</p>
-          </div>
-          <div class="d-specs">
-            <div><b>$9,650亿</b><span>估值（05-28 H 轮）</span></div>
-            <div><b>$1,000亿+</b><span>ARR（9 月中）</span></div>
-            <div><b>34.4%</b><span>美国企业付费渗透率</span></div>
-            <div><b>70–85%</b><span>推理毛利率</span></div>
-            <div><b>$2万亿</b><span>IPO 目标估值</span></div>
-            <div><b>~$710亿</b><span>芯片租赁债务（SPV）</span></div>
-          </div>
-        </div>
-        <div class="d-body">
-          <div>
-            <h4>2026 时间线（这半年发生了三件大事）</h4>
-            <ol class="timeline">
-              <li><time>2026-05-28</time><b>H 轮融资 $650亿，估值 $9,650亿</b>，正式超过 OpenAI 的 $8,520亿，成为全球最值钱的 AI 初创。同月 ARR 破 $470亿。</li>
-              <li><time>2026-06-01</time>向 SEC <b>秘密递交 S-1</b>。6-12 至 6-30 因美国出口管制指令，Fable 5 与 Mythos 5 全球下架，7-01 恢复。</li>
-              <li><time>2026-07-31</time>ARR 突破 <b>$650亿</b>（较 5 月 +38%），Q2 单季营收超 $115亿。</li>
-              <li><time>2026-09-01</time><b>三连发</b>：Fable 5.1 + Mythos 5.1 + Enterprise Frontier Safeguards（EFS）。<b>缓存读取价下调 75%</b>（$1.00 → $0.25），典型工作负载成本降约 25%、智能体任务最高降 45%。</li>
-              <li><time>2026-09-11前后</time>ARR 破 <b>$1,000亿</b>（纽约时报报道），相比 2025 年底约 $90亿 增长逾七倍。</li>
-              <li><time>2026-09-22</time>发布 <b>Opus 5.5</b>，称多数工作达到 Fable 5.1 水平但运行成本便宜 40%。</li>
-              <li><time>2026-10</time>路演，目标估值 <b>$2万亿</b>，承销商摩根士丹利 / 高盛 / 摩根大通。</li>
-            </ol>
-          </div>
-          <div>
-            <h4>两个「 Mythos 级」模型与一个被忽略的护城河</h4>
-            <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0 0 var(--s-3)"><b>Mythos 5.1 是受限模型</b>，只对美国 Cyber Verification Program 与 Life Sciences Verification Program 开放。这是刻意造出来的「能力闸门层」—— 开放权重模型（Qwen 3.8、Kimi K3）正在把前沿价格压下来，Anthropic 用一个不开放的顶层把高价值研究锁住。</p>
-            <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0 0 var(--s-3)"><b>EFS 则是切换成本武器。</b>与高盛、摩根士丹利、花旗、Visa 等 100+ 机构合作，零数据保留、客户自控存储（AWS S3 / Azure Blob / GCS）、自动监控绕过人工审查，<b>且不额外收费</b>。这是打给受监管行业的合规壁垒。</p>
-            <blockquote class="quote"><p>截至 2026-06，<b>34.4% 的美国企业为 Anthropic 付费，首次超越 OpenAI 的 32.3%</b>。Q2 调整后营业利润转正，Q3 预计 GAAP EBIT 超 $10亿。</p><cite>腾讯新闻 / Bloomberg · 2026-09</cite></blockquote>
-            <blockquote class="quote"><p>股东结构：亚马逊累计投资约 $80亿、持股 15–20%；Alphabet 持股约 14%。<b>代价是 $710亿芯片租赁债务</b>（SPV 结构），30年期债券收益率已从 6.7% 升到 7.4%。</p><cite>Forkast / 公开报道</cite></blockquote>
-            <blockquote class="quote"><p>OpenAI 因 Astra 触及 Critical 网络安全阈值而暂停该能力，给了 Anthropic 巩固领先的窗口。Anthropic 同时强化反蒸馏：新API 账户禁止手动编辑历史上下文但保留思维链转录。</p><cite>Forkast · 2026-09</cite></blockquote>
-          </div>
-        </div>
-        <div class="d-verdict"><span class="lb">腾子判断</span><p><b>如果你只把这家当「Claude Code 的供应商」，你会完全看错它的战略。</b>三件事正在同时发生：① <b>定价从「按token」转向「按 agent 流量」</b> —— 缓存读砍75% 是在抢高上下文、高频的 agentic 工作负载，这类负载的 token 消耗是聊天的几十倍；② <b>用 Mythos 建能力闸门，用 EFS 建合规护城河</b>，两条都在把「模型能力」变成「不可替代的关系」；③ <b>10 月 $2 万亿 IPO 是史上最大规模</b>，成了整个 American AI 叙事的价格锚。<br><br><b>对你的直接影响：Claude Code 的订阅定价策略变了 —— 缓存读降到 $0.25 意味着长上下文 agent 场景的实际成本大幅下降</b>。如果你有大量长文档 + 工具调用的活（读整个 NAS 目录做批量分析），现在用 Claude Code 的性价比比半年前好。<b>但注意</b>：Claude Code 的 Free 档不含它，Max 起步 $100/月；团队标准席 $20、Premium 席 $100。</p></div>
-      </article>
-
-      <article class="dossier" style="--camp:#3E8E7E">
-        <div class="d-top">
-          <div class="d-id">
-            <h3>OpenAI <span class="tag t-warn">被 Anthropic 反超</span></h3>
-            <p class="aka">2015 成立 · Sam Altman / Greg Brockman · OpenAI Foundation 控制 PBC · <b>2027 年 IPO（目标 $1 万亿）</b></p>
-            <p class="verdict-inline"><b>消费基本盘最厚，但增长引擎已经换人了。</b>企业收入本季度环比 +50%（公司整体 +35%），企业已超过消费成为最大收入分部 —— 而这条线 OpenAI 此前并不领先。</p>
-          </div>
-          <div class="d-specs">
-            <div><b>9亿+</b><span>ChatGPT 周活用户</span></div>
-            <div><b>5,000万+</b><span>消费订阅用户</span></div>
-            <div><b>900万+</b><span>付费企业用户</span></div>
-            <div><b>$400亿</b><span>ARR（8 月 annualized）</span></div>
-            <div><b>$8,520亿</b><span>估值（$1,220亿轮）</span></div>
-            <div><b>~$620亿</b><span>2026 预计 GAAP 亏损</span></div>
-          </div>
-        </div>
-        <div class="d-body">
-          <div>
-            <h4>GPT-6 Astra（09-03 发布）</h4>
-            <ul class="list" style="margin-top:0">
-              <li><b>训练规模：</b>德州 Stargate 站点、<b>超过 10 万张 GPU</b>，OpenAI 史上最大训练run。</li>
-              <li><b>API 名 <code>gpt-6-astra</code></b>，上下文 <b>1.05M token</b>，最大输出 128K，知识截止 2026-04-30。</li>
-              <li><b>定价：</b>$10/$50 每百万（短上下文），<b>超 272K 输入后跳 $20/$75</b>；缓存输入 $1、缓存写入 $12.50。Fast 模式价格翻倍。</li>
-              <li><b>核心能力是「computer use」</b> —— 像人一样操作笔记本，穿过电子表格、表单、多步工作流。</li>
-              <li><b>网络安全被官方评为 Critical 最高档</b>：带工具与权限时能自主发现未知漏洞并开发利用（ExploitBench 100%，私有 20 漏洞 V8 集 39% vs Sol 的 5.5%），但发布版拒绝生成 PoC。</li>
-              <li><b>独立评测有保留：</b>Artificial Analysis 发现它编码 agent 效率强、幻觉率低，但<b>综合智能仅与 GPT-5.6 Sol 相当，而每 token 成本是 2.5 倍</b>。</li>
-            </ul>
-            <p class="hint" style="margin-top:12px">ARC-AGI-3 <b>有两个数字，差别大到必须理解</b>：中立 Standard harness 下 62.7%（Max 档，每次 $26,098）；保留推理状态的 Provider Adapter harness 下 99.9%（High 档，$18,817）。<b>Standard 那个才是可比的数</b>，ARC Prize 自己声明刷满 ARC-AGI-3 也不证明 AGI。Greg Brockman 说「我个人认为我们到了，可能就是现在」，并预测史家会把 AGI 记在「这个模型」。<b>那是高管解读，不是测量结果。</b></p>
-          </div>
-          <div>
-            <h4>分发生态的关键变化（这条影响你的选型）</h4>
-            <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0 0 var(--s-3)"><b>4 月起微软独家托管终止</b>，模型开始出现在 Amazon Bedrock，随后传出 <b>$380亿七年合作</b>，AWS 拿下 OpenAI 企业 agent 运行时的独家第三方分发权。微软仍持约 27% 股份并深度集成 M365 / Copilot，但不再是唯一入口，<b>对最新最 agentic 的模型甚至不是首选入口</b>。</p>
-            <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0 0 var(--s-3)">Stargate（OpenAI–Oracle–软银合资实体）承载了 Astra 的训练，报道称承诺额高达 <b>$5,000亿</b>。超大规模云厂今年资本开支预计 <b>$6,000–7,250亿</b>，而真正的约束已经转移到<b>电力与电网接入</b>，不是芯片。</p>
-            <blockquote class="quote"><p>营收轨迹：$2B ARR（2023）→ $6B（2024）→ $20B+（2025）→ <b>$400亿+ 年化（2026-08）</b>。算力从 0.2GW → 0.6GW → 1.9GW。<b>但 Q2 2026 确认营收 $67亿、运营亏损 $123亿</b>（Q1 为 $93亿）。</p><cite>Epoch AI / WSJ / OpenAI</cite></blockquote>
-            <blockquote class="quote"><p><b>$8,520亿估值 ÷ $240亿（另一口径年化营收）≈ 35.5倍市销率</b>，而 BVP 纳斯达克新兴云指数均值约 7.8 倍。$1万亿估值对应约 25倍市销率。ARC-AGI 上有独立评测，但 Astra 在发布时<b>未登上 Artificial Analysis / Arena 任何独立榜单</b>，且 OpenAI 资助了它得分最高的某个基准。</p><cite>AInvest / bestaitoolfinder 风险提示</cite></blockquote>
-          </div>
-        </div>
-        <div class="d-verdict"><span class="lb">腾子判断</span><p><b>OpenAI 的核心风险不是技术，是单位经济学。</b>$8,520亿估值对 $240亿营收是 35.5倍市销率，2026 预计亏 $620亿，而摊销/推理成本随 agent 用量线性上涨——<b>agent 越成功，越烧钱</b>。这跟 Anthropic 的路径正好相反：后者推理毛利率已做到 70–85%，Q2 调整后营业利润转正。<br><br><b>但对你：OpenAI 的分发仍然最广，而且你手上 $20 的 Plus 已经包含 Codex（边际成本 $0）—— 这一条短期内不会变。</b>真正需要盯的是 <b>GPT-5.5 已于 10-14 退役</b>，配置里要换成 <code>gpt-6-sol</code>。另外注意 AInvest 那个提醒：<b>agentic 模型的单位价值正在从「回答」转向「完成的工作」</b>，Terminal-Bench 官方数据里 Astra 获胜的 run 花 $3,300、Fable 5.1 花 $6,200 —— 贵的 token 要按「完成的任务」算账，不能按token 算。</p></div>
-      </article>
-
-      <article class="dossier" style="--camp:#5A7FC0">
-        <div class="d-top">
-          <div class="d-id">
-            <h3>小米 MiMo <span class="tag t-free">性价比纪录</span></h3>
-            <p class="aka">2026-04 起V2.5 系列 · <b>2026-09-22 V2.6 系列开源</b> · 原生全模态（文本/图像/视频/音频）</p>
-            <p class="verdict-inline"><b>AA 综合智能指数 46 分，超过 Kimi K3 与 Qwen3.8 Max，成为当前最强开源模型</b> —— 而 API 定价沿用 V2.5，智能涨、价不涨。</p>
-          </div>
-          <div class="d-specs">
-            <div><b>46</b><span>AA 智能指数（开源第一）</span></div>
-            <div><b>$262万</b><span>Pro RL 训练成本（6 天）</span></div>
-            <div><b>$85万</b><span>Flash RL 训练成本</span></div>
-            <div><b>75万</b><span>累计训练轨迹条数</span></div>
-            <div><b>1/20–1/60</b><span>同等智能下的价格比</span></div>
-            <div><b>20×</b><span>Pro-UltraSpeed 输出提速</span></div>
-          </div>
-        </div>
-        <div class="d-body">
-          <div>
-            <h4>最有价值的一条：RL 训练成本被公开了</h4>
-            <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0 0 var(--s-3)">MiMo-V2.6 走的是<b>RSI（递归自我改进）路径</b>：以可验证的复杂任务为基础规模化扩展 RL 算力。官方全程Live 分享训练实验。</p>
-            <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0 0 var(--s-3)"><b>不到 6 天</b>，Flash 与 Pro 各完成 <b>30 步</b>，累计约 <b>75 万条轨迹</b>；Flash 训练成本约 <b>$85万</b>，Pro 约 <b>$262万</b>。官方称可能是国产开源模型里 RL 投入算力最多的之一，并说「这6 天的背后是长达半年的基础研究积累和工程试错」。</p>
-            <p class="hint" style="margin-top:12px">对照价值：<b>MiMo-V2.5-Pro 的 AA 分是 19.0，V2.6-Pro 是 46</b>。半年内从 19 干到 46，这是本册所有模型里进步幅度最大的一条。</p>
-          </div>
-          <div>
-            <h4>关键benchmark（官方自测，厂商数据要打折看）</h4>
-            <div class="tbl-wrap" style="border:none;background:transparent">
-              <table style="min-width:0">
-                <thead><tr><th>基准</th><th>MiMo-V2.6-Pro</th><th>对标</th></tr></thead>
-                <tbody>
-                <tr><td>DeepSWE v1.1</td><td class="num">71.9</td><td>DS V4.1 Flash 74.2 / Opus 5 74.0 / GPT-6 Astra 74.0</td></tr>
-                <tr class="hl"><td>Visual MiMo Coding</td><td class="num"><b>82.2</b></td><td><b>全场第一</b>，超 GPT-6 Astra 80.2、Fable 5.1 74.4</td></tr>
-                <tr><td>CyberGym</td><td class="num">94.0</td><td>Flash 更高（95.1），DS V4.1 Flash 88.x</td></tr>
-                <tr><td>GDPVal 2.1（AA）</td><td class="num">1673</td><td>Fable 5.1 1735 / Opus 5 1708 / DS V4.1 Flash 1600</td></tr>
-                <tr><td>Terminal-Bench 4.0</td><td class="num">34.9</td><td><b>GPT-6 Astra 59.6 / Fable 5.1 55.1</b> —— 差 20 分以上</td></tr>
-                <tr><td>ProgramBench</td><td class="num">26.5</td><td><b>MiMo-V2.5-Pro 仅 19.0</b>，Claude Opus 5 37.0</td></tr>
-                </tbody>
-              </table>
-            </div>
-            <p class="hint" style="margin-top:12px"><b>分歧点很清楚：</b>多模态/ Agent 任务上 Pro 很能打（Visual MiMo Coding 第一），但<b>纯终端自主操作上差 Astra 20 分以上</b>，Agent 编码综合仍略落后 Fable 5.1。<b>「智能-成本帕累托前沿」的宣传在同智能水平（1/20–1/60 价格）下成立，但没承诺在最高能力上追平闭源。</b></p>
-          </div>
-        </div>
-        <div class="d-verdict"><span class="lb">腾子判断</span><p><b>小米这家值得单独盯，因为它把「训练成本」这个黑箱打开了。</b>6 天 $262万换AA 46 分—— 这个数字让「国产模型差在哪」这个问题的答案变了：<b>差的不是架构，是 RL 阶段的算力投入规模</b>。当阿里（33 轮 RSI）、小米（75 万轨迹）都把递归自我改进当成主路线，OpenAI/Anthropic 的前沿优势本质上是 RL 算力优势，不是架构优势。<br><br><b>对你的直接动作：</b>① WorkBuddy 里有 <code>mimo-v2.6-flash</code>（OpenRouter 周榜第 4，9.63T token，环比 +75%），它是 Flash 档性价比最优解之一，<b>值得拿你的批量活实测一轮</b>；② <b>不要指望它做终端自主操作</b> —— Terminal-Bench 4.0 只有 34.9，这类活还是走 Codex 或 Claude Code；③ V2.5 系列还有 ASR（支持吴语/粤语/闽南语/四川话）和 TTS（音色克隆）—— <b>如果你做方言短剧或角色声音，这两条是意外能力</b>。</p></div>
-      </article>
-
-      <article class="dossier" style="--camp:#8A7CC8">
-        <div class="d-top">
-          <div class="d-id">
-            <h3>Claude Code <span class="tag t-new">39% 职场采用率</span></h3>
-            <p class="aka">2025-02-24 研究预览 → 2025-05-22 GA · Boris Cherny 团队 · Apache 兼容的终端优先 agentic 工具</p>
-            <p class="verdict-inline"><b>它是本册唯一一个「工具采用率」能查到的产品 —— 也是你正在纠结的 Codex vs Claude Code 的胜负手。</b></p>
-          </div>
-          <div class="d-specs">
-            <div><b>39%</b><span>职场采用率（1 月为 18%）</span></div>
-            <div><b>47%</b><span>美国职场采用率</span></div>
-            <div><b>~$25亿</b><span>年化营收（2026-02）</span></div>
-            <div><b>4%</b><span>公开 GitHub 提交占比</span></div>
-            <div><b>46%</b><span>Pragmatic 满意度（Cursor 19%）</span></div>
-            <div><b>$13/天</b><span>企业单人活跃日成本</span></div>
-          </div>
-        </div>
-        <div class="d-body">
-          <div>
-            <h4>Claude Code vs Codex vs Cursor vs Copilot（JetBrains 2026 调研，15,000+ 开发者）</h4>
-            <div class="tbl-wrap" style="border:none;background:transparent">
-              <table style="min-width:0">
-                <thead><tr><th>工具</th><th>5–7 月采用</th><th>1 月</th><th>认知度</th><th>入门价</th><th>重度档</th></tr></thead>
-                <tbody>
-                <tr class="hl"><td><b>Claude Code</b></td><td class="num"><b>39%</b></td><td>18%</td><td>—</td><td>$20/月（Pro）</td><td>$100 / $200（Max 5x / 20x）</td></tr>
-                <tr><td>GitHub Copilot</td><td class="num">21%</td><td>29%</td><td>79%</td><td>$10/席</td><td>$100/席（Max）</td></tr>
-                <tr class="hl"><td>OpenAI Codex</td><td class="num">16%</td><td>3%</td><td>65%</td><td><b>$0（含在 ChatGPT）</b></td><td>ChatGPT Pro $100</td></tr>
-                <tr><td>Cursor</td><td class="num">12%</td><td>18%</td><td>75%</td><td>$20/月</td><td>$200/月</td></tr>
-                </tbody>
-              </table>
-            </div>
-            <p class="hint" style="margin-top:12px"><b>三个值得注意的信号：</b>① Claude Code 从第二名一骑绝尘，美国采用率达 47%；② <b>Codex 是增速最快的（3% → 16%，相对增长 433%），但基数仍只有 Claude Code 的一半</b>；③ <b>GitHub Copilot 和 Cursor 的认知度远高于采用率，说明「知道」和「真用」是两回事</b>。</p>
-          </div>
-          <div>
-            <h4>成本结构与省钱清单</h4>
-            <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0 0 var(--s-3)">Anthropic 自己公布的口径：企业部署平均<b>每个开发者每个活跃日约 $13</b>，<b>每月 $150–250</b>，<b>90% 的用户单日不超过 $30</b>。所以 Max 5x（$100）比 API 便宜，Max 20x（$200）大致打平但余量大得多。<b>绝大多数全职用户最终落在 Max 档。</b></p>
-            <p style="font-size:var(--fs-sm);line-height:1.8;color:var(--text-2);margin:0 0 var(--s-3)">按模型的 API 计价（Claude Code 激进缓存上下文，长会话里大部分输入按缓存读计费）：<b>Sonnet 5 $2/$10/缓存 $0.20</b>（多数编码工作默认）、<b>Opus 5 $5/$25/缓存 $0.50</b>（架构与多步推理）、Haiku 4.5 $1/$5/缓存 $0.10（简单子代理）、<b>Fable 5.1 $10/$50/缓存 $0.25</b>（仅最难问题）。<b>两个隐藏乘数：</b>Opus 5 与 4.8 的 Fast 模式按 $10/$50 计；4.6+ 模型美国境内推理<b>所有 token 类别 ×1.1</b>。</p>
-            <blockquote class="quote"><p>六个省钱动作：① 切换不相关任务前敲 <code>/clear</code>（开着一天的问句仍在重读整个对话）；② 按活选模型，Sonnet 干大部分、Opus 留给架构、子代理设haiku；③ 注意缓存生命周期——<b>订阅档缓存 TTL 1 小时、API key 5 分钟</b>，中断超过就全部重算；④ <code>/context</code> 查谁在吃空间，<code>/mcp</code> 关掉不用的 MCP 服务器；⑤ <code>gh</code>、<code>aws</code> 这类 CLI 比 MCP 等价物便宜；⑥ 简单活降<code>/effort</code>，思考 token 按输出计费。</p><cite>Anthropic 官方成本指南</cite></blockquote>
-            <blockquote class="quote"><p><b>两个硬伤：</b>① <b>Free 档不含 Claude Code</b>，想评估必须先付费，没有试用路径；② <b>聊天和编程共用同一额度</b>，重度聊天会吃掉编码预算。团队标准席 $20、Premium 席 $100（年付）可混用。</p><cite>scored.tools / creditforstartups 评测</cite></blockquote>
-          </div>
-        </div>
-        <div class="d-verdict"><span class="lb">腾子判断</span><p><b>这条数据直接回答你之前那个分流问题该往哪偏。</b>Claude Code 39% vs Codex 16% —— <b>领先是真的，但差距是 2.4倍，不是量级碾压</b>，而且 Codex 增速快得多（3%→16%）。更实用的判断依据是三条结构性差异：<b>① Codex 边际成本 $0</b>（你已付 $20），Claude Code 要另付 $20–100；<b>② Claude Code 在前端 UI 生成与架构推理上口碑更好</b>，Codex 弱项明确；<b>③ Claude Code 没有免费档</b>，评估前必须先付钱。<br><br><b>给你的实际建议：主力日常仍用 Codex</b>（已付费、额度透明、有沙箱和 git 回滚）；<b>遇到「整仓重构 / 前端从零搭 / 架构推理」这类活再用 Claude Code</b>，此时 $20–100 的额外成本换来的是 39% 采用率社区里打磨过的工作流。<b>但注意 Claude Code 的聊天额度与编码额度共用</b> —— 如果你拿它聊天，编码额度会提前见底。</p></div>
-      </article>
-
-    </div>
-
-    <div class="tbl-wrap" style="margin-top:var(--s-5)">
-      <table>
-        <thead><tr><th>厂商</th><th>核心打法</th><th>最锋利的武器</th><th>最脆弱的地方</th></tr></thead>
-        <tbody>
-        <tr><td><b>Anthropic</b></td><td>企业渗透 + 能力闸门 + 合规护城河</td><td>34.4% 美企渗透率超OpenAI；缓存读砍 75% 抢 agentic 负载；推理毛利率 70–85%</td><td><b>$710亿芯片租赁债务</b>；10 月 IPO 押 $2 万亿，成败看承销商能否说服市场</td></tr>
-        <tr><td><b>OpenAI</b></td><td>消费基本盘 + 分发去微软化</td><td>9 亿周活；GPT-6 Astra 的 computer use；AWS Bedrock 新入口</td><td><b>35.5倍市销率、2026 预计亏 $620亿</b>；Astra 独立榜单缺席且资助了某基准</td></tr>
-        <tr><td><b>小米 MiMo</b></td><td>RL 算力规模化 + 极致性价比</td><td>AA 46 分开源第一；<b>公开 RL 成本</b>（6 天 $262万/75 万轨迹）；同智能下价格 1/20–1/60</td><td>Terminal-Bench 4.0 仅 34.9（差 Astra 20 分+）；公司 AI 业务不单独披露</td></tr>
-        <tr><td><b>Claude Code</b></td><td>终端 agentic 工具 + 极致上下文缓存</td><td>39% 职场采用率（美国 47%）；46% 满意度；75 万条公共 GitHub 提交</td><td><b>无免费档</b>；Max 起步 $100；聊天与编码共用额度</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <p class="hint"><b>2026 下半年最值得盯的三条线：</b>① <b>10 月 Anthropic IPO 是否守住 $2 万亿</b> —— 成了，整个 American AI 叙事的价格锚就定了；② <b>OpenAI 2027 IPO 前能否把亏损收窄</b>，35.5 倍市销率没有太多容错；③ <b>Codex 采用率能否追上 Claude Code</b> —— 如果基数效应加上 $0 边际成本，2027 年格局可能重排。</p>
-
-  </div>
-</details>
-
 <section class="rv" id="s11">
-  <div class="sec-head"><span class="sec-num">08</span><h2>选型双向表：什么活 → 走谁</h2></div>
+  <div class="sec-head"><span class="sec-num">07</span><h2>选型双向表：什么活 → 走谁</h2></div>
   <p class="sec-sub">这一节把原来两张表合成一张。<b>上半是「活 → 模型」</b>（我该用什么），<b>下半是「外部模型 → WorkBuddy 内替代」</b>（我想用的那个活必须留在本地时怎么办）。<b>两个方向合看才完整</b> —— 只看一张会漏掉另一半的约束。</p>
 
   <h4 style="font:700 var(--fs-xs)/1 var(--font-mono);text-transform:uppercase;letter-spacing:.18em;color:var(--text-3);margin:var(--s-5) 0 var(--s-3)">方向一 · 活 → 模型</h4>
@@ -2018,7 +1960,7 @@ footer .stamp{margin-top:var(--s-5);padding-top:var(--s-3);border-top:1px solid 
 
 <!-- ============ 09 促销窗口 ============ -->
 <section class="rv" id="s12">
-  <div class="sec-head"><span class="sec-num">09</span><h2>促销窗口（会过期，先抢这些）</h2></div>
+  <div class="sec-head"><span class="sec-num">08</span><h2>促销窗口（会过期，先抢这些）</h2></div>
   <div class="grid g2">
     <div class="tile" style="--camp:var(--c-stealth)"><h5>space-bunny 限时折扣</h5><span class="ct">2026-10-02 → 10-07 结束</span><p>×0.03 全表最低，配置生效至 10/08 00:00。到期后价格大概率上浮。</p><div class="kv tag t-max" style="display:inline-block">剩 1 天</div></div>
     <div class="tile" style="--camp:var(--c-hy)"><h5>hy3 / hy3-b / hy3-c 全免费</h5><span class="ct">2026-07-06 → 10-31</span><p>每日赠送免费额度。日常任务默认挂这三个。</p><div class="kv tag t-live" style="display:inline-block">进行中</div></div>
@@ -2033,7 +1975,7 @@ footer .stamp{margin-top:var(--s-5);padding-top:var(--s-3);border-top:1px solid 
 
 <!-- ============ 11 按方向配置 ============ -->
 <section class="rv" id="s14">
-  <div class="sec-head"><span class="sec-num">10</span><h2>按你的实际方向配置</h2></div>
+  <div class="sec-head"><span class="sec-num">09</span><h2>按你的实际方向配置</h2></div>
   <div class="tbl-wrap">
     <table>
       <thead><tr><th>方向</th><th>任务细分</th><th>用什么</th><th>为什么</th></tr></thead>
@@ -2057,7 +1999,7 @@ footer .stamp{margin-top:var(--s-5);padding-top:var(--s-3);border-top:1px solid 
 
 <!-- ============ 12 深度对话 ============ -->
 <section class="rv" id="s15">
-  <div class="sec-head"><span class="sec-num">11</span><h2>特殊场景：人生 / 职业规划这类深度对话</h2></div>
+  <div class="sec-head"><span class="sec-num">10</span><h2>特殊场景：人生 / 职业规划这类深度对话</h2></div>
   <p class="sec-sub">本质是超长上下文 + 高价值低频次 + 需要模型敢质疑你，跟写代码选型逻辑相反——<b>这里不该省钱</b>。</p>
   <div class="tbl-wrap">
     <table>
@@ -2079,7 +2021,7 @@ footer .stamp{margin-top:var(--s-5);padding-top:var(--s-3);border-top:1px solid 
 
 <!-- ============ 13 使用纪律 ============ -->
 <section class="rv" id="s16">
-  <div class="sec-head"><span class="sec-num">12</span><h2>使用纪律</h2></div>
+  <div class="sec-head"><span class="sec-num">11</span><h2>使用纪律</h2></div>
   <div class="panel">
     <ul class="list">
       <li><b>默认路径</b>：hy3-c（免费）→ hy4-preview-f（免费）→ space-bunny（×0.03，编码优先）→ glm-5.3 → kimi-k3-2。逐级升级，别一步跳到最贵。</li>
@@ -2092,7 +2034,7 @@ footer .stamp{margin-top:var(--s-5);padding-top:var(--s-3);border-top:1px solid 
       <li><b>敏感数据不出门</b>：stealth 条款写明对话可能被提供方记录保留。合同、源码、客户名单、未公开剧本走本地或身份明确的模型。</li>
       <li><b>Codex 额度要主动管</b>：ChatGPT Plus 已含 Codex，边际成本 $0，但 Astra 每 5 小时只有 5–45 条。开任务前先 <code>/status</code>，日常默认 Luna，复杂活才升 GPT-6.1 Sol，Astra 当最后一道。</li>
       <li><b>10-14 前换掉 gpt-5.5</b>：GPT-5.5 从 ChatGPT 和 Codex 退役，保存的模型设置、custom agents、定时任务里的 <code>gpt-5.5</code> 要改成 <code>gpt-6-sol</code>。</li>
-      <li><b>三订阅各干各的，别互相越界。</b>出画面 → 豆包工作；真改文件 → Codex；读本地资产 + 出规范文档 → WorkBuddy。详见 09。</li>
+      <li><b>四份订阅各干各的，别互相越界。</b>出画面 → 豆包工作；真改文件 → Codex；读本地资产 + 出规范文档 → WorkBuddy。详见 §05。</li>
       <li><b>别把文本活烧在豆包额度上。</b>豆包硬墙是 5h / 7d 滚动窗口，而 WorkBuddy 侧 hy4-preview-f 免费到 10-10、hy3 免费到 10-31。</li>
       <li><b>模型退役要跟。</b>DeepSeek V4-Pro 已于 9-10 退役、<code>deepseek-v4-pro</code> 现在只是 V4.1 Flash 的别名——<b>成本核算按 Flash 算</b>。任何提到某个模型的结论都要带构建日期。</li>
       <li><b>关键交付期留备选。</b>智谱 2026-02 有过算力危机（限制新注册），glm-5.3-flash 是本册性价比之王但产能是真瓶颈，配hy3-x 或 space-bunny 兜底。</li>
@@ -2111,7 +2053,7 @@ footer .stamp{margin-top:var(--s-5);padding-top:var(--s-3);border-top:1px solid 
     </div>
     <div>
       <h4>数据来源</h4>
-      <p style="margin:0">Codex 额度与模型阵容：OpenAI Codex 定价页与帮助中心（2026-10-01 核对）；第三方实测来自 Endor Labs、Bug Hunt Bench、Spectrum AI Labs（2026-10-04）。｜<b>豆包工作额度与模型可用性：官方说明 + 产品面板实测（2026-10-06 核对）</b>——标准套餐为免费版 5 倍额度，加强 20 倍、高级 50 倍；<b>5 小时 / 7 天滚动用量上限为实际硬墙</b>；Seedream 5.0 Pro 与 Seedance 2.5 标准套餐均可用，Pro 单张消耗为 Flash 的 4 倍。第三方整理站的额度数值不可靠，本册已弃用。｜<b>厂商档案（§10）</b>：DeepSeek 官方 change-log 与模型卡、阿里云栖大会 2026-09-22 披露、智谱港交所公告与 B17News 报道、月之暗面 Kimi K3 官方博客与 Hugging Face 模型卡、腾讯混元官方发布、B17 News / RiverCore / AI Seek Guide / AI Wiki（均为 2026-07 至 09 公开报道）。｜<b>第二批厂商档案</b>：Anthropic 官方博客与 pricing 页、OpenAI 官方发布与 API 定价页、小米 MiMo 官方发布页（mimo.xiaomi.com，RL 成本与 benchmark 原始数据）、JetBrains 2026 开发者生态调研（15,000+ 样本）、Epoch AI / WSJ / Bloomberg / Forkast / AInvest / Uvik Software / creditforstartups（2026-09 至 10 公开报道与评测）。<b>特别注意：厂商财务、估值、ARR、采用率数据均为第三方整理或厂商自报，带有明确时效性；Astra 上市时未登上任何独立榜单，MiMo 与 Anthropic 的 benchmark 属厂商自测。</b><b>厂商财务与估值数据为第三方整理，已标注来源与日期；涉及股价跌幅等市场数据具时效性。</b>｜WorkBuddy 内部倍率与模型定义：本地配置缓存 <code>~/.workbuddy/local_storage/entry_d43e...info</code>（服务端下发，57 条模型定义）；OpenRouter 周调用量榜单（截至 2026-10-04 周）；模型层外部信息来自厂商官方页面与公开报道（腾讯混元、智谱、DeepSeek、阶跃星辰、MiniMax、火山引擎、阿里云百炼、OpenAI、Anthropic 及 Artificial Analysis / AI BENCHY / CellCog / 智东西 / 爱范儿等第三方评测，2026-08 至 10）。</p>
+      <p style="margin:0">Codex 额度与模型阵容：OpenAI Codex 定价页与帮助中心（2026-10-01 核对）；第三方实测来自 Endor Labs、Bug Hunt Bench、Spectrum AI Labs（2026-10-04）。｜<b>豆包工作额度与模型可用性：官方说明 + 产品面板实测（2026-10-06 核对）</b>——标准套餐为免费版 5 倍额度，加强 20 倍、高级 50 倍；<b>5 小时 / 7 天滚动用量上限为实际硬墙</b>；Seedream 5.0 Pro 与 Seedance 2.5 标准套餐均可用，Pro 单张消耗为 Flash 的 4 倍。第三方整理站的额度数值不可靠，本册已弃用。｜<b>厂商档案（§06）</b>：DeepSeek 官方 change-log 与模型卡、阿里云栖大会 2026-09-22 披露、智谱港交所公告与 B17News 报道、月之暗面 Kimi K3 官方博客与 Hugging Face 模型卡、腾讯混元官方发布、B17 News / RiverCore / AI Seek Guide / AI Wiki（均为 2026-07 至 09 公开报道）。｜<b>厂商档案（§06）海外厂商来源</b>：Anthropic 官方博客与 pricing 页、OpenAI 官方发布与 API 定价页、小米 MiMo 官方发布页（mimo.xiaomi.com，RL 成本与 benchmark 原始数据）、JetBrains 2026 开发者生态调研（15,000+ 样本）、Epoch AI / WSJ / Bloomberg / Forkast / AInvest / Uvik Software / creditforstartups（2026-09 至 10 公开报道与评测）。<b>特别注意：厂商财务、估值、ARR、采用率数据均为第三方整理或厂商自报，带有明确时效性；Astra 上市时未登上任何独立榜单，MiMo 与 Anthropic 的 benchmark 属厂商自测。</b><b>厂商财务与估值数据为第三方整理，已标注来源与日期；涉及股价跌幅等市场数据具时效性。</b>｜WorkBuddy 内部倍率与模型定义：本地配置缓存 <code>~/.workbuddy/local_storage/entry_d43e...info</code>（服务端下发，57 条模型定义）；OpenRouter 周调用量榜单（截至 2026-10-04 周）；模型层外部信息来自厂商官方页面与公开报道（腾讯混元、智谱、DeepSeek、阶跃星辰、MiniMax、火山引擎、阿里云百炼、OpenAI、Anthropic 及 Artificial Analysis / AI BENCHY / CellCog / 智东西 / 爱范儿等第三方评测，2026-08 至 10）。</p>
     </div>
   </div>
   <p class="stamp">免责声明：美元价格按 1 USD ≈ 7.2 CNY 估算，仅供量级参考 · WorkBuddy 侧倍率、促销与可用模型由服务端持续下发，会随官方调整变动，请以客户端内实际显示为准 · 免费 / 折扣期调用量会被显著放大，跨期对比需剔除价格因素 · 标注「厂商自测」的数据不具备与第三方数据直接可比性。</p>
