@@ -577,7 +577,7 @@ footer .stamp{margin-top:var(--s-5);padding-top:var(--s-3);border-top:1px solid 
 <div class="wrap">
 
 <header class="deck">
-  <p class="deck-kicker">Model Layer · 模型层选型手册 v16</p>
+  <p class="deck-kicker">Model Layer · 模型层选型手册 v17</p>
   <h1>模型层<br><span class="zh thin">该调谁，跑多少</span></h1>
   <p class="deck-lede">本册只解决<b>模型层</b>：WorkBuddy 内置 19 个可手动指定模型的倍率与规格、外部四大阵营横评、以及每个模型的<b>详细档案 / 近期新闻 / 第三方口碑</b>，以及你已付费的 <b>ChatGPT Plus 内含 Codex</b>、<b>三份订阅该各干什么</b>（见 09），以及<b>六家厂商各自的打法与资本状态</b>（见 10）。跨层选型按 <b>Agent → 平台 → 模型</b> 的顺序走；平台层（8 家 AI 生图 / 视频平台年会员单价折算）见 <a href="https://futuredesignw.github.io/agent-platform-model-playbook/ai-creative-platforms.html">ai-creative-platforms.html</a>。</p>
   <div class="snapshot">
@@ -591,6 +591,7 @@ footer .stamp{margin-top:var(--s-5);padding-top:var(--s-3);border-top:1px solid 
     <span class="chip new">v10 新增：调用量实榜 + 11 张模型档案 + 新闻与口碑</span>
     <span class="chip hot">v11 新增：Codex 纳入对比（你的 Plus 已含）</span>
     <span class="chip hot">v12 新增：三订阅任务分配（豆包工作 ¥68 / Plus $20 / WorkBuddy）</span>
+    <span class="chip hot">v17 更新：新增千问 Token Plan（第四份）· 额度已见底</span>
     <span class="chip hot">v13 新增：六家厂商档案（DeepSeek / 智谱 / 千问 / 腾讯混元 / 月之暗面 / MiniMax·阶跃）</span>
     <span class="chip new">v14 修复：目录溢出被裁（改为换行 + 窄屏可折叠）</span>
     <span class="chip hot">v15 新增：OpenAI / Anthropic / Claude Code / 小米 MiMo 四家厂商档案</span>
@@ -1068,7 +1069,111 @@ footer .stamp{margin-top:var(--s-5);padding-top:var(--s-3);border-top:1px solid 
       <div class="d-verdict"><span class="lb">腾子判断</span><p><b>写作与审美描述优先它，跑量永远别用它。</b>kimi-k2.7 / k2.8 的中英语感和细腻度在本册里最好，做 IP 角色 prompt、双语剧本、成稿润色是对的选择；但 ×0.52 起、K3 更是 ×1.62，拿它跑批量小活等于烧积分。</p></div>
     </article>
 
-  </div>
+      <article class="dossier flag" style="--camp:#B08AD4">
+      <div class="d-top">
+        <div class="d-id">
+          <h3>qwen3.8-max <code>qwen3.8-max</code> <span class="tag t-live">你有 Token Plan</span></h3>
+          <p class="aka">阿里千问旗舰 · 2.4T 总参/ 95B 激活 · 1M 上下文 · <b>2026-08-03 正式版</b> · 唯一全窗口统一价（不按长度跳档）</p>
+          <p class="verdict-inline"><b>你已买的 Token Plan 里，它是日间最该用的那一档</b> —— 因为个人版对旗舰预览模型有<b>阶梯折扣</b>，白天 1 折、夜间 0.2 折。这条折扣比任何选型技巧都值钱。</p>
+        </div>
+        <div class="d-specs">
+          <div><b>2.4T</b><span>总参数</span></div>
+          <div><b>95B</b><span>每 token 激活</span></div>
+          <div><b>1M</b><span>上下文（262K 原生外推）</span></div>
+          <div><b>¥12 / ¥36</b><span>输入 / 输出（元每百万）</span></div>
+          <div><b>1折</b><span>Token Plan 日间折扣</span></div>
+          <div><b>0.2 折</b><span>Token Plan 夜间（22-08）</span></div>
+          <div><b>AA 45</b><span>综合智能指数</span></div>
+          <div><b>RSI 33轮</b><span>自主迭代（+12.5%）</span></div>
+        </div>
+      </div>
+      <div class="d-body">
+        <div>
+          <h4>按量 API 价格（华北2 北京，元每百万 token）</h4>
+          <div class="tbl-wrap" style="border:none;background:transparent">
+            <table style="min-width:0">
+              <thead><tr><th>模型</th><th>输入</th><th>输出</th><th>缓存命中</th><th>上下文</th><th>定位</th></tr></thead>
+              <tbody>
+              <tr class="hl"><td><b>qwen3.8-max</b></td><td class="num"><b>12</b></td><td class="num"><b>36</b></td><td class="num">1.5</td><td>1M（统一价）</td><td>旗舰推理</td></tr>
+              <tr><td>qwen3.7-max（限时5折）</td><td class="num">6</td><td class="num">18</td><td class="num">0.6</td><td>—</td><td><b>比新旗舰便宜一半</b></td></tr>
+              <tr><td>qwen3.7-plus（限时8折）</td><td class="num">1.6</td><td class="num">6.4</td><td class="num">0.32</td><td>≤256K</td><td>多模态 Agent 工作马</td></tr>
+              <tr><td>qwen3.8-flash</td><td class="num">0.8</td><td class="num">2.7</td><td class="num">0.1</td><td>1M</td><td><b>性价比主力</b></td></tr>
+              <tr><td>qwen3.7-flash</td><td class="num">0.2</td><td class="num">0.8</td><td class="num">0.04</td><td>—</td><td>最低成本</td></tr>
+              <tr><td>qwen-long</td><td class="num">0.5</td><td class="num">2</td><td class="dash">不支持</td><td>超长</td><td>大批量长文档，支持 Batch 5 折</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="hint" style="margin-top:12px"><b>一个反直觉点：qwen3.7-max 现在比 qwen3.8-max 便宜一半</b>（限时 5 折，¥6/¥18 vs ¥12/¥36）。阿里没公布折扣结束日 —— <b>长期预算要按原价 ¥12/¥36 算，别把促销当常态</b>。国际端（新加坡）按量价是 $2.00/$6.00。</p>
+        </div>
+        <div>
+          <h4>能力与第三方评价</h4>
+          <ul class="list" style="margin-top:0">
+            <li><b>RSI 递归自我改进</b>是本册所有模型里最值得记住的一条：Qwen3.8-Max 在<b>人类完全零参与</b>下自主搭训练流程、构造数据、设计实验，<b>持续迭代超1 个月、33 轮</b>，AA 得分 <b>40 → 45（+12.5%）</b>，反超 GLM-5.3 与 Kimi K3。</li>
+            <li>另两个自主实验：<b>在从未见过的平头哥新款 GPU 上自主完成推理框架适配，单实例吞吐 +96%</b>；仅凭一份总线模块规范自主运行 <b>60+ 小时、调用 EDA 工具超万次</b>，把芯片面积优化掉 <b>42%</b>。</li>
+            <li>负责人刘大一恒自限：RSI 只是「初步进入」训练与推理环节，<b>并非成熟无人化状态</b>。</li>
+          </ul>
+          <blockquote class="quote"><p>PaperBench 93.0、OSWorld 86.1（§04 阵营表已列）。<b>但独立评测显示 Hy4盲测 2.99 领先时，千问在通用基准上被拉开差距</b> —— 厂商自测只覆盖自家擅长的工程任务。</p><cite>多源交叉 · 2026-08至 09</cite></blockquote>
+        </div>
+      </div>
+      <div class="d-verdict"><span class="lb">腾子判断</span><p><b>你的 Token Plan 应该优先用Max 跑夜间批量，Flash 跑白天交互。</b>理由是阶梯折扣：<b>Max 日间 1 折、夜间 0.2 折；夜间比日间再省 5 倍</b>。所以正确姿势是——<b>白天用 Flash 调通逻辑，夜里把要跑的批量任务交给 Max 挂机</b>。这一条能把你剩下 0.3% 的额度用出最大价值。<br><br><b>但更重要的提醒在下一张卡</b>：你的额度已经见底了。</p></div>
+    </article>
+
+    <article class="dossier" style="--camp:#9A6DD7">
+      <div class="d-top">
+        <div class="d-id">
+          <h3>千问 Token Plan <span class="tag t-max">你的额度已见底</span></h3>
+          <p class="aka">阿里云百炼个人版 · <b>Credits 统一计量</b>（不是 token 数）· 你的状态：<b>生效中 · 剩余 0.3%</b></p>
+          <p class="verdict-inline"><b>先说结论：你的额度在 15 天内会耗尽，而且额度不结转。</b>截图显示剩余 0.3%、剩余 15 天、到期 2026-10-22。这个组合意味着这一个月基本已经用完了。</p>
+        </div>
+        <div class="d-specs">
+          <div><b>0.3%</b><span>你的剩余额度</span></div>
+          <div><b>15 天</b><span>剩余天数</span></div>
+          <div><b>10-22</b><span>订阅周期到期</span></div>
+          <div><b>09-21</b><span>本期开通时间</span></div>
+          <div><b>Credits</b><span>计量单位（非 token）</span></div>
+          <div><b>不结转</b><span>未用额度清零</span></div>
+        </div>
+      </div>
+      <div class="d-body">
+        <div>
+          <h4>⚠️ 你现在的处境：三个动作要立刻做</h4>
+          <ol class="timeline">
+            <li><time>现在</time><b>调用会被直接阻断</b>。Token Plan 额度用完后<b>不会随用随付</b>，请求直接被拦。三种恢复方式：等下个订阅月、升档、或买用量包。</li>
+            <li><time>现在</time><b>检查是否误走了按量计费通道</b>。官方明确列了三个常见原因：① 开通 Token Plan <b>之前</b>的调用属独立计费、<b>无法事后抵扣</b>；② <b>没用 Token Plan 专属 API Key 和 Base URL</b>（误用了百炼通用 dashscope.aliyuncs.com 会走随用随付）；③ 调了<b>白名单外的模型</b>（如 Qwen3-VL-Plus 及部分子型号）。</li>
+            <li><time>10-22 前</time><b>决定升档还是降档</b>。你现在这个月的消耗速度明显超过该档位配额——<b>15 天就用完了整月额度，说明实际用量至少是配额的 1.5–2 倍</b>，不是「偶尔超一点」。</li>
+          </ol>
+          <p class="hint" style="margin-top:12px"><b>一个容易被忽略的成本项：夜间 0.2 折如果你没在用，等于白扔了 5 倍折扣。</b>你的批量任务（达芬奇脚本批处理、NAS 目录整理、提示词批量改写）完全适合放22:00–08:00 跑。</p>
+        </div>
+        <div>
+          <h4>个人版四档配额（官方 FAQ 数据）</h4>
+          <div class="tbl-wrap" style="border:none;background:transparent">
+            <table style="min-width:0">
+              <thead><tr><th>档位</th><th>月限额</th><th>每 5 小时</th><th>并发 Agent</th><th>限时价</th><th>原价</th><th>适合谁</th></tr></thead>
+              <tbody>
+              <tr><td>Lite</td><td class="num">11,500</td><td class="num">700</td><td class="num">1–2</td><td class="num">¥39</td><td>¥60</td><td>轻度测试、少量调试</td></tr>
+              <tr class="hl"><td><b>Standard</b></td><td class="num"><b>45,000</b></td><td class="num">3,000</td><td class="num">3–4</td><td class="num">¥139</td><td>¥180</td><td>日常高频开发</td></tr>
+              <tr><td>Essential</td><td class="num">25,500</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td>介于Lite 与 Standard 之间</td></tr>
+              <tr><td>Pro</td><td class="num">180,000</td><td class="num">12,000</td><td class="num">6–8</td><td class="num">¥499</td><td>¥600</td><td>重度原型、多智能体并行</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="hint" style="margin-top:12px"><b>换算关系要分清：Credits 不是 token。</b>不同模型、思考模式、是否多模态、是否调工具，<b>抵扣系数不同</b>——旗舰模型和多模态任务消耗更多 Credits。所以「45,000 Credits 能跑多少 token」没有固定答案，取决于你用哪个模型、想多久。</p>
+        </div>
+        <div>
+          <h4>四条容易踩的规则</h4>
+          <blockquote class="quote"><p><b>① 额度按订阅月重置，不是自然月 1 号。</b>以你 09-21 开通为起点，每 30 天一个周期，下次重置在 <b>10-21 前后</b>，与到期日 10-22 差一天。<b>不要指望「月初满血」。</b></p><cite>官方 FAQ</cite></blockquote>
+          <blockquote class="quote"><p><b>② 官方额度口径存在两个版本，你按哪个算都可能不准。</b>一条路径说「7 天滚动窗口」（每 7 天 2,500/10,000/40,000 Credits），另一条（更新的 FAQ）说「<b>月限额</b>、无周限制」（11,500/45,000/180,000 Credits，<b>并注明 2026-09-22 起个人版改为订阅月配额、取消周配额</b>）。<b>你的截图显示的是「月额度 / 重置时间 2026-10-22」，说明你账号执行的是月限额版。</b>以你面板显示为准。</p><cite>阿里云官方 FAQ + 开发者社区 · 2026-09</cite></blockquote>
+          <blockquote class="quote"><p><b>③ 个人版不提供子账号席位</b>，仅支持单账号。你带 7 人团队的话，<b>这一档只能给你自己用，团队要共享得走团队版席位制</b>（标准席 ¥150/席/月起，按自然月重置、每席独立 Credits，可后台分配席位 + 额度告警）。</p><cite>官方 FAQ</cite></blockquote>
+          <blockquote class="quote"><p><b>④ FAQ 明确限制：个人版仅限个人交互式开发</b>，排除生产自动化、批量脚本和定时后台任务。<b>你用 Codex / Claude Code 挂机跑批处理，严格说超出了个人版的授权范围</b>——这正是官方提示「仍产生按量计费」的原因之一。</p><cite>官方 FAQ · 2026-09</cite></blockquote>
+        </div>
+      </div>
+      <div class="d-verdict"><span class="lb">腾子判断</span><p><b>三条动作，按优先级：</b><br>
+      <b>① 立刻查是不是走错了计费通道（今天就做）。</b>按官方列的三个原因逐项排：Key 和 Base URL 是否是 Token Plan 专属、有没有调白名单外的模型（比如 Qwen3-VL-Plus）。<b>如果是配置错误，你之前的按量费用已经产生了、不能抵扣 —— 但修好之后至少不再继续漏。</b><br>
+      <b>② 决定升档还是买用量包（10-22 前）。</b>判断依据：<b>你 15 天用完整月配额，说明 Standard 档不够你。</b>两条路——升 Pro（¥499，4 倍额度 + 6–8 并发）适合你这种把 AI 挂机跑批的场景；或买用量包（20,000 Credits/包，叠加在订阅之上）应对短期峰值，<b>但它不解决「个人版不得用于生产自动化和批量脚本」这条限制</b>。<br>
+      <b>③ 把批量任务改到夜里跑。</b>夜间 0.2 折 = 白天的 1/20 消耗。<b>同样一份额度，夜间用能做五倍的活</b>。这条不花钱，但对你的 Token Plan 是最实的优化。<br><br><b>顺带一个判断：你的第四份订阅到了。</b>现在你有豆包工作 ¥68 + ChatGPT Plus $20 + WorkBuddy + 千问 Token Plan。<b>四份加起来每月固定支出已经不少，而其中 WorkBuddy 侧还有 hy4-preview-f（免费到 10-10）和 hy3 系列（免费到 10-31）——这意味着写文档、读 NAS 做拆解这类活本来可以免费做完。</b>建议下个月复盘时把四份的额度消耗拉在一起看，可能不是四份都必要。</p></div>
+    </article>
+
+</div>
 </section>
 
 <!-- ============ 03 四阵营总览 ============ -->
@@ -1188,8 +1293,8 @@ footer .stamp{margin-top:var(--s-5);padding-top:var(--s-3);border-top:1px solid 
 </section>
 
 <section class="rv" id="salloc">
-  <div class="sec-head"><span class="sec-num">06</span><h2>三订阅任务分配：把模型选择接回你的钱包</h2></div>
-  <p class="sec-sub">前面八节讲「哪个模型强」。这一节讲更实际的问题：<b>你已经付了三份订阅，哪些活该走哪一份。</b>按<b>产出物形态</b>分，不按模型强弱分——因为三份订阅有明确的能力独占，分错就是重复付费或能力浪费。</p>
+  <div class="sec-head"><span class="sec-num">06</span><h2>四份订阅任务分配：把模型选择接回你的钱包</h2></div>
+  <p class="sec-sub">前面几节讲「哪个模型强」。这一节讲更实际的问题：<b>你已经付了四份订阅，哪些活该走哪一份。</b>按<b>产出物形态</b>分，不按模型强弱分——因为三份订阅有明确的能力独占，分错就是重复付费或能力浪费。</p>
 
   <div class="grid g3" style="margin-bottom:var(--s-3)">
     <div class="tile" style="--camp:#D85A30">
@@ -1212,6 +1317,16 @@ footer .stamp{margin-top:var(--s-5);padding-top:var(--s-3);border-top:1px solid 
     </div>
   </div>
   <p class="hint"><b>结论：WorkBuddy 是主控台，豆包和 Codex 是执行端。</b> 拿不准就 WorkBuddy——它是唯一能同时看到你全部资产的地方，判断错了不会丢东西。</p>
+
+  <div class="grid g3" style="margin-top:var(--s-4);margin-bottom:var(--s-3)">
+    <div class="tile" style="--camp:#7B5BC4">
+      <h5>千问 Token Plan · 你的档位待定</h5>
+      <span class="ct">独占：夜间超低成本 + 旗舰折扣</span>
+      <p><b>Credits 统一计量</b>，一次订阅可调全系千问模型 + 第三方商用模型。旗舰预览模型<b>日间 1 折、夜间（22:00–08:00）0.2 折</b> —— 夜间比日间再省 5 倍。内置 Harness 工具（联网搜索、文搜图、图搜图、网页抓取、代码解释器），适配 Claude Code / Cursor / Qwen Code。</p>
+      <div class="kv"><b>你的额度仅剩 0.3%</b> · 10-22 到期 → 见 §03 Token Plan 卡</div>
+    </div>
+  </div>
+  <p class="hint"><b>第四份订阅带来的新分工维度：以前只有「按产出物形态分」，现在多了一条「按时间分」。</b>千问的夜间 0.2 折让「白天交互 / 夜间挂机」成为一条独立的分流规则 —— <b>白天用 Flash 调通逻辑，夜里把批量任务交给 Max 挂机</b>。这条对已付费的 Codex / Claude Code 也适用（不占额度、随便跑）。</p>
 
   <h4 style="font:700 var(--fs-xs)/1 var(--font-mono);text-transform:uppercase;letter-spacing:.18em;color:var(--text-3);margin:var(--s-5) 0 var(--s-3)">Seedream 四档：方向定了吗？</h4>
   <p class="sub" style="margin-bottom:var(--s-3)">标准套餐下四个版本都能选，<b>但消耗差 4 倍</b>。这是省额度最有效的一条判断。</p>
@@ -1865,7 +1980,9 @@ footer .stamp{margin-top:var(--s-5);padding-top:var(--s-3);border-top:1px solid 
       <tr><td>前端页面 / 组件</td><td><b>kimi-k2.8-preview</b></td><td>space-bunny</td><td>豆包 2.1-Pro（设计图还原）</td></tr>
       <tr><td>整仓重构 / 长跑 Agent</td><td>glm-5.3</td><td>glm-5.2（夜间）</td><td><b>Claude Opus 5.5</b> · 终端里改文件走 <b>Codex</b></td></tr>
       <tr><td>图片 / 截图理解</td><td>glm-5.3-flash</td><td>space-bunny、glm-5v-turbo</td><td>豆包 2.1-Pro（VLM）</td></tr>
-      <tr><td>超长文档（1M）</td><td>deepseek-v4.1-flash</td><td>hy4-preview-f、space-bunny</td><td>Qwen3.8-Max</td></tr>
+      <tr><td>超长文档（1M）</td><td>deepseek-v4.1-flash</td><td>hy4-preview-f、space-bunny</td><td><b>Qwen3.8-Max</b>（你已订阅，夜间 0.2 折）</td></tr>
+      <tr><td>夜间批量跑批 / 挂机任务</td><td class="dash">—</td><td>Codex Luna、Claude Code</td><td><b>千问 Token Plan Max</b>（22:00–08:00 仅 0.2 折）</td></tr>
+      <tr><td>多模态 Agent 工作马</td><td>glm-5v-turbo</td><td>glm-5.3-flash</td><td>qwen3.7-plus（你已订阅）</td></tr>
       <tr><td>数学 / 逻辑推理</td><td>deepseek-v4-pro</td><td>space-bunny（默认最高思考强度）</td><td>Claude Fable 5.1</td></tr>
       <tr><td>探索期出图：多方案 / 首帧 / 草图</td><td class="dash">—</td><td class="dash">—</td><td><b>豆包 Seedream 5.0 Flash</b>（×1）</td></tr>
       <tr><td>定稿出图：定妆照 / 主视觉 / 海报</td><td>ImageGen（混元）</td><td>Midjourney（风格一致性）</td><td><b>豆包 Seedream 5.0 Pro</b>（×4）</td></tr>
@@ -1979,6 +2096,8 @@ footer .stamp{margin-top:var(--s-5);padding-top:var(--s-3);border-top:1px solid 
       <li><b>别把文本活烧在豆包额度上。</b>豆包硬墙是 5h / 7d 滚动窗口，而 WorkBuddy 侧 hy4-preview-f 免费到 10-10、hy3 免费到 10-31。</li>
       <li><b>模型退役要跟。</b>DeepSeek V4-Pro 已于 9-10 退役、<code>deepseek-v4-pro</code> 现在只是 V4.1 Flash 的别名——<b>成本核算按 Flash 算</b>。任何提到某个模型的结论都要带构建日期。</li>
       <li><b>关键交付期留备选。</b>智谱 2026-02 有过算力危机（限制新注册），glm-5.3-flash 是本册性价比之王但产能是真瓶颈，配hy3-x 或 space-bunny 兜底。</li>
+      <li><b>有夜间折扣的活放夜里。</b>千问 Token Plan 的旗舰预览模型夜间（22:00–08:00）只收 <b>0.2 折</b>，日间 1 折 —— 同一份额度，夜间能做五倍的活。达芬奇脚本批处理、NAS 目录整理、提示词批量改写都该放夜里。</li>
+      <li><b>四份订阅每月复盘一次。</b>豆包 ¥68 + Plus $20 + WorkBuddy + 千问 Token Plan，固定支出已经不少，而 WorkBuddy 侧hy4-preview-f（免费到 10-10）和 hy3（免费到 10-31）本来能免费做完部分文本活。<b>拉在一起看消耗，可能不是四份都必要。</b></li>
       <li><b>该出去就出去</b>：整仓重构用 Claude Code、可控改图用 Seedream、自建服务用 Qwen 开源——不要在 WorkBuddy 里硬凑等价物。</li>
     </ul>
   </div>
