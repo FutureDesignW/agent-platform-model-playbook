@@ -299,6 +299,17 @@ td .mini{display:block;font-weight:400;color:var(--ink3);font-size:11.5px;white-
 /* ---------- 页脚 ---------- */
 footer{margin-top:80px;border-top:1px solid var(--line);background:var(--soft);padding:44px 0}
 footer p{font-size:12.5px;color:var(--ink3);line-height:1.9}
+
+/* ---------- 价格表完整显示（收窄侧栏 + 紧凑化） ---------- */
+.cols{grid-template-columns:168px minmax(0,1fr) 188px;gap:34px}
+#compare table{min-width:0}
+#compare th,#compare td{padding:6px 5px;font-size:11.5px;line-height:1.38;white-space:normal;word-break:break-word}
+#compare thead th{white-space:normal;font-size:10px;letter-spacing:.03em}
+#compare td .mini{font-size:10.5px}
+#compare .px{white-space:nowrap}
+/* 一手证据表（4 列）容器偏窄，用 fixed 布局保证完整显示 */
+#compare .card .scroll table{table-layout:fixed;width:100%}
+#compare .card .scroll th,#compare .card .scroll td{word-break:break-word}
 </style>
 </head>
 <body>
@@ -314,7 +325,7 @@ footer p{font-size:12.5px;color:var(--ink3);line-height:1.9}
     </p>
     <div class="hero-meta">
       <span class="chip hl">统一口径：图生视频（全指参考）</span>
-      <span class="chip">13 平台 · 45+ 套餐档位</span>
+      <span class="chip">14 平台 · 48+ 套餐档位</span>
       <span class="chip">秒价 ¥1.08 – ¥3.24</span>
       <span class="chip">数据核对于 2026.10.03</span>
     </div>
@@ -436,7 +447,7 @@ footer p{font-size:12.5px;color:var(--ink3);line-height:1.9}
     </div>
 
     <div class="tbl-wrap scroll">
-                        <table style="min-width:1300px">
+                        <table>
         <thead><tr>
           <th>平台 / 主表取用档位（各自取最接近 ¥3000–4000 的<b>真实档位</b>）</th><th>该档年订价</th><th>年含单位</th><th class="px">¥ / 单位</th>
           <th>单条消耗<br><span style="font-weight:400;text-transform:none;letter-spacing:0">（统一口径 10s 图生）</span></th>
@@ -497,6 +508,15 @@ footer p{font-size:12.5px;color:var(--ink3);line-height:1.9}
             <td class="px">¥1.99</td><td class="px">¥19.94</td><td class="px">602 条</td>
             <td>★★ 订阅页实测 ¥2999/季（53 折，¥11996/年）+ 188,000 星/月<span class="mini"><b>⚠ 与官方自报产能「5,371 秒视频/月」不自洽</b>，见下方口径分歧</span></td>
           </tr>
+          <tr style="background:#fffaf5">
+            <td><b>TapNow</b><span class="mini">取<b>Pro · 年付（$360/年）</b> · 低于预算区间 ¥908</span></td>
+            <td><b>¥2,592 / 年</b><span class="mini">$360 · ≈ ¥216 / 月</span></td>
+            <td class="px">72,000 Tapies<span class="mini">≈ 6,000 / 月</span></td>
+            <td class="px">¥0.0360</td>
+            <td>576 Tapies<span class="mini">57.6 单位/秒 · <b>⚠ 1080p 外推</b></span></td>
+            <td class="px">¥2.07</td><td class="px">¥20.7</td><td class="px">125 条</td>
+            <td>☆ 二手 + 外推<span class="mini">720p 满血（二手）240/10s = 24 单位/秒，1080p 按 ×2.4 外推；<b>需截生成页封死</b>。套餐比直充便宜一半（直充 1 USD = 100 Tapies）</span></td>
+          </tr>
           <tr>
             <td><b>OiiOii</b><span class="mini">取<b>STAR（¥239/月）</b> · 低于预算区间 ¥632</span></td>
             <td><b>¥2,868 / 年</b><span class="mini">≈ ¥239 / 月</span></td>
@@ -525,13 +545,6 @@ footer p{font-size:12.5px;color:var(--ink3);line-height:1.9}
             <td>★★ 生成页实测 375 积分/条（满血 VIP）<span class="mini">同档位官方另标「Seedance 2.0 1080P <b>优惠版</b> ≈0.75 元/秒」= 8.69 积分/秒 —— <b>满血是优惠版的 4.3 倍</b></span></td>
           </tr>
           <tr style="background:#fafbfe">
-            <td><b>有戏 AI</b><span class="mini">720p 口径参考行 · 不进主排序</span></td>
-            <td>¥698 / 年</td><td>83,760 算力<span class="mini">6,980 / 月</span></td><td class="px">¥0.0083</td>
-            <td>100 算力<span class="mini"><b>SD 2.0 Fast · 720p</b></span></td>
-            <td class="px worst">¥2.50</td><td class="px worst">¥25.0</td><td class="px">≈ 838 条</td>
-            <td>☆ 二手（待实测）<span class="mini">720p 非满血，与统一口径不可直接比</span></td>
-          </tr>
-          <tr style="background:#fafbfe">
             <td><b>可灵 Kling</b><span class="mini">自家模型参考行 · 不进主排序</span></td>
             <td>¥2,234 / 年<span class="mini">铂金年付 7 折，原价 ¥3,192</span></td>
             <td>36,000 灵感值<span class="mini">3,000 / 月</span></td><td class="px">¥0.0621</td>
@@ -545,11 +558,11 @@ footer p{font-size:12.5px;color:var(--ink3);line-height:1.9}
 
     <p style="font-size:13px;color:var(--ink-3);margin:12px 0 0">
       ⚠️ 抓取于 2026-10-03。<b>「年可出条数」＝年含单位 ÷ 单条消耗</b>，不含每日赠送、不含废片重生成。
-      <br><b>取档说明：</b>主表取的是各家<b>真实档位</b>，不是 ¥3500 这个虚构单价。<span class="hl">九家里只有小云雀高级年付 ¥3600 一家正好落在 ¥3000–4000 区间内</span>；LibTV ¥2999（差 ¥1）、Seko ¥2880（差 ¥120）、OiiOii ¥2868（差 ¥132）三家居其次，Shotlab ¥1998 与 Updream ¥1548 明显偏低，NeoWOW 是按季卡 ¥2999/季 年化 ¥11,996、即梦 ¥5199、万兴剧厂 ¥5699 明显偏高 —— 跨预算比 ¥/秒 仍然有效，比年条数要打折看。
+      <br><b>取档说明：</b>主表取的是各家<b>真实档位</b>，不是 ¥3500 这个虚构单价。<span class="hl">十家里只有小云雀高级年付 ¥3600 一家正好落在 ¥3000–4000 区间内</span>；LibTV ¥2999（差 ¥1）、Seko ¥2880（差 ¥120）、OiiOii ¥2868（差 ¥132）三家居其次，Shotlab ¥1998 与 Updream ¥1548 明显偏低，NeoWOW 是按季卡 ¥2999/季 年化 ¥11,996、即梦 ¥5199、万兴剧厂 ¥5699 明显偏高 —— 跨预算比 ¥/秒 仍然有效，比年条数要打折看。
       <br><b>四家订阅页直读（本版新增）：</b>小云雀高级年付 <b>¥3600/年（划线 ¥7199，5.1 折）+ 8,600 积分/月</b>，官方自报「Seedance 2.0 VIP ¥0.44 起/秒」；Seko 高级会员 1 年 <b>¥2880/年（划线 ¥3600）+ 36,000 积分/年</b>，赠 Seedance 2.0 年 3,000 秒 / Happy Horse 1.1 年 7,200 秒额度；NeoWOW MAX <b>¥2999/季（53 折）+ 188,000 星/月</b>，官方自报「月最多生成约 6,264 张图片 | 5,371 秒视频」；<b>万兴剧厂专业版 ¥5699/年 + 5,500 积分/月（1 积分 = ¥0.086），是唯一把「元/秒」直接标在订阅页的平台</b>。
       <br><b>万兴剧厂口径（本版新增 · 四条数字互推自洽）：</b>生成页实测满血 <b>375 积分/条</b>（SD 2.0 VIP · 9:16 · 1080P · 10s · 1 个）→ ¥32.38/条、¥3.24/秒；反推 1 积分 = 5699 ÷ 66,000 = <b>¥0.086</b>，与订阅页标注一致；再用官方「优惠版 1080P ≈0.75 元/秒」反算 = 8.69 积分/秒，5,500 ÷ 8.69 = <b>633 秒/月</b>，与订阅页「Seedance2.0 1080P 优惠版视频 633 秒」完全吻合。<b>三条独立数字互相锁死，这家的数据可信度是全站最高的。</b>但它是<b>全场最贵的一家</b>——同一个模型降到「优惠版」只要 ¥0.75/秒，<b>满血比优惠版贵 4.3 倍</b>；想省钱必须主动降模型/降通道。
       NeoWOW 的 3750 星/条 实测值与它自报的 5,371 秒/月 产能<b>不自洽</b>（反算应为 ≈350 星/条），本表沿用实测值，需再截一次参数面板封死；Seko ¥2880 是限时折后价，回到原价 ¥3600 就是 ¥2.78/秒。
-      有戏 AI 只有 720p 口径、可灵跑的是自家模型（视频 3.0 Omni），两条都作参考行列在表底，不进主排序。<span class="hl">但可灵铂金 ¥0.74/秒 是「接受非 Seedance 模型」路线的全场最低价</span>——比最便宜的 Seedance 档（LibTV ¥1.08）还低 31%，代价是绑定快手自家的 Kling 生态；Krea / OpenArt / Lovart / 星流 / WHEE / 海螺 只卖图文或只做自家模型，不进本表（见「聚合全景」）。
+      可灵跑的是自家模型（视频 3.0 Omni），作参考行列在表底，不进主排序。<span class="hl">可灵铂金 ¥0.74/秒 是「接受非 Seedance 模型」路线的全场最低价</span>——比最便宜的 Seedance 档（LibTV ¥1.08）还低 31%，代价是绑定快手自家的 Kling 生态。<b>TapNow 是本轮新进榜的 ⚠ 外推行</b>——它家 1080p 消耗还没拿到实测，表里按 720p 二手实测 ×2.4 外推（同即梦 14→33 / OiiOii 14→35 的倍率），<b>拿到生成页预估前别按这个数下单</b>。Krea / OpenArt / Lovart / 星流 / WHEE / 海螺 只卖图文或只做自家模型，不进本表（见「聚合全景」）。
     </p>
 
     <!-- 档位 × 口径 -->
@@ -561,7 +574,7 @@ footer p{font-size:12.5px;color:var(--ink3);line-height:1.9}
         <span class="hl">小云雀本轮订阅页改了口径</span>——高级会员年付是 <b>¥3600/年（8,600 积分/月）</b>，不再是旧口径的 ¥379/¥759 配 1,200 积分；Seko 高级会员 1 年是 <b>¥2880/年 含 36,000 积分</b>，NeoWOW 只有 <b>MAX ¥2999/季 含 188,000 星/月</b> 这一条贴近预算的档。<b>万兴剧厂（本版新增）</b>专业版年付 <b>¥5699/年 含 5,500 积分/月</b>，1 积分 ¥0.086 是全站第二贵的单位单价（仅次于 Seko ¥0.0800 之上）；它家没有 ¥3000–4000 的年付档，¥5699 是最接近的真实档。
       </p>
       <div class="tbl-wrap scroll">
-        <table style="min-width:1020px">
+        <table>
           <thead><tr><th>平台</th><th>档位</th><th>月订价</th><th>套餐单位 / 月</th><th>¥/单位</th><th class="px">单条 ¥</th><th class="px">月出条数</th><th>备注</th></tr></thead>
           <tbody>
             <tr><td rowspan="4"><b>即梦 AI</b><span class="mini">统一消耗 330 积分/条<br>（1080p 图生实测）</span></td>
@@ -601,7 +614,7 @@ footer p{font-size:12.5px;color:var(--ink3);line-height:1.9}
     <div class="blk" style="margin-top:34px">
       <div class="blk-t" style="color:#5b3fd6">为什么「同一个 Seedance 2.0」能差 30 倍：五个变量（同一家平台内部实测）</div>
       <div class="tbl-wrap scroll">
-        <table style="min-width:940px">
+        <table>
           <thead><tr><th>变量</th><th>典型取值</th><th>对单条消耗的影响</th><th>证据</th></tr></thead>
           <tbody>
             <tr><td><b>参考模式</b><span class="mini">← 本表统一口径定在这一项</span></td><td>纯文生 / 图生（全指）/ 全能参考（视频参考）</td><td><b>×2 ~ ×3</b></td><td>即梦同档：图生 330 → 全能参考 594（<b>×1.80</b>）；Seko：278 → 556（<b>×2.00</b>）</td></tr>
@@ -620,13 +633,13 @@ footer p{font-size:12.5px;color:var(--ink3);line-height:1.9}
     </div>
 
     <!-- 一手证据 -->
-    <div class="card" style="--bar:#3d5afe;padding:28px 30px;margin-top:34px">
+    <div class="card" style="--bar:#3d5afe;padding:20px 18px;margin-top:34px">
       <div class="blk-t" style="color:var(--accent)">一手证据：这些数字来自后台下单前预估，不是评测文</div>
       <p style="font-size:14px;color:var(--ink-2);margin:0 0 14px">
         以下八组是<b>生成页的实时预估</b>，是唯一封死价格的一手证据。前三张是你提供后台截图，后三张是你导出的 PDF，第五组是万兴剧厂（生成页 + 订阅页，四条数字互推自洽），第六组是可灵（生成页 + 铂金订阅页）。
       </p>
       <div class="tbl-wrap scroll">
-        <table style="min-width:1000px">
+        <table>
           <thead><tr><th>来源</th><th>界面参数</th><th>预估消耗</th><th>折算后单条 ¥</th><th>说明</th></tr></thead>
           <tbody>
             <tr style="background:#f6fbf7"><td><b>Shotlab 后台</b></td><td>全能参考 · <b>Seedance 2.0</b> · 1080P · 9:16 · <b>10s · 音频开</b></td><td><b>◆360 创作币</b></td><td>超级会员年卡 ¥12.0<span class="mini">¥398 卡 ¥119.4 · ¥8888 卡 ¥9.3</span></td><td>官方年卡只有 ¥398 / ¥1998 / ¥6799 / ¥8888，¥3000–4000 是空档</td></tr>
@@ -654,7 +667,7 @@ footer p{font-size:12.5px;color:var(--ink3);line-height:1.9}
     <div class="card" style="--bar:#d9534f;padding:28px 30px;margin-top:26px">
       <div class="blk-t" style="color:#d9534f">统一口径之后，能下的七个结论</div>
       <ul style="margin-top:12px">
-        <li><span class="hl">按各自真实档位算，¥3000–4000 附近的秒价区间是 ¥1.08 – ¥3.24（3.0 倍），排序：<b>LibTV ¥1.08 &lt; 小云雀 ¥1.15 &lt; 即梦 ¥1.16 &lt; Shotlab ¥1.20 &lt; Updream ¥1.95 &lt; NeoWOW ¥1.99 &lt; OiiOii ¥2.13 &lt; Seko ¥2.22 &lt; 万兴剧厂 ¥3.24</b></span>。<span class="hl">九家里有且只有小云雀高级年付 ¥3600 一家真正落在 ¥3000–4000 区间内</span>，LibTV ¥2999（差 ¥1）与 Seko ¥2880（差 ¥120）紧随其后，即梦 ¥5199、万兴剧厂 ¥5699 是两个远超区间的高档。<b>前三名挤在 ¥1.08–1.20 这 0.12 元里，实际区分度靠的不是单价。</b></li>
+        <li><span class="hl">按各自真实档位算，¥3000–4000 附近的秒价区间是 ¥1.08 – ¥3.24（3.0 倍），排序：<b>LibTV ¥1.08 &lt; 小云雀 ¥1.15 &lt; 即梦 ¥1.16 &lt; Shotlab ¥1.20 &lt; Updream ¥1.95 &lt; NeoWOW ¥1.99 &lt; TapNow ¥2.07 ⚠ &lt; OiiOii ¥2.13 &lt; Seko ¥2.22 &lt; 万兴剧厂 ¥3.24</b></span>。<span class="hl">十家里有且只有小云雀高级年付 ¥3600 一家真正落在 ¥3000–4000 区间内</span>，LibTV ¥2999（差 ¥1）与 Seko ¥2880（差 ¥120）紧随其后，即梦 ¥5199、万兴剧厂 ¥5699 是两个远超区间的高档。<b>前三名挤在 ¥1.08–1.20 这 0.12 元里，实际区分度靠的不是单价。</b></li>
         <li><span class="hl">比单价更狠的是产能：年 129 – 602 条（月 10.8 – 50.1 条），差 4.7 倍。</span> NeoWOW MAX 年出 <b>602 条</b>断层第一（¥2999/季 给 188,000 星/月），即梦高级（¥5199）448 条、小云雀高级（¥3600）313 条、LibTV 旗舰 279 条同属第一梯队；<b>垫底的是 Seko 129 条、OiiOii 135 条</b>——Seko 表面是 ¥2880/年，但 36,000 积分除以 278 积分/条就只剩 129 条。<b>按「3 条废片换 1 条成片」折算，这一档预算≈ 43 – 200 条成片。</b></li>
         <li><span class="hl">LibTV / 即梦 / Shotlab / 小云雀 是这一档的四个最优解，门槛各不相同。</span> LibTV ¥/积分最低（¥0.0158）但实测 680 积分/条（文生口径，图生待补）；即梦 ¥0.0352/积分、消耗只有 330 积分/条，口径最干净；Shotlab 靠 ¥1998 年卡把 360 创作币压到 ¥0.0333；<span class="hl">本轮新进榜的小云雀最高性价比 —— ¥3600/年 给 8,600 积分/月 = ¥0.0349/积分、月出 26.1 条</span>，而且<b>是唯一档位正好落在预算带内的</b>，只是次年 ¥7199 直接翻倍。<b>要确定性选即梦，要单价选 LibTV，要「预算带内现成档位」选小云雀。</b></li>
         <li><span class="hl">Shotlab 与 Seko 是这一档的两个价格陷阱，方向相反。</span> Shotlab 是<b>年卡越贵单条越便宜</b>（同为 360 币/条：¥398 卡 ¥119.4/条 → ¥1998 卡 ¥12.0/条 → ¥8888 卡 ¥9.3/条）；Seko 相反 —— ¥2880（限时）¥22.2/条、¥3600（原价）¥27.8/条，还只送 3,000 秒 Seedance 2.0，<b>满血档一年最多 300 条就是它家给的上限</b>。两家都得知道自己在买折扣还是买额度。</li>
@@ -722,7 +735,7 @@ footer p{font-size:12.5px;color:var(--ink3);line-height:1.9}
           <div class="price-note">
             <b>订阅页实测：</b>高级会员 年付 <b>¥3600/年</b>（5.1 折，¥300/月），含 <b>+8,600 积分/月</b>，专属权益页自报「SD 2.0 VIP ¥0.44 起/秒」<br>
             包月 ¥419/月；<b>次年续费 ¥7199/年</b> —— <span class="hl">首年价翻 2 倍，这是它家最大的坑</span><br>
-            <b>取高级年付 ¥3600/年（九家里唯一真正落在 ¥3000–4000 区间内的档位）：¥1.15/秒 · ¥11.51/条 · 年出 313 条</b><span class="mini">（¥/积分 ¥0.0349；官方「起/秒」口径反算只有 126 积分/条，与实测 330 差 2.6 倍）</span>
+            <b>取高级年付 ¥3600/年（十家里唯一真正落在 ¥3000–4000 区间内的档位）：¥1.15/秒 · ¥11.51/条 · 年出 313 条</b><span class="mini">（¥/积分 ¥0.0349；官方「起/秒」口径反算只有 126 积分/条，与实测 330 差 2.6 倍）</span>
           </div>
         </div>
         <div class="blk">
@@ -732,7 +745,7 @@ footer p{font-size:12.5px;color:var(--ink3);line-height:1.9}
             <li>三类 Agent：短剧创作 / 通用创作 / 一栈式创意营销（剧情广告、达人带货）</li>
             <li>角色一致性 92 分，全局角色管理解决「前后一个脸」</li>
             <li>华策影视、柠萌影视已合作；创翊 5 人 8 天做 60 集漫剧</li>
-            <li><span class="hl">九家里唯一档位正好落在 ¥3000–4000 的</span>：¥3600/年 拿 8,600 积分/月，月出 26.1 条 1080p，单价 ¥0.0349/积分</li>
+            <li><span class="hl">十家里唯一档位正好落在 ¥3000–4000 的</span>：¥3600/年 拿 8,600 积分/月，月出 26.1 条 1080p，单价 ¥0.0349/积分</li>
           </ul>
         </div>
         <div class="verdict">
@@ -1023,7 +1036,7 @@ footer p{font-size:12.5px;color:var(--ink3);line-height:1.9}
     <div class="blk" style="margin-top:40px">
       <div class="blk-t" style="color:var(--accent)">能力矩阵速查（√ 已具备，括号内为相对强度）</div>
       <div class="tbl-wrap scroll">
-        <table style="min-width:1000px">
+        <table>
           <thead><tr><th>平台</th><th>无限/节点画布</th><th>角色一致性</th><th>多剧集连载</th><th>多模型聚合</th><th>社区 / 生态</th><th>团队协作</th></tr></thead>
           <tbody>
             <tr><td>即梦 AI</td><td>√ 智能画布（弱）</td><td>√√</td><td>—</td><td>√ 字节矩阵</td><td>√ 抖音/剪映联动</td><td>—</td></tr>
@@ -1431,7 +1444,8 @@ footer p{font-size:12.5px;color:var(--ink3);line-height:1.9}
             <tr style="background:#fff8f0"><td><b>万兴剧厂 Reelmate</b></td><td style="color:#0f9b6c"><b>✅ 实测封死</b></td><td>生成页 <b>SD 2.0 VIP · 9:16 · 1080P · 10s · 1 个 = 375 积分/条</b>（37.5/秒）；订阅页 <b>专业版 ¥5699/年 含 5,500 积分/月</b>（1 积分 = ¥0.086，官方标 633 秒/月）。<b>同档位「优惠版 1080P」≈0.75 元/秒，满血贵 4.3 倍</b></td><td><b>¥5699 / 年（专业版）</b> · ¥199/月 · 旧口径 ¥949</td></tr>
             <tr style="background:#f6fbf7"><td><b>可灵 Kling</b></td><td style="color:#0f9b6c"><b>✅ 实测封死</b></td><td>生成页 <b>视频 3.0 Omni · 多图参考 · 9:16 · 1080p · 10s · 音画同步 = 120 灵感值/条</b>（12/秒，与官方会员页「1080p 有音频 12」吻合）；订阅页 <b>铂金年付 ¥2234/年（7 折，原价 ¥3192）含 3,000 灵感值/月</b>，1 灵感值 = ¥0.0621，套餐口径已确认</td><td><b>¥2,234 / 年（铂金 7 折）</b> · ¥58 / ¥234 / ¥586 / ¥1149 月付</td></tr>
             <tr style="background:#f6fbf7"><td><b>Shotlab</b></td><td style="color:#0f9b6c"><b>✅ 已收实测</b></td><td>全能参考 + Seedance 2.0 + 1080P 9:16 10s + 音频开 = <b>360 创作币/条</b>；图生（不带参考）系数未测</td><td>¥398 / ¥1998 / ¥6799 / ¥8888 年卡四档</td></tr>
-            <tr><td><b>有戏 AI</b> / <b>海螺</b></td><td>❌ 待实测</td><td>要 1080p 图生口径的 10s 预估（现只有 720p / 自家模型的二手调研）</td><td>¥698 / ¥68–1399</td></tr>
+            <tr style="background:#fffaf5"><td><b>TapNow</b></td><td style="color:#e8a33d"><b>⚠ 二手 · 待实测</b></td><td>只有二手的 720p 满血消耗（5s/120 积分 = 24 单位/秒）；<b>1080p 按 ×2.4 外推为 576 Tapies/条</b>，需截生成页 1080p 10s 预估封死。套餐 Pro $360/年 含 6,000 Tapies/月，比直充（1 USD = 100 Tapies）便宜一半</td><td><b>$360 / 年（Pro 年付 5 折）</b> · $90 Basic / $2,160 Ultimate</td></tr>
+            <tr><td><b>海螺</b></td><td>❌ 待实测</td><td>要 1080p 图生口径的 10s 预估（现只有自家模型的二手调研）</td><td>¥68–1399</td></tr>
           </tbody>
         </table>
       </div>
@@ -1455,7 +1469,7 @@ footer p{font-size:12.5px;color:var(--ink3);line-height:1.9}
     </p>
 
     <div class="tbl-wrap scroll" style="margin-bottom:18px">
-      <table style="min-width:1020px">
+      <table>
         <thead>
           <tr><th>第一层 · 模型引擎（可作为底层被调用）</th><th>厂商</th><th>核心优势</th><th>单次时长 / 分辨率</th><th>价格参考</th></tr>
         </thead>
