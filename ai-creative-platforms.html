@@ -346,6 +346,7 @@ th.sort-desc::after{content:"\25BC"}
   <div class="nav-in">
     <a href="#overview">总览</a>
     <a href="#compare">价格总表</a>
+    <a href="#promo" style="color:#d9534f;font-weight:700">活动价</a>
     <a href="#platforms">平台档案</a>
     <a href="#agg">聚合全景</a>
     <a href="#models">接入模型库</a>
@@ -358,7 +359,7 @@ th.sort-desc::after{content:"\25BC"}
 <!-- ============ OVERVIEW ============ -->
 <div class="cols"><aside class="rail-l">
 <div class="rail-t">本页目录</div>
-<a href="#overview">01 口径怎么定的</a><a href="#compare">02 价格总表</a>
+<a href="#overview">01 口径怎么定的</a><a href="#compare">02 价格总表</a><a href="#promo" style="color:#d9534f">02+ 双十一活动价</a>
 <a href="#platforms">03 平台档案</a><a href="#agg">04 聚合平台全景</a>
 <a href="#picks">05 选型建议</a><a href="#more">06 同类还有哪些</a>
 <a href="#notes">07 说明与溯源</a>
@@ -452,7 +453,7 @@ th.sort-desc::after{content:"\25BC"}
     <div class="sec-head">
       <div>
         <h2>价格总表 · 统一口径（Seedance 2.5 · 9:16 · 1080P · 30s · 图生 / 全指参考）</h2>
-        <p>每家取官方档位中最接近 ¥3000–4000 年付预算的那一档，档位价即实付价。<b>11 家，含新加入的 Higgsfield。</b></p>
+        <p>每家取官方档位中最接近 ¥3000–4000 年付预算的那一档，档位价即实付价。<b>11 家，含新加入的 Higgsfield。</b><br><span class="hl">本表为常规价（长期可比口径）。打算在 11 月 2 日前下单的，直接看下一节「双十一活动价」。</span></p>
       </div>
     </div>
 
@@ -765,9 +766,108 @@ th.sort-desc::after{content:"\25BC"}
         <li><b>1.5 倍这个桥：有时准到离谱，有时离谱到不能用：</b>实测比值 <b>1.08×（即梦）· 1.53×（Shotlab，误差仅 1.9%）· 1.57×（OiiOii）· 1.62×（LibTV）· 1.64×（NeoWOW）· 1.94×（小云雀）</b>。Shotlab 用它一次就中，小云雀被低估 23%。<b>桥本身没错，错在默认它对所有平台都成立 —— 所以剩余 4 家必须逐个实测，不能用统一系数。</b></li>
         <li><b>Higgsfield 落在倒数第二贵（¥4.51/秒，30s ¥135.4）：</b>它的价值不在单价，在「一个订阅调 100+ 模型 + CLI 可脚本化封价」。单纯比 Seedance 2.5 单价，直连国内会员平台便宜 2–3 倍。</li>
         <li><b>官方直连反而最贵：</b>火山官方套餐 561 积分/秒 = ¥5.61/秒（30s ¥168.3），<b>比全部 10 家会员平台都贵</b>（最贵的万兴剧厂才 ¥4.86）—— 按量付费没有订阅折扣兜底，这就是会员制的真实溢价来源。</li>
+        <li><b>活动期内的真实最优是 LibTV 旗舰 ¥2,999 + 2.5 有参 5 折：</b>¥1.74 → <b>¥0.87/秒</b>，30s 只要 ¥26.1，是全场唯一把 1080P 压到 ¥1 以内的档。<b>前提是后台生成条真的从 3,300 变成 1,650</b> —— 文案没限分辨率，但没实测过。详见「双十一活动价」一节。</li>
         <li><b>平台 banner 上的「低至 X 元/秒」全是诱饵：</b>LibTV 首页「2.5 · 720P · 0.19 元/秒」，实际 1080P 是 <b>¥1.74/秒 —— 差 9.2 倍</b>；小云雀首页「低至 ¥0.177/秒」，实际 1080P 是 <b>¥2.23/秒 —— 差 12.6 倍</b>。分辨率只解释 2.5–3.2 倍，剩下 4 倍是「年卡 + 促销 + draft」叠出来的最优组合价。<b>看到「低至」「起」直接当不存在。</b></li>
         <li><b>2.5 的真实价值不在单价，在少剪辑：</b>30s 单条直出 vs 3 条 10s 拼接，省掉 2 个接缝、2 次一致性抽卡。按每秒 1.5 倍涨价算，只要能少抽 1/3 的废片就回本。</li>
         <li><b>11 家里 7 家已有硬价：</b>LibTV 3,300 积分、小云雀与即梦各 1,920 积分、Shotlab 1,650 创作币、NeoWOW 18,450 星、OiiOii 55 盒饭/秒、Higgsfield 480 cr（均 30s · 1080P）。<b>前四名全实价</b>，剩 4 家（Updream / TapNow / Seko / 万兴剧厂）是 1.5× 估值。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROMO ============ -->
+<style>
+#promo table{min-width:0}
+#promo th,#promo td{padding:6px 7px;font-size:11.5px;line-height:1.45}
+#promo thead th{font-size:10.5px;letter-spacing:.02em}
+#promo td .mini{font-size:10.5px}
+</style>
+<section id="promo">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <h2>双十一活动价拆解 · 2026-10-29 → 11-02</h2>
+        <p>三家在同期开活动，但只有一家把折扣落到了 1080P。下面是按 <b>Seedance 2.5 · 1080P · 30s · 有参</b> 折算的实付价。</p>
+      </div>
+    </div>
+
+    <div class="card" style="--bar:#d9534f;padding:22px 20px">
+      <div class="blk-t" style="color:#d9534f">先判真伪：三家的折扣，哪一条能落到 1080P</div>
+      <div class="tbl-wrap scroll">
+        <table>
+          <colgroup><col style="width:11%"><col style="width:44%"><col style="width:13%"><col style="width:32%"></colgroup>
+          <thead><tr><th>平台</th><th>活动原文</th><th>限不限制分辨率</th><th>能不能用在 1080P</th></tr></thead>
+          <tbody>
+            <tr style="background:#fff8f0"><td><b>小云雀</b></td><td>「Seedance 2.5 <b>720P 带参考</b> 6.2 折，低至 ¥0.43/秒」<br><span class="mini">超级档：720P 带参考 5 折，低至 ¥0.19/秒</span></td><td><b>写了 720P</b></td><td><b>❌ 不能</b><br><span class="mini">文案钉死 720P</span></td></tr>
+            <tr style="background:#f6fbf7"><td><b>LibTV</b></td><td>「Seedance 2.5<b>(有参)</b>限时 <b>5 折</b>」·「(无参) 8.4 折」<br><span class="mini">角标：豪华 720P ¥0.34/秒、至尊 ¥0.17/秒</span></td><td><b>没写分辨率</b></td><td><b>⚠ 未验证</b><br><span class="mini">文案没限分辨率；但 10/30 进不去面板</span></td></tr>
+            <tr><td><b>即梦</b></td><td>本轮无对应活动（会员 7 折为常驻）</td><td>—</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:13.5px;color:var(--ink-2);margin:14px 0 0">
+        <b>判断依据：</b>小云雀把「720P」写进了活动文案本身，这是限定词；LibTV 只限定「有参 / 无参」，没提分辨率。
+        按「有参」对应我们的「图生 / 全指参考」口径，LibTV 的 5 折<b>在文案上能压到 1080P</b>。<br>
+        <b>但 10/30 实测没能验证：</b>用已登录账号（余额 478 积分）三次尝试进入 LibTV 生成面板，SPA 点击不跳转，读不到折扣后的数字。
+        账号本身也不是活动期新购会员 —— <b>折扣大概率要「新购/续费会员」才生效，不是全站自动打。</b>
+      </p>
+    </div>
+
+    <div class="blk" style="margin-top:30px">
+      <div class="blk-t" style="color:#5b3fd6">活动价折算表 · 全部对齐 Seedance 2.5 · 1080P · 30s</div>
+      <div class="tbl-wrap scroll">
+        <table>
+          <thead><tr>
+            <th>档位</th><th class="px">年价（首年）</th><th class="px">年积分（含赠）</th><th class="px">¥ / 积分</th>
+            <th class="px">常规 ¥/秒</th><th class="px">活动后 ¥/秒</th><th class="px">30s 单条</th><th class="px">年可出</th><th>备注</th>
+          </tr></thead>
+          <tbody>
+            <tr style="background:#f6fbf7"><td><b>LibTV 旗舰</b><span class="mini">15,800 积分/月</span></td><td class="px">¥2,999</td><td class="px">189,600</td><td class="px">¥0.0158</td><td class="px">¥1.74</td><td class="px best"><b>¥0.87*</b></td><td class="px best"><b>¥26.1</b></td><td class="px">57.5 条</td><td><span class="hl">预算带内最优解</span>。5 折后直接砍半。<b>*未实测，见下方验证记录</b></td></tr>
+            <tr><td><b>小云雀 高级</b><span class="mini">8,600 + 首 3 月加赠 2,500</span></td><td class="px">¥3,600</td><td class="px">110,700</td><td class="px">¥0.0325</td><td class="px">¥2.08</td><td class="px">¥2.08</td><td class="px">¥62.4</td><td class="px">57.7 条</td><td>折扣限 720P，1080P 无活动。加赠只让单价从 2.23 降到 2.08</td></tr>
+            <tr><td><b>LibTV 豪华</b><span class="mini">32,800 + 赠 15,000</span></td><td class="px">¥6,699</td><td class="px">408,600</td><td class="px">¥0.0164</td><td class="px">¥1.80</td><td class="px">¥0.90</td><td class="px">¥27.1</td><td class="px">123.8 条</td><td><span class="hl">单位价比旗舰还贵</span>（0.0164 vs 0.0158），不叠加活动就别买这档</td></tr>
+            <tr><td><b>小云雀 超级</b><span class="mini">54,600 + 首 3 月加赠 41,460</span></td><td class="px">¥19,656</td><td class="px">779,580</td><td class="px">¥0.0252</td><td class="px">¥1.61</td><td class="px">¥1.61</td><td class="px">¥48.4</td><td class="px">406.0 条</td><td>超预算带 5 倍。折扣同样限 720P</td></tr>
+            <tr><td><b>LibTV 至尊</b><span class="mini">92,000 + 赠 174,000</span></td><td class="px">¥16,999</td><td class="px">1,278,000</td><td class="px">¥0.0133</td><td class="px">¥1.46</td><td class="px">¥0.73</td><td class="px">¥21.9</td><td class="px">387.3 条</td><td>全场最低秒价，但年付 1.7 万，年产 387 条才摊得平</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:13px;color:var(--ink-3);margin:12px 0 0">
+        「含赠」＝ 首 3 个月加赠积分计入全年。<b>但加赠积分按月发放、29 天有效</b>，3 个月用不完就作废，实际到手的可能低于表内年积分。
+        次年价：小云雀 高级 ¥7,199 / 超级 ¥43,680；LibTV 豪华 ¥7,399。<b>活动价只保首年。</b>
+      </p>
+    </div>
+
+    <div class="card" style="--bar:#3d5afe;padding:22px 20px;margin-top:26px">
+      <div class="blk-t" style="color:var(--accent)">验证记录：这一轮没能封死 5 折，但反而得出更好的下单策略</div>
+      <p style="font-size:13.5px;color:var(--ink-2);margin:8px 0 0">
+        10/30 用已登录账号（余额 478 积分）三次尝试进入 LibTV 生成面板，SPA 点击不跳转，读不到折扣后的真实数字。
+        所以表里 LibTV 的 ¥0.87 <b>是文案推算值，不是实测值</b>。
+      </p>
+      <p style="font-size:13.5px;color:var(--ink-2);margin:10px 0 0">
+        <b>但这不影响决策 —— 因为它构成一个「下行风险为零」的下注：</b><br>
+        LibTV 旗舰 ¥2,999 在<b>常规价</b>下就是全场第一（¥1.74/秒，实价）。买它，<b>赌赢</b>（5 折生效）＝ ¥0.87/秒，产能翻倍；<b>赌输</b>（不生效）＝ 你还是买了常规价第一名，一分不亏。<br>
+        <b>反过来，小云雀高级赌不了：</b>常规价 ¥2.23 本来就排第三，赌输就是纯亏 ¥0.49/秒。
+      </p>
+      <p style="font-size:13.5px;color:var(--ink-2);margin:10px 0 0">
+        <b>动作：</b>买完立刻打开生成面板看那一个数字 —— <b>3,300 还是 1,650</b>。一句话就能验证，不值得为它纠结。
+      </p>
+    </div>
+
+    <div class="card" style="--bar:#d97706;padding:22px 20px;margin-top:30px">
+      <div class="blk-t" style="color:#b45309">三个必须拆穿的促销套路</div>
+      <ul style="margin-top:10px">
+        <li><b>「低至 ¥0.17/秒」是三重叠加的最优值，不是你的价格。</b>至尊档 + 720P + 有参 5 折 + 年付，四个条件全占才成立。你的口径是 1080P，对应 ¥0.73/秒 —— <b>差 4.3 倍</b>。</li>
+        <li><b>「0 积分畅用」是这轮最大的诱饵。</b>Wan 3.0 / Kling 4.0 / MiniMax H3 在 720P 及以下 30 天不收积分，看着像白送，但：① <b>1080P 直接不适用</b>；② <b>同时只能跑 1 个任务</b>，其余排队；③ <b>不适用于 CLI / MCP / Plugin / 外部脚本</b>。它是试模工具，不是产能。按 720P 跑 30 天，理论上能试完所有新模型，这部分价值约 ¥1,000–2,400，取决于你跑多密。</li>
+        <li><b>加赠积分 ≠ 白给。</b>小云雀超级 3 个月加赠 41,460×3 = 124,380，占全年积分 16%，但只在 3 个月内有效。要么这 3 个月猛跑（每月 96,060 积分 = 50 条 30s），要么看着它过期。<b>按年化摊薄算单价，是自欺欺人。</b></li>
+      </ul>
+    </div>
+
+    <div class="card" style="--bar:#0f9b6c;padding:24px 22px;margin-top:26px">
+      <div class="blk-t" style="color:#0f9b6c">采购建议（按你的实际处境）</div>
+      <ul style="margin-top:10px">
+        <li><b>只买一档就选 LibTV 旗舰 ¥2,999 + 5 折。</b>预算带内唯一把 1080P 拉到 ¥1 以下的选择（¥0.87/秒，30s ¥26.1），年出 57.5 条。活动 11/2 结束，<b>但必须先确认后台数字真的变成 1,650</b>。</li>
+        <li><b>绝对不买 LibTV 豪华 ¥6,699。</b>它的 ¥/积分 0.0164 比旗舰 0.0158 更贵 —— 多花 3,700 块换来一个更差的单位价，除非 5 折生效后你确实需要 123 条/年的产能。</li>
+        <li><b>小云雀高级可以放弃这一轮。</b>¥2.08/秒 比 LibTV 活动价贵 2.4 倍，且折扣够不到 1080P。它唯一优势是唯一落在 ¥3,000–4,000 预算带内的年卡 —— 但 LibTV 旗舰 ¥2,999 更便宜。</li>
+        <li><b>要年产 300 条以上，再考虑至尊 / 超级。</b>LibTV 至尊 ¥16,999（¥0.73/秒、387 条）和小云雀超级 ¥19,656（¥0.81/秒、406 条）单价都低于 ¥1，但都是预算带的 4–5 倍。按短剧团队一年 100 集 × 30 秒粗算（=3,000 秒 ≈ 100 条 30s），<b>旗舰档 57.5 条不够，得往上跳</b>。</li>
+        <li><b>别为「0 积分畅用」改变采购决策。</b>它只值试模的那点时间，不值得为它多买一档。</li>
       </ul>
     </div>
   </div>
@@ -1653,7 +1753,7 @@ th.sort-desc::after{content:"\25BC"}
       <b>本页归属：</b>「Agent · 平台 · 模型 对比选择手册」的<b>平台层</b>（另一册为模型层 <a href="https://futuredesignw.github.io/agent-platform-model-playbook/index.html" style="color:var(--acc)">index.html</a>）。<br>
       <b>免责声明：</b>本页为信息整理与选型参考，不含任何商业推广；所有商标与品牌归各自所有者。
       积分、并发数、生成量估算均会随活动变化，实际权益请以官方最新套餐页为准。<br>
-      整理时间：2026 年 10 月 27 日 · 统一口径 <b>Seedance 2.5 · 1080P · 30s</b> 版本（上一版为 2.0 · 10s）。即梦 / OiiOii / Higgsfield 三家秒耗已用真实浏览器登录核对，其余为推算。
+      整理时间：2026 年 10 月 30 日 · 统一口径 <b>Seedance 2.5 · 1080P · 30s</b> 版本（上一版为 2.0 · 10s）。即梦 / OiiOii / Higgsfield 三家秒耗已用真实浏览器登录核对，其余为推算。
     </p>
   </div>
 </footer>
